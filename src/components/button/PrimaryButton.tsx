@@ -1,13 +1,14 @@
+import { ComponentProps } from "react";
 import PrimaryStyle from "../../styles/button/primaryButton.module.scss"
-type ButtonProps= {
-    children: string,
-    onClick:()=>void
-}
 
-const PrimaryButton: React.FC<ButtonProps> = ({ children,onClick }) => {
+
+const PrimaryButton: React.FC<ComponentProps<"button">>  = ({ children,...props }) => {
+  console.log(props)
   return (
     <>
-      <button className={PrimaryStyle.primaryButton} onClick={onClick}>{children}</button>
+    <div className="Container">
+      <button className={PrimaryStyle.primaryButton} {...props}>{children}</button>
+      </div>
     </>
   );
 };

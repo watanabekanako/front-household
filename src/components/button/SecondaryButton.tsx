@@ -1,13 +1,10 @@
 import SecondaryStyle from "../../styles/button/secondaryButton.module.scss"
-type ButtonProps= {
-    children: string,
-    onClick:()=>void
-}
+import { ComponentProps } from "react";
 
-const SecondaryButton: React.FC<ButtonProps> = ({ children,onClick }) => {
+const SecondaryButton:  React.FC<ComponentProps<"button">> = ({ children,...props }) => {
   return (
     <>
-      <button className={SecondaryStyle.secondaryButton} onClick={onClick}>{children}</button>
+      <button className={SecondaryStyle.secondaryButton} {...props}>{children}</button>
     </>
   );
 };
