@@ -38,6 +38,9 @@ $breakpoints: (
         list-style-type: none;
         text-align: center;
         font-size: 14px;
+        @include mq(tab) {
+            font-size: 12px;
+        }
         @include mq(sp) {
             width: 100px;
             text-align: center;

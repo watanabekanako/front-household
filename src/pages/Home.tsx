@@ -1,9 +1,13 @@
 import React from 'react'
+import Category from '../components/Category'
 import Navigation from '../components/Navigation'
 
 const Home = () => {
   return (
-    <div><Navigation /></div>
+    <div>
+      <Navigation />
+      <Category />
+      </div>
   )
 }
 

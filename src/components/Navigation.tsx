@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import NaviStyles from "../styles/navigation.module.scss";
+import NaviStyles from "../styles/navigation/navigation.module.scss";
 
 const Navigation = () => {
   return (

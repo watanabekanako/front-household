@@ -1,0 +1,42 @@
+$breakpoints: (
+  pc: "screen and (min-width:1200px)",
+  tab: "screen and (max-width:610px)",
+  sp: "screen and (max-width:414px)",
+);
+
+@mixin mq($breakpoint: pc) {
+    @media #{map-get($breakpoints, $breakpoint)} {
+      @content;
+    }
+  }
+
+.categoryContainer {
+    width: 60%;
+    max-height: 800px;
+    margin: 50px auto;
+    @include mq(sp) {
+        width: 80%;
+    }
+    ul {
+        display: flex;
+        list-style: none;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+    li {
+        margin: 25px;
+        width: 150px;
+        height: 150px;
+        border: black solid;
+        @include mq(tab) {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+        }
+        @include mq(sp) {
+            width: 80px;
+            height: 80px;
+            margin: 5px;
+        }
+    }
+}
