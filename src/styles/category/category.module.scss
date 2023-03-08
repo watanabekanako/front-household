@@ -11,11 +11,14 @@ $breakpoints: (
 }
 
 .categoryContainer {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
   @include mq(tab) {
     width: 90%;
+  }
+  p {
+    margin: 20px;
   }
   label {
     display: inline-block;
@@ -28,8 +31,8 @@ $breakpoints: (
       border: 1px solid #333;
       margin: 10px;
       display: inline-block;
-      width: 130px;
-      height: 130px;
+      width: 120px;
+      height: 120px;
       @include mq(tab) {
         width: 70px;
         height: 70px;

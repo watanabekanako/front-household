@@ -9,6 +9,7 @@ const Category = () => {
   return (
     <DefaultLayout>
       <div className={CategoryStyle.categoryContainer}>
+        <p>カテゴリー</p>
         {CategoryDate.map((category) => {
           return (
             <>
