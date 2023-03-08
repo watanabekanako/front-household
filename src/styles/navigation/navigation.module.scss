@@ -1,0 +1,58 @@
+$breakpoints: (
+  pc: "screen and (min-width:1200px)",
+  tab: "screen and (max-width:834px)",
+  sp: "screen and (max-width:414px)",
+);
+
+@mixin mq($breakpoint: pc) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+.naviContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 20px;
+  background-color: #dddddd;
+  h1 {
+    @include mq(sp) {
+      display: none;
+    }
+  }
+  @include mq(sp) {
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    justify-content: space-around;
+  }
+}
+
+.naviList {
+  display: flex;
+  width: 30%;
+  justify-content: space-around;
+  li {
+    list-style-type: none;
+    text-align: center;
+    font-size: 12px;
+    @include mq(tab) {
+      font-size: 10px;
+    }
+    @include mq(sp) {
+      width: 100px;
+      text-align: center;
+      padding: 0 20px;
+      font-size: 10px;
+    }
+  }
+  img {
+    width: 40px;
+    height: 40px;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}

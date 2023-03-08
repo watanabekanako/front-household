@@ -1,0 +1,23 @@
+$breakpoints: (
+  pc: "screen and (min-width:1200px)",
+  tab: "screen and (max-width:834px)",
+  sp: "screen and (max-width:414px)",
+);
+
+@mixin mq($breakpoint: pc) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+.reportMain {
+  @include mq(tab) {
+    display: block;
+    text-align: center;
+    margin: 20px;
+  }
+  @include mq(sp) {
+    text-align: center;
+    margin: 20px;
+  }
+}
