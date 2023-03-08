@@ -1,0 +1,21 @@
+.postList {
+  display: flex;
+  align-items: center;
+  margin: 5px auto;
+  border-bottom: 1px black solid;
+  width: 80%;
+  label {
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 1;
+    height: 100%;
+  }
+  input {
+    // background-color: #ffcc99;
+    margin: 10px auto;
+    padding: 5px;
+    display: block;
+    width: 60%;
+    height: 100%;
+  }
+}

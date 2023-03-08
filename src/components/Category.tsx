@@ -1,19 +1,35 @@
-import React from 'react'
-import { CategoryDate } from '../CategoryDummyDate'
-import CategoryStyle from "../styles/category/category.module.scss"
+import React, { useState } from "react";
+import { CategoryDate } from "../CategoryDummyDate";
+import CategoryStyle from "../styles/category/category.module.scss";
+import DefaultLayout from "./layout/dafaultLayout";
 
 const Category = () => {
-  return (
-    <div className={CategoryStyle.categoryContainer}>
-        <ul>
-            {CategoryDate.map((category) => {
-                return (
-                    <li>{category.url}</li>
-                )
-            })}
-        </ul>
-    </div>
-  )
-}
+  // const [categoryIcon, setCategoryIcon] = useState("a");
 
-export default Category
+  return (
+    <DefaultLayout>
+      <div className={CategoryStyle.categoryContainer}>
+        {CategoryDate.map((category) => {
+          return (
+            <>
+              <label key={category.url}>
+                <input
+                  type="radio"
+                  className="categoryButton"
+                  name="category"
+                  id="category"
+                  value={category.url}
+                  // checked={categoryIcon === category.url}
+                  // onChange={(e) => setCategoryIcon(e.target.value)}
+                />
+                <span>{category.url}</span>
+              </label>
+            </>
+          );
+        })}
+      </div>
+    </DefaultLayout>
+  );
+};
+
+export default Category;
