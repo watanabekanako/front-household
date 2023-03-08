@@ -1,4 +1,13 @@
+// sp/tb用のスタイル
 .container {
-  width: 900px;
-  margin: 0 auto;
+  width: 90%;
+  margin: 50px auto;
+  background-color: antiquewhite;
+}
+
+// PC用のスタイル
+@media (min-width: 900px) {
+  .container {
+    width: 900px;
+  }
 }

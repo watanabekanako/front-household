@@ -1,6 +1,6 @@
 $breakpoints: (
-  pc: "screen and (min-width:1200px)",
-  tab: "screen and (max-width:834px)",
+  pc: "screen and (min-width:900px)",
+  tab: "screen and (max-width:899px)",
   sp: "screen and (max-width:414px)",
 );
 
@@ -10,53 +10,13 @@ $breakpoints: (
   }
 }
 
-// .categoryContainer {
-//     width: 65%;
-//     max-height: 800px;
-//     margin: 50px auto;
-//     @include mq(sp) {
-//         width: 80%;
-//     }
-//     ul {
-//         display: flex;
-//         list-style: none;
-//         flex-wrap: wrap;
-//         justify-content: space-evenly;
-//     }
-//     li {
-//         margin: 20px;
-//         width: 150px;
-//         height: 150px;
-//         border: black solid;
-//         @include mq(tab) {
-//             width: 100px;
-//             height: 100px;
-//             margin: 10px;
-//         }
-//         @include mq(sp) {
-//             width: 80px;
-//             height: 80px;
-//             margin: 5px;
-//         }
-//     }
-// }
-
-// label {
-//   background-color: pink;
-//   padding: 10px 20px;
-// }
-
-// .categoryButton {
-//   display: none;
-// }
-// .categoryButton:checked + label {
-//   background-color: red;
-// }
-
 .categoryContainer {
   width: 80%;
   margin: 0 auto;
   text-align: center;
+  @include mq(tab) {
+    width: 90%;
+  }
   label {
     display: inline-block;
     input {
@@ -66,11 +26,14 @@ $breakpoints: (
       color: #333;
       font-size: 14px;
       border: 1px solid #333;
-      //   padding: 30px;
       margin: 10px;
       display: inline-block;
       width: 130px;
       height: 130px;
+      @include mq(tab) {
+        width: 70px;
+        height: 70px;
+      }
     }
   }
 }

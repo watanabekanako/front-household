@@ -1,3 +1,15 @@
+$breakpoints: (
+  pc: "screen and (min-width:1200px)",
+  tab: "screen and (max-width:834px)",
+  sp: "screen and (max-width:414px)",
+);
+
+@mixin mq($breakpoint: pc) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
 .postList {
   display: flex;
   align-items: center;
@@ -9,10 +21,12 @@
     vertical-align: middle;
     line-height: 1;
     height: 100%;
+    @include mq(tab) {
+      font-size: 14px;
+    }
   }
   input {
-    // background-color: #ffcc99;
-    margin: 10px auto;
+    margin: 0 auto;
     padding: 5px;
     display: block;
     width: 60%;
