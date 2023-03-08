@@ -1,4 +1,18 @@
+
+
+    .container{
+        width:90%;
+        margin:0 auto;
+        background-color:antiquewhite;
+    }
+
+
+// PC用のスタイル
+@media (min-width: 900px) {
+
 .container{
-    width:768px;
+    width:900px;
     margin:0 auto;
+    background-color:antiquewhite;
+}
 }
