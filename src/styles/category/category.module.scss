@@ -1,0 +1,48 @@
+$breakpoints: (
+  pc: "screen and (min-width:900px)",
+  tab: "screen and (max-width:899px)",
+  sp: "screen and (max-width:414px)",
+);
+
+@mixin mq($breakpoint: pc) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+.categoryContainer {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  @include mq(tab) {
+    width: 90%;
+  }
+  p {
+    margin: 20px;
+  }
+  label {
+    display: inline-block;
+    input {
+      display: none;
+    }
+    span {
+      color: #333;
+      font-size: 14px;
+      border: 1px solid #333;
+      margin: 10px;
+      display: inline-block;
+      width: 120px;
+      height: 120px;
+      @include mq(tab) {
+        width: 70px;
+        height: 70px;
+      }
+    }
+  }
+}
+
+label input:checked + span {
+  color: #fff;
+  background: #fbb;
+  border: 1px solid #fbb;
+}
