@@ -10,6 +10,5 @@ addForm:(state,action)=>{
 }
     }
 })
-
-
+export const {addForm} =formSlice.actions
 export default formSlice.reducer
