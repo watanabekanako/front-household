@@ -4,9 +4,12 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+import postReducer from "./features/postSlice";
 
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    posts: postReducer,
+  },
 });
 
 const root = ReactDOM.createRoot(
@@ -14,6 +17,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );

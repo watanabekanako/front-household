@@ -1,6 +1,5 @@
 import React from "react";
 import Category from "../components/Category";
-import Navigation from "../components/Navigation";
 import HomeStyle from "../styles/pages/Home.module.scss";
 import ReportForm from "../components/form/reportForm";
 import PrimaryButton from "../components/button/PrimaryButton";
