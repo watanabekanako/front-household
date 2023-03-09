@@ -4,6 +4,7 @@ import Navigation from "../components/Navigation";
 import HomeStyle from "../styles/pages/Home.module.scss";
 import ReportForm from "../components/form/reportForm";
 import PrimaryButton from "../components/button/PrimaryButton";
+import DefaultLayout from "../components/layout/dafaultLayout";
 
 const Home = () => {
   const clickPost = () => {
@@ -11,14 +12,15 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <Navigation />
-      <div className={HomeStyle.reportMain}>
-        <ReportForm />
-        <Category />
-        <PrimaryButton children="支出を入力する" onClick={clickPost} />
+    <DefaultLayout>
+      <div>
+        <div className={HomeStyle.reportMain}>
+          <ReportForm />
+          <Category />
+          <PrimaryButton children="支出を入力する" onClick={clickPost} />
+        </div>
       </div>
-    </div>
+    </DefaultLayout>
   );
 };
 
