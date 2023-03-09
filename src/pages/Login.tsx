@@ -5,7 +5,10 @@ import LoginStyle from '../styles/pages/login.module.scss'
 import EmailInput from '../components/form/emailInput'
 import PasswordInput from '../components/form/passwordInput'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 const Login = () => {
+  const formList=useSelector((state:any)=>state.posts.value);
+  console.log("formList",formList)
   return (
   <>
    <DefaultLayout>

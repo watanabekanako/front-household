@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <div>
-      <Navigation />
+    
       <div className={HomeStyle.reportMain}>
         <ReportForm />
         <Category />
