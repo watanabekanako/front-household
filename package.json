@@ -27,7 +27,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "run-p server start" 
+    "dev": "run-p server start"
+
   },
   "eslintConfig": {
     "extends": [

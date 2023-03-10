@@ -7,24 +7,22 @@ import ConfirmPasswordInput from '../components/form/confirmPasswordInput'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
+import { FormState } from '../types/Types'
 
 const Register = () => {
-  const formEmail=useSelector((state:any)=>state.posts.email);
-  const formPassword=useSelector((state:any)=>state.posts.email);
+  const formEmail=useSelector((state:FormState)=>state.posts.email);
+  const formPassword=useSelector((state:FormState)=>state.posts.password);
   console.log("formEmail",formEmail)
   console.log("formPassword",formPassword)
   const dispatch= useDispatch();
 
- 
 const handleClick=()=>{
   axios.post("/auth/signup",{
     email:formEmail,
     password:formPassword
   })
-  // http://localhost:3005/auth/signup
   alert("完了")
 }
-
   return (
    <>
     <DefaultLayout>
