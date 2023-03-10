@@ -7,18 +7,20 @@ import PasswordInput from '../components/form/passwordInput'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
-
 const Login = () => {
   const formEmail=useSelector((state:any)=>state.posts.email);
   const formPassword =useSelector((state:any)=>state.posts.password);
   console.log("formEmail",formEmail)
   console.log("formPassword",formPassword)
   const handleLogin=()=>{
-    axios.post("/auth/login",{
-      email:formEmail,
-      password:formPassword
-    })
-    alert("完了")
+    try{
+      axios.post("/auth/login",{
+        email:formEmail,
+        password:formPassword
+      })
+    }catch(error:any){
+
+    }
   }
   return (
   <>
