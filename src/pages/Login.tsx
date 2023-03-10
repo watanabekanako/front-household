@@ -6,14 +6,17 @@ import EmailInput from '../components/form/emailInput'
 import PasswordInput from '../components/form/passwordInput'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+
 const Login = () => {
-  const formList=useSelector((state:any)=>state.posts.value);
-  console.log("formList",formList)
+  const formEmail=useSelector((state:any)=>state.posts.email);
+  const formPassword =useSelector((state:any)=>state.posts.password);
+  console.log("formEmail",formEmail)
+  console.log("formPassword",formPassword)
   return (
   <>
    <DefaultLayout>
    <EmailInput/>
-      <PasswordInput/>
+    <PasswordInput/>
     <PrimaryButton children={"ログインする"} onClick={()=>alert("登録できました")}/>
     <p>アカウントを持っていませんか？</p>
     <div className={LoginStyle.linkCenter}><Link to="/" className={LoginStyle.txtOrange}>新規登録</Link></div>

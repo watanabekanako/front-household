@@ -1,14 +1,20 @@
 import React from 'react'
 import { createSlice } from '@reduxjs/toolkit'
-import{FormsData} from "../DummyData"
 export const formSlice = createSlice({
-    name: "form",
-    initialState: {value:FormsData},
+    name: "posts",
+    initialState: {
+        email:"",
+        password:""
+    },
     reducers: {
-addForm:(state,action)=>{
-    state.value.push(action.payload)
-}
+addEmail:(state,action)=>{
+    state.email=action.payload;
+},
+addPassword:(state,action)=>{
+    state.password=action.payload;
+},
     }
 })
-export const {addForm} =formSlice.actions
+export const {addEmail,addPassword} =formSlice.actions
 export default formSlice.reducer
+export const name= formSlice.name

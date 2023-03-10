@@ -1,22 +1,15 @@
-import React, { useState } from 'react'
 import FormStyle from "../../styles/form/formStyle.module.scss"
+import { useDispatch } from 'react-redux'
+import { addEmail } from '../../features/Form'
 
-// type Props={
-//   inputElementProps?:React.ComponentProps<'input'>;
-// }
 
-const EmailInput:React.FC<{inputEmail?:(email:string)=>void}>=({inputEmail})=> {
-  const [email,setEmail]=useState("")
- console.log("children",email)
-
-const handleChange =(e:any)=>{
-setEmail(e.target.value);
-
-}
-
+const EmailInput=()=> {
+  const dispatch =useDispatch();
   return (
   <>
-  <div className={FormStyle.inputMain}><input type="email" placeholder='メールアドレス入力してください' value={email} onChange={handleChange} /></div>
+  <div className={FormStyle.inputMain}><input type="email" id="email" placeholder='メールアドレス入力してください' onChange={
+(e:any)=>dispatch(addEmail(e.target.value))  
+  } /></div>
   </>
   )
 }
