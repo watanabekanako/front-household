@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import reportPostStyle from "../../styles/reportPost/reportPost.module.scss";
 import { inputDate, inputPrice, inputMemo } from "../../features/postSlice";
 import { useDispatch } from "react-redux";
