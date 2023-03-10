@@ -1,27 +1,41 @@
 import React from "react";
 import reportPostStyle from "../../styles/reportPost/reportPost.module.scss";
-import DefaultLayout from "../layout/dafaultLayout";
+import { inputDate, inputPrice, inputMemo } from "../../features/postSlice";
+import { useDispatch } from "react-redux";
 
 const ReportForm = () => {
+  const dispatch = useDispatch();
+
   return (
-    <DefaultLayout>
-      <div className={reportPostStyle.container}>
-        <form>
-          <div className={reportPostStyle.postList}>
-            <label htmlFor="date">日付</label>
-            <input type="date" id="date" />
-          </div>
-          <div className={reportPostStyle.postList}>
-            <label htmlFor="memo">メモ</label>
-            <input type="text" id="memo" />
-          </div>
-          <div className={reportPostStyle.postList}>
-            <label htmlFor="expence">支出</label>
-            <input type="text" id="expence" />
-          </div>
-        </form>
-      </div>
-    </DefaultLayout>
+    <div className={reportPostStyle.container}>
+      <form>
+        <div className={reportPostStyle.postList}>
+          <label htmlFor="date">日付</label>
+          <input
+            type="date"
+            id="date"
+            onChange={(e: any) => dispatch(inputDate(e.target.value))}
+          />
+        </div>
+        <div className={reportPostStyle.postList}>
+          <label htmlFor="memo">メモ</label>
+          <input
+            type="text"
+            id="memo"
+            onChange={(e: any) => dispatch(inputMemo(e.target.value))}
+          />
+        </div>
+        <div className={reportPostStyle.postList}>
+          <label htmlFor="expence">支出</label>
+          <input
+            type="text"
+            id="expence"
+            onChange={(e: any) => dispatch(inputPrice(e.target.value))}
+          />
+          円
+        </div>
+      </form>
+    </div>
   );
 };
 

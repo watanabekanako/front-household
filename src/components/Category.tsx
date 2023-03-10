@@ -1,35 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import { CategoryDate } from "../CategoryDummyDate";
 import CategoryStyle from "../styles/category/category.module.scss";
-import DefaultLayout from "./layout/dafaultLayout";
+import { useDispatch } from "react-redux";
+import { categoryId } from "../features/postSlice";
 
 const Category = () => {
-  // const [categoryIcon, setCategoryIcon] = useState("a");
+  const dispatch = useDispatch();
 
   return (
-    <DefaultLayout>
-      <div className={CategoryStyle.categoryContainer}>
-        <p>カテゴリー</p>
-        {CategoryDate.map((category) => {
-          return (
-            <>
-              <label key={category.url}>
-                <input
-                  type="radio"
-                  className="categoryButton"
-                  name="category"
-                  id="category"
-                  value={category.url}
-                  // checked={categoryIcon === category.url}
-                  // onChange={(e) => setCategoryIcon(e.target.value)}
-                />
-                <span>{category.url}</span>
-              </label>
-            </>
-          );
-        })}
-      </div>
-    </DefaultLayout>
+    <div className={CategoryStyle.categoryContainer}>
+      <p>カテゴリー</p>
+      {CategoryDate.map((category) => {
+        return (
+          <React.Fragment key={category.id}>
+            <label>
+              <input
+                type="radio"
+                className="categoryButton"
+                name="category"
+                id="category"
+                value={category.categoryId}
+                // checked={categoryIcon === category.categoryId}
+                onChange={(e: any) => dispatch(categoryId(e.target.value))}
+              />
+              <span>{category.url}</span>
+            </label>
+          </React.Fragment>
+        );
+      })}
+    </div>
   );
 };
 

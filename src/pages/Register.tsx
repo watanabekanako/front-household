@@ -10,8 +10,8 @@ import axios from 'axios'
 import { FormState } from '../types/Types'
 
 const Register = () => {
-  const formEmail=useSelector((state:FormState)=>state.posts.email);
-  const formPassword=useSelector((state:FormState)=>state.posts.password);
+  const formEmail=useSelector((state:FormState)=>state.authForm.email);
+  const formPassword=useSelector((state:FormState)=>state.authForm.password);
   console.log("formEmail",formEmail)
   console.log("formPassword",formPassword)
   const dispatch= useDispatch();

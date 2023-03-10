@@ -1,7 +1,7 @@
 import React from 'react'
 import { createSlice } from '@reduxjs/toolkit'
 export const formSlice = createSlice({
-    name: "posts",
+    name: "authForm",
     initialState: {
         email:"",
         password:""
@@ -17,4 +17,3 @@ addPassword:(state,action)=>{
 })
 export const {addEmail,addPassword} =formSlice.actions
 export default formSlice.reducer
-export const name= formSlice.name

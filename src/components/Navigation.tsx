@@ -6,10 +6,12 @@ const Navigation = () => {
   return (
     <div>
       <nav className={NaviStyles.naviContainer}>
-        <h1>家計簿</h1>
+        <Link to="/home">
+          <h1>家計簿</h1>
+        </Link>
         <ul className={NaviStyles.naviList}>
           <li>
-            <Link to="/">
+            <Link to="/home">
               <img src={`${process.env.PUBLIC_URL}/pencil.png`} alt="Logo" />
               <p>入力</p>
             </Link>

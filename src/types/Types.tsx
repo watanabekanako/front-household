@@ -1,5 +1,5 @@
 export type FormState = {
-    posts:{
+  authForm:{
       email:string;
       password:string;
     }
