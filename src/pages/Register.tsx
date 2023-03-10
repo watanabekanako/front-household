@@ -6,6 +6,7 @@ import EmailInput from '../components/form/emailInput'
 import ConfirmPasswordInput from '../components/form/confirmPasswordInput'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios'
 
 const Register = () => {
   const formEmail=useSelector((state:any)=>state.posts.email);
@@ -16,7 +17,11 @@ const Register = () => {
 
  
 const handleClick=()=>{
-
+  axios.post("/auth/signup",{
+    email:formEmail,
+    password:formPassword
+  })
+  // http://localhost:3005/auth/signup
   alert("完了")
 }
 

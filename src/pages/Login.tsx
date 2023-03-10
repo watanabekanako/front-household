@@ -12,6 +12,10 @@ const Login = () => {
   const formPassword =useSelector((state:any)=>state.posts.password);
   console.log("formEmail",formEmail)
   console.log("formPassword",formPassword)
+
+
+
+
   return (
   <>
    <DefaultLayout>
@@ -24,5 +28,4 @@ const Login = () => {
     </>
   )
 }
-
 export default Login;
