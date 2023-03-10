@@ -4,14 +4,15 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+import formsReducer from "./features/Form";
 import postReducer from "./features/postSlice";
-
 const store = configureStore({
+  // 新しい状態にする
   reducer: {
+    authForm: formsReducer,
     posts: postReducer,
   },
 });
-
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
