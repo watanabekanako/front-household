@@ -26,20 +26,19 @@ const Login = () => {
       axios.post("http://localhost:3005/auth/login",{
         email:formEmail,
         password:formPassword
-      })
-  
+      }, )
+
       alert("ログイン成功")
 
-localStorage.setItem("token",formEmail)
-axios.get("http://localhost:3005/user",{
-
+// localStorage.setItem("token",formEmail)
+axios.get("http://localhost:3005/user", {
+  withCredentials: true
 })
   }
   const handleLogout=()=>{
   
     axios.post("http://localhost:3005/auth/logout",{
-      email:formEmail,
-      password:formPassword
+
     })
 
     alert("ログアウト")

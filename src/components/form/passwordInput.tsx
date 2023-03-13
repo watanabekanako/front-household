@@ -1,7 +1,7 @@
 import React from 'react'
 import FormStyle from "../../styles/form/formStyle.module.scss"
 import { useDispatch } from 'react-redux'
-import { addPassword } from '../../features/Form'
+import { addPassword } from '../../features/formSlice'
 const PasswordInput = () => {
   const dispatch =useDispatch();
   return (

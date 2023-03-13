@@ -13,7 +13,7 @@ addEmail:(state,action)=>{
 },
 addPassword:(state,action)=>{
     state.password=action.payload;
-},
+}, 
 addError:(state,action)=>{
     state.error=action.payload;
 }

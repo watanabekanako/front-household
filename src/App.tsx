@@ -8,7 +8,8 @@ import ReportEdit from "./pages/ReportEdit";
 import axios from "axios";
 
 
-
+// すべてのページにcookie付与するため
+// axios.defaults.withCredentials=true;
 
 function App() {
   return (

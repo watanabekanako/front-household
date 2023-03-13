@@ -1,6 +1,6 @@
 import FormStyle from "../../styles/form/formStyle.module.scss"
 import { useDispatch } from 'react-redux'
-import { addEmail } from '../../features/Form'
+import { addEmail } from '../../features/formSlice'
 
 
 const EmailInput=()=> {
