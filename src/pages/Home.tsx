@@ -8,6 +8,17 @@ import DefaultLayout from "../components/layout/dafaultLayout";
 import axios from "axios";
 
 const Home = () => {
+
+  
+  // React.useEffect(()=>{
+  //   const getCsrfToken =async()=>{
+  //     const {data} =await axios.get(
+  //       "/auth/csrf"
+  //     )
+  //     axios.defaults.headers.common['csrf-token'] =data.csrfToken
+  //   }
+  //   getCsrfToken()
+  // })
   const reportDate = useSelector((state: any) => state.posts.date);
   const reportPrice = useSelector((state: any) => state.posts.expence);
   const reportMemo = useSelector((state: any) => state.posts.memo);
@@ -17,6 +28,7 @@ const Home = () => {
   const updateDate = new Date();
 
   const clickPost = async () => {
+    
     const newPost = {
       content: reportMemo,
       authorId: 1,

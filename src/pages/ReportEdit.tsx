@@ -8,6 +8,7 @@ import SecondaryButton from "../components/button/SecondaryButton";
 import DefaultLayout from "../components/layout/dafaultLayout";
 
 const Home = () => {
+  
   const clickEdit = () => {
     alert("登録しました");
   };

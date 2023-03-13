@@ -4,25 +4,55 @@ import RegisterStyle from '../styles/pages/register.module.scss'
 import PasswordInput from '../components/form/passwordInput'
 import EmailInput from '../components/form/emailInput'
 import ConfirmPasswordInput from '../components/form/confirmPasswordInput'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { FormState } from '../types/Types'
+import React from 'react'
+
+
 
 const Register = () => {
+
+
+  const navigate=useNavigate();
+// const [alertMessage,setAlertMessage]=React.useState<boolean>(false)
+  // React.useEffect(()=>{
+  //   const getCsrfToken =async()=>{
+  //     const {data} =await axios.get(
+  //       "http://localhost:3005/auth/csrf"
+  //     )
+  //     axios.defaults.headers.common['csrf-token'] =data.csrfToken
+  //   }
+  //   getCsrfToken()
+  // })
   const formEmail=useSelector((state:FormState)=>state.authForm.email);
   const formPassword=useSelector((state:FormState)=>state.authForm.password);
+  const formError=useSelector((state:FormState)=>state.authForm.error)
   console.log("formEmail",formEmail)
   console.log("formPassword",formPassword)
+  console.log("formError",formError)
   const dispatch= useDispatch();
 
 const handleClick=()=>{
-  axios.post("/auth/signup",{
+  // if(formEmail.length< 1){
+  //   alert("アドレスを入力してください")
+  // }else if(formPassword.length<1){
+  //   alert("パスワードを入力してください")
+  // }
+ try{
+  axios.post("http://localhost:3005/auth/signup",{
     email:formEmail,
-    password:formPassword
+    password:formPassword,
   })
   alert("完了")
-}
+  navigate("/login")
+ }catch(error){
+  console.log("ユーザー登録失敗しました")
+ }
+
+  }
+  
   return (
    <>
     <DefaultLayout>
