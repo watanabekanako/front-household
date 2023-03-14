@@ -37,11 +37,10 @@ const[loginUser,setLoginUser]=React.useState<any>()
 // axios.get("http://localhost:3005/user", {
 //   withCredentials: true
 // })
-axios.get("http://localhost:3005/user" ).then((response)=>{
+axios.get("/user" ).then((response)=>{
   // ログインしているユーザー情報の取得
   setLoginUser(response.data)
-  // console.log("loginUser.id",loginUser.id)
-  document.cookie =`id=${loginUser.id}`
+  document.cookie =`id=${loginUser?.id}`
   console.log( document.cookie =`id=${loginUser.id}`)
 })
 
@@ -53,7 +52,7 @@ axios.get("http://localhost:3005/user" ).then((response)=>{
     })
 
     alert("ログアウト")
-
+    document.cookie = `id=${loginUser.id}; max-age=0`;
 // localStorage.setItem("token","")
 }
   return (
