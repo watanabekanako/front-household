@@ -21,9 +21,13 @@ export const postSlice = createSlice({
     categoryId: (state, action) => {
       state.category = action.payload;
     },
+    resetPost: (state, action) => {
+      action.payload = state.memo;
+      action.payload = state.expence;
+    },
   },
 });
 
-export const { inputDate, inputPrice, inputMemo, categoryId } =
+export const { inputDate, inputPrice, inputMemo, categoryId, resetPost } =
   postSlice.actions;
 export default postSlice.reducer;

@@ -6,6 +6,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import formsReducer from "./features/formSlice";
 import postReducer from "./features/postSlice";
+
 const store = configureStore({
   // 新しい状態にする
   reducer: {
