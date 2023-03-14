@@ -8,32 +8,43 @@ import { Link } from 'react-router-dom'
 import { useSelector ,useDispatch} from 'react-redux'
 import { FormState } from '../types/Types'
 import axios from 'axios'
+import { response } from 'express'
+import { useNavigate } from 'react-router-dom'
 const Login = () => {
   const formEmail=useSelector((state:FormState)=>state.authForm.email);
   const formPassword=useSelector((state:FormState)=>state.authForm.password);
   console.log("formEmail",formEmail)
   console.log("formPassword",formPassword)
 
-
   const storedJwt = localStorage.getItem('token');
   const dispatch= useDispatch();
+  const navigate=useNavigate();
 
-
-
+const[loginUser,setLoginUser]=React.useState<any>()
   
   const handleLogin=()=>{
+   
   
       axios.post("/auth/login",{
         email:formEmail,
         password:formPassword
-      },{ withCredentials: true} )
+      },)
 
       alert("ログイン成功")
+      // navigate("/edit")
 
 // localStorage.setItem("token",formEmail)
-axios.get("http://localhost:3005/user", {
-  withCredentials: true
+// axios.get("http://localhost:3005/user", {
+//   withCredentials: true
+// })
+axios.get("http://localhost:3005/user" ).then((response)=>{
+  // ログインしているユーザー情報の取得
+  setLoginUser(response.data)
+  // console.log("loginUser.id",loginUser.id)
+  document.cookie =`id=${loginUser.id}`
+  console.log( document.cookie =`id=${loginUser.id}`)
 })
+
   }
   const handleLogout=()=>{
   

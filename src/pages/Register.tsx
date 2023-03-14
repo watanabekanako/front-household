@@ -15,17 +15,8 @@ import React from 'react'
 const Register = () => {
 
 
-  const navigate=useNavigate();
-// const [alertMessage,setAlertMessage]=React.useState<boolean>(false)
-  // React.useEffect(()=>{
-  //   const getCsrfToken =async()=>{
-  //     const {data} =await axios.get(
-  //       "http://localhost:3005/auth/csrf"
-  //     )
-  //     axios.defaults.headers.common['csrf-token'] =data.csrfToken
-  //   }
-  //   getCsrfToken()
-  // })
+  const navigate=useNavigate()
+
   const formEmail=useSelector((state:FormState)=>state.authForm.email);
   const formPassword=useSelector((state:FormState)=>state.authForm.password);
   const formError=useSelector((state:FormState)=>state.authForm.error)
@@ -47,6 +38,7 @@ const handleClick=()=>{
   })
   alert("完了")
   navigate("/login")
+
  }catch(error){
   console.log("ユーザー登録失敗しました")
  }

@@ -14,10 +14,13 @@ addEmail:(state,action)=>{
 addPassword:(state,action)=>{
     state.password=action.payload;
 }, 
-addError:(state,action)=>{
-    state.error=action.payload;
-}
+// clearForm:(state)=>{
+//     state.email="",
+//     state.password=""
+
+// }
+
     }
 })
-export const {addEmail,addPassword,addError} =formSlice.actions
+export const {addEmail,addPassword} =formSlice.actions
 export default formSlice.reducer
