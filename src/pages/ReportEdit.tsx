@@ -29,6 +29,7 @@ const Home = () => {
     };
     await axios.patch("/post/13", updatePost);
     alert("レポートを更新しました");
+
   };
 
   const deletePost = async () => {

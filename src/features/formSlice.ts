@@ -4,7 +4,8 @@ export const formSlice = createSlice({
     name: "authForm",
     initialState: {
         email:"",
-        password:""
+        password:"",
+        error:false
     },
     reducers: {
 addEmail:(state,action)=>{
@@ -12,7 +13,13 @@ addEmail:(state,action)=>{
 },
 addPassword:(state,action)=>{
     state.password=action.payload;
-},
+}, 
+// clearForm:(state)=>{
+//     state.email="",
+//     state.password=""
+
+// }
+
     }
 })
 export const {addEmail,addPassword} =formSlice.actions

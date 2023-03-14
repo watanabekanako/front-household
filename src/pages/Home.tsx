@@ -9,8 +9,10 @@ import axios from "axios";
 import { useRef } from "react";
 
 const Home = () => {
+
   const [formClear, setFormClear] = useState(true);
   const [user, setUser] = useState([]);
+
 
   const reportDate = useSelector((state: any) => state.posts.date);
   const reportPrice = useSelector((state: any) => state.posts.expence);
@@ -31,6 +33,7 @@ const Home = () => {
   console.log(user);
 
   const clickPost = async () => {
+    
     const newPost = {
       content: reportMemo,
       authorId: 1,

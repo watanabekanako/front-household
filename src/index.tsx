@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import formsReducer from "./features/Form";
+import formsReducer from "./features/formSlice";
 import postReducer from "./features/postSlice";
 
 const store = configureStore({
