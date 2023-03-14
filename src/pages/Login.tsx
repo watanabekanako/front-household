@@ -26,14 +26,14 @@ const Login = () => {
       axios.post("/auth/login",{
         email:formEmail,
         password:formPassword
-      } )
+      },{ withCredentials: true} )
 
       alert("ログイン成功")
 
 // localStorage.setItem("token",formEmail)
-// axios.get("http://localhost:3005/user", {
-//   withCredentials: true
-// })
+axios.get("http://localhost:3005/user", {
+  withCredentials: true
+})
   }
   const handleLogout=()=>{
   
