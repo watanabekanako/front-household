@@ -23,27 +23,27 @@ const Login = () => {
   
   const handleLogin=()=>{
   
-      axios.post("http://localhost:3005/auth/login",{
+      axios.post("/auth/login",{
         email:formEmail,
         password:formPassword
-      }, )
+      } )
 
       alert("ログイン成功")
 
 // localStorage.setItem("token",formEmail)
-axios.get("http://localhost:3005/user", {
-  withCredentials: true
-})
+// axios.get("http://localhost:3005/user", {
+//   withCredentials: true
+// })
   }
   const handleLogout=()=>{
   
-    axios.post("http://localhost:3005/auth/logout",{
+    axios.post("/auth/logout",{
 
     })
 
     alert("ログアウト")
 
-localStorage.setItem("token","")
+// localStorage.setItem("token","")
 }
   return (
   <>
