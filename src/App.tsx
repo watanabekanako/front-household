@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import ReportEdit from "./pages/ReportEdit";
+import Report from "./pages/Report";
 import axios from "axios";
 
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/edit/:id" element={<ReportEdit />}></Route>
+        <Route path="/report" element={<Report />}></Route>
       </Routes>
     </BrowserRouter>
   );

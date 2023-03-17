@@ -30,26 +30,20 @@ const Login = () => {
       password: formPassword,
     });
 
-    alert("ログイン成功");
-    // navigate("/edit")
+    alert("ログイン成功"); // navigate("/edit")
 
-    // localStorage.setItem("token",formEmail)
-    // axios.get("http://localhost:3005/user", {
-    //   withCredentials: true
-    // })
-    axios.get("http://localhost:3005/user").then((response) => {
+    axios.get("/user").then((response) => {
       // ログインしているユーザー情報の取得
       setLoginUser(response.data);
-      // console.log("loginUser.id",loginUser.id)
-      document.cookie = `id=${loginUser.id}`;
-      console.log((document.cookie = `id=${loginUser.id}`));
+      // document.cookie =`id=${loginUser?.id}`
+      document.cookie = `id=${response.data.id}`;
+      console.log((document.cookie = `id=${response.data.id}`));
     });
   };
   const handleLogout = () => {
     axios.post("/auth/logout", {});
-
     alert("ログアウト");
-
+    document.cookie = `id=${loginUser.id}; max-age=0`;
     // localStorage.setItem("token","")
   };
   return (
