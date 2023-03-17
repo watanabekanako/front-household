@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import NaviStyles from "../styles/navigation/navigation.module.scss";
 
 const Navigation = () => {
+  const cookie = document.cookie;
+  console.log(cookie.includes("id"));
+
   return (
     <div>
       <nav className={NaviStyles.naviContainer}>
@@ -28,6 +31,16 @@ const Navigation = () => {
               <p>設定</p>
             </Link>
           </li>
+          {!cookie.includes("id") ? (
+            <li>
+              <Link to="/login">
+                <img src={`${process.env.PUBLIC_URL}/gear.png`} alt="Logo" />
+                <p>ログイン</p>
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
         </ul>
       </nav>
     </div>
