@@ -8,9 +8,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { FormState } from "../types/Types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Register = () => {
+  const [post, setPost] = useState([]);
+
   const navigate = useNavigate();
 
   const formEmail = useSelector((state: FormState) => state.authForm.email);
@@ -41,6 +43,14 @@ const Register = () => {
     }
   };
 
+  useEffect(() => {
+    axios.get("/post/9").then((res) => setPost(res.data));
+  }, []);
+
+  const clickNavi = () => {
+    navigate("/edit/9", { state: post[0] });
+  };
+
   return (
     <>
       <DefaultLayout>
@@ -54,6 +64,7 @@ const Register = () => {
             ログインする
           </Link>
         </div>
+        <button onClick={clickNavi}>移動</button>
       </DefaultLayout>
     </>
   );
