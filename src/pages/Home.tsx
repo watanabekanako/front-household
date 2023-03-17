@@ -7,13 +7,9 @@ import PrimaryButton from "../components/button/PrimaryButton";
 import DefaultLayout from "../components/layout/dafaultLayout";
 import axios from "axios";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-
-  const [formClear, setFormClear] = useState(true);
-  const [user, setUser] = useState([]);
-
-
   const reportDate = useSelector((state: any) => state.posts.date);
   const reportPrice = useSelector((state: any) => state.posts.expence);
   const reportMemo = useSelector((state: any) => state.posts.memo);
@@ -22,18 +18,9 @@ const Home = () => {
   const reportDateTime = new Date(reportDate);
   const updateDate = new Date();
 
-  useEffect(() => {
-    const getUser = async () => {
-      const response = await axios.get("/user");
-      setUser(response.data);
-    };
-    getUser();
-  }, []);
-
-  console.log(user);
+  const navigate = useNavigate();
 
   const clickPost = async () => {
-    
     const newPost = {
       content: reportMemo,
       authorId: 1,
@@ -43,9 +30,10 @@ const Home = () => {
       price: reportPrice,
     };
     await axios.post("/post", newPost);
-    setFormClear(false);
     alert("レポートを登録しました");
   };
+
+  // const clickNavi = () => {};
 
   return (
     <DefaultLayout>
@@ -54,6 +42,7 @@ const Home = () => {
           <ReportForm />
           <Category />
           <PrimaryButton children="支出を入力する" onClick={clickPost} />
+          {/* <button onClick={clickNavi}>移動</button> */}
         </div>
       </div>
     </DefaultLayout>
