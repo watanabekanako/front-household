@@ -17,3 +17,19 @@ export type PostState = {
     updatedAt: string;
   };
 };
+
+export type PostAll = {
+  authorId: number;
+  category: [];
+  categoryId: number;
+  content: string;
+  createdAt: string;
+  price: number;
+  updatedAt: string;
+};
+
+export type categoryGroup = {
+  categoryId: Number;
+  subtotal: number;
+  name: string;
+}[];
