@@ -24,7 +24,7 @@ const ReportAll = () => {
   // );
 
   // 項目ごとの小計
-  const selectedCategoryGroup = postAll?.reduce<categoryGroup>(
+  const selectedCategoryGroup = postAll?.reduce<categoryGroup[]>(
     (
       // 前にreturnした変数
       prev: any,
