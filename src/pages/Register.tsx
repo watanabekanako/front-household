@@ -11,7 +11,7 @@ import { FormState } from "../types/Types";
 import React, { useEffect, useState } from "react";
 
 const Register = () => {
-  const [post, setPost] = useState([]);
+  // const [post, setPost] = useState([]);
 
   const navigate = useNavigate();
 
@@ -43,12 +43,18 @@ const Register = () => {
     }
   };
 
-  useEffect(() => {
-    axios.get("/post/9").then((res) => setPost(res.data));
-  }, []);
+  const post = {
+    id: 9,
+    content: "テスト",
+    authorId: 1,
+    categoryId: 9,
+    createdAt: "2023-03-11T00:00:00.000Z",
+    updatedAt: "2023-03-10T04:57:25.755Z",
+    price: 1500,
+  };
 
   const clickNavi = () => {
-    navigate("/edit/9", { state: post[0] });
+    navigate("/edit/9", { state: post });
   };
 
   return (

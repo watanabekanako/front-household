@@ -11,6 +11,7 @@ const ReportForm = (state: any) => {
   const dispatch = useDispatch();
 
   // const { state } = useLocation();
+  console.log(state, 89);
 
   const postState = state.state;
   const postDate = postState?.createdAt?.slice(0, 10);

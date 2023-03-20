@@ -39,6 +39,7 @@ const Login = () => {
       document.cookie = `id=${response.data.id}`;
       console.log((document.cookie = `id=${response.data.id}`));
     });
+    navigate("/home");
   };
   const handleLogout = () => {
     axios.post("/auth/logout", {});
