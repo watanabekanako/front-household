@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ConfirmModal from "../components/modal/ConfirmModal";
+import Test from "../components/Test";
 
 const ReportEdit = () => {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -40,6 +41,8 @@ const ReportEdit = () => {
     };
     await axios.patch(`/post/${params.id}`, updatePost);
     alert("レポートを更新しました");
+    //一覧画面完成後、遷移先変更
+    navigate("/");
   };
 
   const deletePost = async () => {
@@ -70,6 +73,7 @@ const ReportEdit = () => {
           ) : (
             ""
           )}
+          <Test />
         </div>
       </div>
     </DefaultLayout>

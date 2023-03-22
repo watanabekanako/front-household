@@ -48,6 +48,7 @@ const Register = () => {
     content: "テスト",
     authorId: 1,
     categoryId: 9,
+    category: { id: 9, name: "教育費" },
     createdAt: "2023-03-11T00:00:00.000Z",
     updatedAt: "2023-03-10T04:57:25.755Z",
     price: 1500,

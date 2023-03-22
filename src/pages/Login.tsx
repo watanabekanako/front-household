@@ -56,10 +56,10 @@ const Login = () => {
           children={"ログインする"}
           onClick={() => handleLogin()}
         />
-        <PrimaryButton
+        {/* <PrimaryButton
           children={"ログアウトする"}
           onClick={() => handleLogout()}
-        />
+        /> */}
         <p>アカウントを持っていませんか？</p>
         <div className={LoginStyle.linkCenter}>
           <Link to="/" className={LoginStyle.txtOrange}>

@@ -13,7 +13,7 @@ import {
   NavigationArrow,
 } from "phosphor-react";
 
-export const CategoryDate = [
+export const categoryDate = [
   {
     id: 1,
     name: "食費",
@@ -99,3 +99,20 @@ export const CategoryDate = [
     categoryId: 6,
   },
 ];
+
+export const categoryNameList = [
+  "食費",
+  "日用品",
+  "衣服",
+  "美容",
+  "交際費",
+  "医療費",
+  "通信費",
+  "光熱費",
+  "交通費",
+  "教育費",
+  "住居費",
+  "その他",
+];
+
+export const categoryIdList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
