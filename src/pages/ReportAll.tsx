@@ -7,6 +7,17 @@ import { PostAll } from "../types/Types";
 import { categoryGroup } from "../types/Types";
 import { useDispatch, useSelector } from "react-redux";
 import PieGraph from "../components/chart/pieGraph";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateField } from "@mui/x-date-pickers/DateField";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { startOfMonth, endOfMonth } from "date-fns";
+import format from "date-fns/format";
+
+import moment from "moment";
 const ReportAll = () => {
   // ログイン中のユーザーidを取得
   const id = Cookies.get("id");
@@ -15,13 +26,6 @@ const ReportAll = () => {
   console.log(postAll, "postAll");
   const total = postAll?.reduce((sum, post) => sum + post.price, 0);
   console.log(total, "total");
-
-  // redux
-  // const dispatch = useDispatch();
-  // const categoryName = useSelector((state: any) => state.categoryGroup.name);
-  // const categorySubtotal = useSelector(
-  //   (state: any) => state.categoryGroup.subtotal
-  // );
 
   // 項目ごとの小計
   const selectedCategoryGroup = postAll?.reduce<categoryGroup[]>(
@@ -73,22 +77,61 @@ const ReportAll = () => {
     setFilterMonth(month);
     alert("yyyy");
   };
-
   console.log(filterMonth, "filter");
+  const [startDate, setStartDate] = React.useState(new Date());
 
+  const [value, setValue] = React.useState<any>();
+  const handleChange = (newValue: any) => {
+    setValue(newValue);
+  };
+
+  // 日付によるフィルター
+  // valueに日付入っている
+  // console.log(value, "month");
+  // const month = dayjs(value).month() + 1;
+  // const year = dayjs(value).year();
+  // console.log(year, "year");
+  // console.log(month, "month");
+  // console.log(`http://localhost:3005/term=${year}${month}`, "url");
+
+  // const month = format(value, "yyyyMMdd");
+  // const month = format(value ?? null, "yyyy-MM-dd");
+  // console.log(month, "month");
+
+  const now = new Date(value);
+  const startMonth = startOfMonth(now);
+  console.log(startMonth, "start");
+  // console.log(transferMonth, "transfer");
+  const endMonth = endOfMonth(now);
+  console.log(endMonth, "end");
+
+  console.log(value, "value");
+  const selectedMonth = postAll?.filter(
+    (date) => Number(date.updatedAt) < Number(startMonth)
+  );
+  console.log(Number(startMonth));
+  console.log(String(startMonth), "string");
+  console.log(selectedMonth, "filter");
   return (
     <DefaultLayout>
       <div className={reportPostStyle.container}>
-        {/* formで日付、メモ、金額をまとめてdispatchするか */}
         <form>
           <div className={reportPostStyle.postList}>
             <label htmlFor="month"> 期間</label>
-            <input
-              type="month"
-              id="date"
-              // value={postDate}
-              // onChange={(e: any) => dispatch(inputDate(e.target.value))}
-            />
+
+            <div>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DemoContainer
+                  components={["DatePicker", "DatePicker", "DatePicker"]}
+                >
+                  <DatePicker
+                    label={'"month" and "year"'}
+                    views={["month", "year"]}
+                    onChange={handleChange}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </div>
           </div>
 
           <div className={reportPostStyle.postList}>
@@ -97,7 +140,18 @@ const ReportAll = () => {
           </div>
         </form>
       </div>
-      <button onClick={monthDate}>ボタン</button>
+      <div>
+        {postAll?.map((data: any) => {
+          return (
+            <>
+              {data.category.name}
+              {data.price}
+              {data.updatedAt}
+            </>
+          );
+        })}
+      </div>
+      {/* <button onClick={monthDate}>ボタン</button>
       <div>
         {postAll?.map((data: any) => {
           return (
@@ -107,6 +161,16 @@ const ReportAll = () => {
             </>
           );
         })}
+      </div> */}
+      <div>
+        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={["DatePicker"]}>
+            <DatePicker
+              value={value}
+              onChange={(newValue) => setValue(newValue)}
+            />
+          </DemoContainer>
+        </LocalizationProvider> */}
       </div>
       <div>
         {filterMonth?.map((data: any) => {
@@ -116,6 +180,11 @@ const ReportAll = () => {
               {data.price}
             </>
           );
+        })}
+      </div>
+      <div>
+        {selectedMonth?.map((data: any) => {
+          return <> {data.content}</>;
         })}
       </div>
       <PieGraph selectedCategoryGroup={selectedCategoryGroup} />
@@ -138,3 +207,7 @@ const ReportAll = () => {
 };
 
 export default ReportAll;
+// // 期間の始めと終わりを指定
+// ?start=20230301&end=20230331
+// // 対象の年月を指定
+// ?term=202303
