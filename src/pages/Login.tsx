@@ -45,7 +45,7 @@ const Login = () => {
   const handleLogout = () => {
     axios.post("/auth/logout", {});
     alert("ログアウト");
-    document.cookie = `id=${loginUser.id}; max-age=0`;
+    document.cookie = "id=; max-age=0";
     // localStorage.setItem("token","")
   };
   return (
