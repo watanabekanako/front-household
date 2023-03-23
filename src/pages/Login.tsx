@@ -30,13 +30,14 @@ const Login = () => {
       password: formPassword,
     });
 
-    alert("ログイン成功"); // navigate("/edit")
+    alert("ログイン成功"); //
 
     axios.get("/user").then((response) => {
       // ログインしているユーザー情報の取得
       setLoginUser(response.data);
       // document.cookie =`id=${loginUser?.id}`
       document.cookie = `id=${response.data.id}`;
+
       console.log((document.cookie = `id=${response.data.id}`));
     });
     navigate("/home");
@@ -44,7 +45,7 @@ const Login = () => {
   const handleLogout = () => {
     axios.post("/auth/logout", {});
     alert("ログアウト");
-    document.cookie = `id=${loginUser.id}; max-age=0`;
+    document.cookie = "id=; max-age=0";
     // localStorage.setItem("token","")
   };
   return (

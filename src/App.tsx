@@ -5,11 +5,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import ReportEdit from "./pages/ReportEdit";
-import Report from "./pages/Report";
+import ReportAll from "./pages/ReportAll";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
-
-const cookie = document.cookie;
+import ReportCategory from "./pages/ReportCategory";
 
 // すべてのページにcookie付与するため
 axios.defaults.withCredentials = true;
@@ -25,7 +23,8 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/edit/:id" element={<ReportEdit />}></Route>
-        <Route path="/report" element={<Report />}></Route>
+        <Route path="/report" element={<ReportAll />}></Route>
+        <Route path="/report/:id" element={<ReportCategory />}></Route>
       </Routes>
     </BrowserRouter>
   );

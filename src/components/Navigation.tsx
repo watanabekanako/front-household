@@ -58,8 +58,8 @@ const Navigation = () => {
             </Link>
           </li>
           <li>
-            <Link to="/">
-              <ChartPie size={48} />
+            <Link to="/report">
+              <img src={`${process.env.PUBLIC_URL}/chart-pie.png`} alt="Logo" />
               <p>レポート</p>
             </Link>
           </li>
