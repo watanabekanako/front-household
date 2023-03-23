@@ -5,16 +5,16 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import ReportEdit from "./pages/ReportEdit";
-import Report from "./pages/Report";
+import ReportAll from "./pages/ReportAll";
 import axios from "axios";
-
+import ReportCategory from "./pages/ReportCategory";
 
 // すべてのページにcookie付与するため
-axios.defaults.withCredentials=true;
+axios.defaults.withCredentials = true;
 
 // baseURLで指定にて /　から指定された時に自動的に環境変数が付与される
 // axios.defaults.baseURL="http://localhost:3005";
-axios.defaults.baseURL=process.env.REACT_APP_BASE_URL;
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 function App() {
   return (
     <BrowserRouter>
@@ -23,7 +23,8 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/edit/:id" element={<ReportEdit />}></Route>
-        <Route path="/report" element={<Report />}></Route>
+        <Route path="/report" element={<ReportAll />}></Route>
+        <Route path="/report/:id" element={<ReportCategory />}></Route>
       </Routes>
     </BrowserRouter>
   );
