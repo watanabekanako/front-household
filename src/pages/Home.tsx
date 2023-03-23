@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Category from "../components/Category";
 import HomeStyle from "../styles/pages/Home.module.scss";
@@ -16,6 +16,9 @@ const Home = () => {
   const reportDateTime = new Date(reportDate);
   const updateDate = new Date();
 
+  const inputFormRef = useRef<any>(null);
+  const categoryRef = useRef<any>(null);
+
   const clickPost = async () => {
     const newPost = {
       content: reportMemo,
@@ -27,14 +30,18 @@ const Home = () => {
     };
     await axios.post("/post", newPost);
     alert("レポートを登録しました");
+    if (inputFormRef.current !== null || categoryRef.current !== null) {
+      inputFormRef.current.clearForm();
+      categoryRef.current.clearCategory();
+    }
   };
 
   return (
     <DefaultLayout>
       <div>
         <div className={HomeStyle.reportMain}>
-          <ReportForm />
-          <Category />
+          <ReportForm ref={inputFormRef} />
+          <Category ref={categoryRef} />
           <PrimaryButton children="支出を入力する" onClick={clickPost} />
         </div>
       </div>

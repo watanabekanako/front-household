@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import reportPostStyle from "../../styles/reportPost/reportPost.module.scss";
 import { inputDate, inputPrice, inputMemo } from "../../features/postSlice";
 import { useDispatch } from "react-redux";
@@ -6,7 +12,7 @@ import { Link, useLocation } from "react-router-dom";
 import { PostState } from "../../types/Types";
 import { ArrowLeft } from "phosphor-react";
 
-const ReportForm = (state: any) => {
+const ReportForm = forwardRef((state: any, ref) => {
   const location = useLocation();
   const currentLocation = location.pathname;
   const dispatch = useDispatch();
@@ -28,15 +34,23 @@ const ReportForm = (state: any) => {
   );
 
   //一瞬だけreduxに入るが初期値に戻る動きの解消
-  if (memo === postState?.content) {
-    dispatch(inputMemo(postState?.content));
-  }
-  if (price === postState?.price) {
-    dispatch(inputPrice(postState?.price));
-  }
-  if (date === postDate) {
-    dispatch(inputDate(postDate));
-  }
+  useEffect(() => {
+    if (memo === postState?.content) {
+      dispatch(inputMemo(postState?.content));
+    } else {
+      dispatch(inputMemo(memo));
+    }
+    if (price === postState?.price) {
+      dispatch(inputPrice(postState?.price));
+    } else {
+      dispatch(inputPrice(price));
+    }
+    if (date === postDate) {
+      dispatch(inputDate(postDate));
+    } else {
+      dispatch(inputDate(date));
+    }
+  }, []);
 
   const changeMemo = (e: ChangeEvent<HTMLInputElement>) => {
     setMemo(e.target.value);
@@ -58,6 +72,14 @@ const ReportForm = (state: any) => {
       dispatch(inputDate(e.target.value));
     }
   };
+
+  useImperativeHandle(ref, () => ({
+    clearForm: () => {
+      setMemo("");
+      setPrice(0);
+      setDate("");
+    },
+  }));
 
   return (
     <div className={reportPostStyle.container}>
@@ -93,6 +115,6 @@ const ReportForm = (state: any) => {
       </form>
     </div>
   );
-};
+});
 
 export default ReportForm;
