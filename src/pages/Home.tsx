@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Category from "../components/Category";
 import HomeStyle from "../styles/pages/Home.module.scss";
@@ -6,8 +6,6 @@ import ReportForm from "../components/form/reportForm";
 import PrimaryButton from "../components/button/PrimaryButton";
 import DefaultLayout from "../components/layout/dafaultLayout";
 import axios from "axios";
-import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const reportDate = useSelector((state: any) => state.posts.date);
@@ -18,7 +16,8 @@ const Home = () => {
   const reportDateTime = new Date(reportDate);
   const updateDate = new Date();
 
-  const navigate = useNavigate();
+  const inputFormRef = useRef<any>(null);
+  const categoryRef = useRef<any>(null);
 
   const clickPost = async () => {
     const newPost = {
@@ -31,18 +30,19 @@ const Home = () => {
     };
     await axios.post("/post", newPost);
     alert("レポートを登録しました");
+    if (inputFormRef.current !== null || categoryRef.current !== null) {
+      inputFormRef.current.clearForm();
+      categoryRef.current.clearCategory();
+    }
   };
-
-  // const clickNavi = () => {};
 
   return (
     <DefaultLayout>
       <div>
         <div className={HomeStyle.reportMain}>
-          <ReportForm />
-          <Category />
+          <ReportForm ref={inputFormRef} />
+          <Category ref={categoryRef} />
           <PrimaryButton children="支出を入力する" onClick={clickPost} />
-          {/* <button onClick={clickNavi}>移動</button> */}
         </div>
       </div>
     </DefaultLayout>

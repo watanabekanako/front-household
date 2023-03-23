@@ -22,6 +22,7 @@ $breakpoints: (
   }
   label {
     display: inline-block;
+    // background-image: url("../../images/pencil.png");
     input {
       display: none;
     }
@@ -46,3 +47,9 @@ label input:checked + span {
   background: #fbb;
   border: 1px solid #fbb;
 }
+
+// .radio {
+//   width: 120px;
+//   height: 120px;
+//   background-image: url("../../images/pencil.png");
+// }

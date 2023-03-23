@@ -42,6 +42,9 @@ $breakpoints: (
     font-size: 12px;
     p {
       margin: 0;
+      @include mq(sp) {
+        width: 50px;
+      }
     }
     @include mq(tab) {
       font-size: 10px;
