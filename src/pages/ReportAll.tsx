@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import DefaultLayout from "../components/layout/dafaultLayout";
-import reportPostStyle from "../../src/styles/reportPost/reportPost.module.scss";
+import reportPostStyle from "../../src/styles/reportPost/reportAll.module.scss";
 import Cookies from "js-cookie";
 import { PostAll } from "../types/Types";
 import { categoryGroup } from "../types/Types";
@@ -16,8 +16,8 @@ import dayjs from "dayjs";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { startOfMonth, endOfMonth } from "date-fns";
 import format from "date-fns/format";
-
-import moment from "moment";
+import { isAfter } from "date-fns";
+import { getDate, getMonth, getYear } from "date-fns";
 const ReportAll = () => {
   // ログイン中のユーザーidを取得
   const id = Cookies.get("id");
@@ -84,6 +84,25 @@ const ReportAll = () => {
   const handleChange = (newValue: any) => {
     setValue(newValue);
   };
+  console.log(value, "value");
+
+  const selectedNewYear = String(getYear(value));
+  const selectedNewMonth = String(getMonth(value) + 1);
+  console.log(selectedNewMonth, selectedNewYear);
+
+  // const selectedSlice = value.slice(3, 5);
+  // console.log(selectedSlice, "slice");
+  // すべてのポストのupdatedAtのみ取り出し
+  const selectedDate = postAll?.map((data: any) => data.updatedAt);
+  console.log(selectedDate, "selecttedDate");
+  // プルダウンで選択した値を配列に詰める
+  const target = [selectedNewYear];
+  console.log(target, "target");
+
+  console.log(
+    postAll?.filter((x) => target.includes(String(x.updatedAt.slice(1, 5)))),
+    "filter"
+  );
 
   // 日付によるフィルター
   // valueに日付入っている
@@ -98,20 +117,17 @@ const ReportAll = () => {
   // const month = format(value ?? null, "yyyy-MM-dd");
   // console.log(month, "month");
 
-  const now = new Date(value);
-  const startMonth = startOfMonth(now);
-  console.log(startMonth, "start");
-  // console.log(transferMonth, "transfer");
-  const endMonth = endOfMonth(now);
-  console.log(endMonth, "end");
+  // const selectedMonth = postAll?.filter(
+  //   (date) => Number(date.updatedAt) < Number(startMonth)
 
-  console.log(value, "value");
-  const selectedMonth = postAll?.filter(
-    (date) => Number(date.updatedAt) < Number(startMonth)
-  );
-  console.log(Number(startMonth));
-  console.log(String(startMonth), "string");
-  console.log(selectedMonth, "filter");
+  // const selectedMonth = postAll?.filter((date) => date?.updatedAt > startMonth);
+
+  // const result = isAfter(new Date(1989, 6, 10), new Date(startMonth));
+  // console.log(result);
+  // const monthyear = new Date(startMonth);
+
+  // valueはdatepickerにて選択した日付
+
   return (
     <DefaultLayout>
       <div className={reportPostStyle.container}>
@@ -182,12 +198,14 @@ const ReportAll = () => {
           );
         })}
       </div>
-      <div>
+      {/* <div>
         {selectedMonth?.map((data: any) => {
           return <> {data.content}</>;
         })}
+      </div> */}
+      <div className={reportPostStyle.pie}>
+        <PieGraph selectedCategoryGroup={selectedCategoryGroup} />
       </div>
-      <PieGraph selectedCategoryGroup={selectedCategoryGroup} />
       <div>
         {selectedCategoryGroup?.map((data) => {
           return (
