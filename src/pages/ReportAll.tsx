@@ -60,7 +60,7 @@ const ReportAll = () => {
   console.log(selectedDate, "selectedDate");
 
   const filterDate = postAll?.filter(
-    (user) => user.updatedAt.slice(0, 7) === selectedDate
+    (post) => post.updatedAt.slice(0, 7) === selectedDate
   );
   return (
     <DefaultLayout>
