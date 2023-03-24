@@ -6,17 +6,33 @@ import Cookies from "js-cookie";
 import { PostAll } from "../types/Types";
 import { categoryGroup } from "../types/Types";
 import PieGraph from "../components/chart/pieGraph";
-import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Link } from "react-router-dom";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 const ReportAll = () => {
   // ログイン中のユーザーidを取得
   const id = Cookies.get("id");
 
   const [postAll, setPostAll] = React.useState<PostAll[]>();
   console.log(postAll, "postAll");
-  const total = postAll?.reduce((sum, post) => sum + post.price, 0);
+
+  // カレンダーによる絞り込み
+  //  初期値に現在の年月の設定
+  const today = new Date();
+  const currentDate =
+    today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2);
+
+  const [selectedDate, setSelectedDate] = React.useState(currentDate);
+  console.log(selectedDate, "selectedDate");
+
+  const filterDate = postAll?.filter(
+    (post) => post.updatedAt.slice(0, 7) === selectedDate
+  );
+
+  const total = filterDate?.reduce((sum, post) => sum + post.price, 0);
   console.log(total, "total");
   // 項目ごとの小計
-  const selectedCategoryGroup = postAll?.reduce<categoryGroup[]>(
+  const selectedCategoryGroup = filterDate?.reduce<categoryGroup[]>(
     (
       // 前にreturnした変数
       prev: any,
@@ -55,70 +71,49 @@ const ReportAll = () => {
     });
   }, []);
 
-  // カレンダーによる絞り込み
-  const [selectedDate, setSelectedDate] = React.useState("");
-  console.log(selectedDate, "selectedDate");
-
-  const filterDate = postAll?.filter(
-    (post) => post.updatedAt.slice(0, 7) === selectedDate
-  );
   return (
     <DefaultLayout>
       <div className={reportPostStyle.container}>
-        <form>
-          <div className={reportPostStyle.postList}>
-            <label htmlFor="month"> 期間</label>
-            <input
-              type="month"
-              value={selectedDate}
-              onChange={(event) => setSelectedDate(event.target.value)}
-            ></input>
-          </div>
+        <div>
+          <form>
+            <div className={reportPostStyle.postList}>
+              <label htmlFor="month"> 期間</label>
+              <input
+                type="month"
+                value={selectedDate}
+                onChange={(event) => setSelectedDate(event.target.value)}
+              ></input>
+            </div>
+            <div className={reportPostStyle.postList}>
+              <label htmlFor="expence">支出合計</label>
+              <input type="text" id="expence" value={total} />円
+            </div>
+          </form>
+        </div>
 
-          <div className={reportPostStyle.postList}>
-            <label htmlFor="expence">支出合計</label>
-            <input type="text" id="expence" value={total} />円
-          </div>
-        </form>
-      </div>
-      {/* <div>
-        {postAll?.map((data: any) => {
-          return (
-            <>
-              {data.category.name}
-              {data.price}
-              {data.updatedAt}
-            </>
-          );
-        })}
-      </div> */}
-      <div>
-        {filterDate?.map((data: any) => {
-          return (
-            <>
-              {data.category.name}
-              {data.price}
-              {data.updatedAt}
-            </>
-          );
-        })}
-      </div>
-      <div className={reportPostStyle.pie}>
-        <PieGraph selectedCategoryGroup={selectedCategoryGroup} />
-      </div>
-      <div>
-        {selectedCategoryGroup?.map((data) => {
-          return (
-            <>
-              <div className={reportPostStyle.container}>
-                <div className={reportPostStyle.postList}>
-                  <label>{data.name}</label>
-                  {data.subtotal}円
+        <div className={reportPostStyle.pie}>
+          <PieGraph selectedCategoryGroup={selectedCategoryGroup} />
+        </div>
+        <div>
+          {selectedCategoryGroup?.map((data) => {
+            return (
+              <>
+                <div className={reportPostStyle.container}>
+                  <div className={reportPostStyle.postList}>
+                    <Link
+                      to={String(data.categoryId)}
+                      className={reportPostStyle.arrow}
+                    >
+                      <label>{data.name}</label>
+                      {data.subtotal}円{/* カテゴリidでのページ遷移 */}
+                      <ArrowForwardIosIcon className={reportPostStyle.icon} />
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </>
-          );
-        })}
+              </>
+            );
+          })}
+        </div>
       </div>
     </DefaultLayout>
   );
