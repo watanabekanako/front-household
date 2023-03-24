@@ -1,9 +1,9 @@
 import React from "react";
-import { categoryIdList } from "../CategoryDummyDate";
+import { categoryNameList } from "../CategoryDummyDate";
 
 const Test = () => {
   // 選択した値を管理（初期値：ラジオ１）
-  const [val, setVal] = React.useState(1);
+  const [val, setVal] = React.useState("食費");
 
   // ラジオボタンの値がチェンジされた時
   const handleChange = (e: any) => {
@@ -15,7 +15,7 @@ const Test = () => {
       <h2>ラジオボタン</h2>
       <p className="center">「その他」を選択したら入力欄が表示されます</p>
       <div className="container">
-        {categoryIdList.map((item) => {
+        {categoryNameList.map((item) => {
           return (
             <div key={item}>
               <input

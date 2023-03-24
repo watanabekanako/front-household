@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import DefaultLayout from "../components/layout/dafaultLayout";
+import DefaultLayout from "../components/layout/defaultLayout";
 import reportPostStyle from "../../src/styles/reportPost/reportPost.module.scss";
 import Cookies from "js-cookie";
 import { PostAll } from "../types/Types";

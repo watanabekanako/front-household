@@ -8,6 +8,8 @@ import ReportEdit from "./pages/ReportEdit";
 import ReportAll from "./pages/ReportAll";
 import axios from "axios";
 import ReportCategory from "./pages/ReportCategory";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // すべてのページにcookie付与するため
 axios.defaults.withCredentials = true;
@@ -17,16 +19,19 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Register />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/home" element={<Home />}></Route>
-        <Route path="/edit/:id" element={<ReportEdit />}></Route>
-        <Route path="/report" element={<ReportAll />}></Route>
-        <Route path="/report/:id" element={<ReportCategory />}></Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <ToastContainer />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Register />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/home" element={<Home />}></Route>
+          <Route path="/edit/:id" element={<ReportEdit />}></Route>
+          <Route path="/report" element={<ReportAll />}></Route>
+          <Route path="/report/:id" element={<ReportCategory />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
