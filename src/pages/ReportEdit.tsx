@@ -10,14 +10,18 @@ import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ConfirmModal from "../components/modal/ConfirmModal";
 import toastItem from "../components/modal/Toast";
+import { RootState } from "../types/Types";
+import Cookies from "js-cookie";
 
-const ReportEdit = () => {
+const ReportEdit: React.FC = () => {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
 
-  const reportDate = useSelector((state: any) => state.posts.date);
-  const reportPrice = useSelector((state: any) => state.posts.expence);
-  const reportMemo = useSelector((state: any) => state.posts.memo);
-  const reportCategory = useSelector((state: any) => state.posts.category);
+  const reportDate = useSelector((state: RootState) => state.posts.date);
+  const reportPrice = useSelector((state: RootState) => state.posts.expence);
+  const reportMemo = useSelector((state: RootState) => state.posts.memo);
+  const reportCategory = useSelector(
+    (state: RootState) => state.posts.category
+  );
 
   const reportDateTime = new Date(reportDate);
   const updateDate = new Date();
@@ -25,21 +29,26 @@ const ReportEdit = () => {
   const params = useParams();
 
   //一覧画面の詳細Postデータ
-  const { state } = useLocation();
+  // const { state } = useLocation();
 
-  const { successMsg } = toastItem();
+  const userId = Cookies.get("id");
+
+  const { successMsg, errorMsg } = toastItem();
 
   const clickEdit = async () => {
     //createdAt,categoryId,price必須のバリデーション予定
 
     const updatePost = {
       content: reportMemo,
-      authorId: state.authorId,
+      authorId: userId,
       categoryId: reportCategory,
       createdAt: reportDateTime,
       updatedAt: updateDate,
       price: reportPrice,
     };
+    if (reportPrice === 0) {
+      errorMsg("金額を0円以上入力してください");
+    }
     await axios.patch(`/post/${params.id}`, updatePost);
     successMsg("レポートを更新しました");
     //一覧画面完成後、遷移先変更
@@ -61,8 +70,8 @@ const ReportEdit = () => {
     <DefaultLayout>
       <div>
         <div className={HomeStyle.reportMain}>
-          <ReportForm state={state} />
-          <Category state={state} />
+          <ReportForm />
+          <Category />
           <PrimaryButton children="支出を上書きする" onClick={clickEdit} />
           <SecondaryButton children="削除" onClick={deleteOpenModal} />
           {editModalIsOpen ? (

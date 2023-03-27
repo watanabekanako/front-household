@@ -4,7 +4,7 @@ const toastItem = () => {
   const successMsg = (msg: string) => {
     toast.success(msg, {
       position: "top-center",
-      autoClose: 3000,
+      autoClose: 2500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -13,7 +13,19 @@ const toastItem = () => {
       theme: "light",
     });
   };
-  return { successMsg };
+  const errorMsg = (msg: string) => {
+    toast.error(msg, {
+      position: "top-center",
+      autoClose: 2500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+  return { successMsg, errorMsg };
 };
 
 export default toastItem;
