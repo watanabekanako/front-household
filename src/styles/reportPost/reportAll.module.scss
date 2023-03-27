@@ -12,6 +12,24 @@ $breakpoints: (
   background: #fff;
   padding: 50px 0;
   border-radius: 20px;
+  table {
+    width: 80%;
+    margin: 0 auto;
+    border-spacing: 0;
+    // background-color: yellow;
+    border-bottom: 1px solid;
+  }
+
+  th,
+  td {
+    text-align: right;
+    padding: 20px 10px;
+    font-weight: normal;
+    border-bottom: 2px border #dddd;
+  }
+  .textLeft {
+    text-align: left;
+  }
 }
 @media (min-width: 900px) {
   .postList {
@@ -41,21 +59,8 @@ $breakpoints: (
     width: 54%;
   }
 }
-.arrow {
-  position: relative;
-  border: 1px solid #000;
-  margin-top: 40px; /*なくてもOK*/
-  display: block;
-  width: 240px; /*ボタンの横幅指定*/
-  padding: 20px 0; /*上下余白指定*/
-  text-align: center; /*テキスト中央寄せ*/
-  color: #000;
-  font-size: 18px;
-}
-.icon {
-  position: absolute;
-  top: 50%;
-  right: 20px; /*右からの距離*/
-  width: 13px; /*アイコンの横幅指定*/
-  transform: translateY(-50%); /*この指定で上下中央に*/
+
+.smallFont {
+  font-size: small;
+  margin-left: 50px;
 }

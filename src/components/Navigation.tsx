@@ -48,7 +48,7 @@ const Navigation = () => {
               </Link>
             </li>
             <li>
-              <Link to="/">
+              <Link to="/account">
                 <Gear size={48} />
                 <p>設定</p>
               </Link>

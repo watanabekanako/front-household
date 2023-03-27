@@ -3,16 +3,16 @@ import React, { useEffect, useState } from "react";
 import DefaultLayout from "../components/layout/defaultLayout";
 import reportCategoryStyle from "../../src/styles/reportPost/reportCategory.module.scss";
 import Cookies from "js-cookie";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import moment from "moment";
 import { PostAll } from "../types/Types";
-
+import { useNavigate } from "react-router-dom";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 const ReportCategory = () => {
   // ログイン中のユーザーidを取得
   const id = Cookies.get("id");
 
-  const { slug } = useParams();
-  console.log(slug, "slug");
+  const navigate = useNavigate();
   const [selectedCategoryPost, setSelectedCategoryPost] = useState<PostAll[]>();
 
   const params = useParams();
@@ -33,27 +33,39 @@ const ReportCategory = () => {
 
   return (
     <DefaultLayout>
-      <div>
+      <div className={reportCategoryStyle.container}>
         {filterCategory?.map((data: any) => {
           return (
             <>
-              <div className={reportCategoryStyle.container}>
-                <table className={reportCategoryStyle.fontStyle}>
-                  <tbody className={reportCategoryStyle.tableWidth}>
-                    <tr>
-                      <th className={reportCategoryStyle.date}>
-                        {/* momentでの日付変換(data-fnsではinvalid valueとなる) */}
-                        {moment(data.createdAt).format("YYYY年MM月DD日")}
-                      </th>
-                      <td className={reportCategoryStyle.date}></td>
-                    </tr>
-                    <tr>
-                      <th>{data.category?.name}</th>
-                      <td>{data.price}円</td>
-                    </tr>
-                  </tbody>
+              <button
+                className={reportCategoryStyle.block}
+                onClick={() => navigate(`/edit/${data.id}`, { state: data })}
+              >
+                {/* <Link
+                  to={String(data.categoryId)}
+                  className={reportCategoryStyle.arrow}
+                > */}
+                <table>
+                  <tr>
+                    <th className={reportCategoryStyle.date}>
+                      {/* momentでの日付変換(data-fnsではinvalid valueとなる) */}
+                      {moment(data.updatedAt).format("YYYY年MM月DD日")}
+                    </th>
+                    <th className={reportCategoryStyle.date}></th>
+                    <th className={reportCategoryStyle.date}></th>
+                  </tr>
+                  <tr>
+                    {/* <th>{moment(data.createdAt).format("YYYY年MM月DD日")}</th> */}
+                    <th>{data.category?.name}</th>
+                    <th className={reportCategoryStyle.smallFont}>
+                      {data.price}円
+                    </th>
+                    <th className={reportCategoryStyle.textRight}>
+                      <ArrowForwardIosIcon />
+                    </th>
+                  </tr>
                 </table>
-              </div>
+              </button>
             </>
           );
         })}
