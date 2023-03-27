@@ -3,16 +3,14 @@ import FormStyle from "../../styles/form/formStyle.module.scss";
 import { useDispatch } from "react-redux";
 import { addPassword } from "../../features/formSlice";
 import { useState } from "react";
-
+import AddBoxIcon from "@mui/icons-material/AddBox";
 const PasswordInput = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const dispatch = useDispatch();
+  const [isRevealPassword, setIsRevealPassword] = useState(false);
   const togglePassword = () => {
-    // When the handler is invoked
-    // inverse the boolean state of passwordShown
-    setPasswordShown(!passwordShown);
+    setIsRevealPassword((prevState) => !prevState);
   };
-
   return (
     <>
       <div className={FormStyle.inputMain}>
@@ -22,8 +20,19 @@ const PasswordInput = () => {
           id="password"
           onChange={(e: any) => dispatch(addPassword(e.target.value))}
         />
+        <span
+          onClick={togglePassword}
+          role="presentation"
+          className={FormStyle.PasswordReveal}
+        >
+          {isRevealPassword ? (
+            <AddBoxIcon />
+          ) : (
+            <i className="fas fa-eye-slash" />
+          )}
+        </span>
       </div>
-      <button onClick={togglePassword}></button>
+
       {/* <div>
         <input
           type={passwordShown ? "text" : "password"}

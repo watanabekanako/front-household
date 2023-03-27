@@ -33,6 +33,7 @@ $breakpoints: (
       display: inline-block;
       width: 120px;
       height: 120px;
+      background-image: "../../pages/Home.tsx";
       @include mq(tab) {
         width: 70px;
         height: 70px;

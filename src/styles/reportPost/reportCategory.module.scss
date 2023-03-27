@@ -1,0 +1,26 @@
+table {
+  width: 50%;
+  margin: 0 auto;
+  border-spacing: 0;
+  // background-color: yellow;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 20px 10px;
+  // background-color: pink;
+  // thのデフォルトでの太字回避のため
+  font-weight: normal;
+  border-bottom: 2px border #dddd;
+}
+
+.date {
+  padding: 8px 10px;
+  background-color: #f2b691;
+}
+.container {
+  background: #fff;
+  padding: 50px 0;
+  border-radius: 20px;
+}
