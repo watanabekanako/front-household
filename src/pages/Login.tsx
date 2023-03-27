@@ -29,24 +29,24 @@ const Login = () => {
   const { successMsg } = toastItem();
 
   const handleLogin = () => {
-    axios.post("/auth/login", {
-      email: formEmail,
-      password: formPassword,
-    });
+    axios
+      .post("/auth/login", {
+        email: formEmail,
+        password: formPassword,
+      })
+      .then((response) => {
+        axios.get("/user").then((response) => {
+          setLoginUser(response.data);
+          document.cookie = `id=${response.data.id}`;
+        });
 
-    // alert("ログイン成功"); //
-
-    axios.get("/user").then((response) => {
-      // ログインしているユーザー情報の取得
-      setLoginUser(response.data);
-      // document.cookie =`id=${loginUser?.id}`
-      document.cookie = `id=${response.data.id}`;
-
-      console.log((document.cookie = `id=${response.data.id}`));
-    });
-
-    navigate("/home");
-    successMsg("ログインしました");
+        successMsg("ログインしました");
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("ログインに失敗しました");
+      });
   };
 
   const handleLogout = () => {

@@ -2,8 +2,9 @@ import React from "react";
 import { Container } from "@mui/material";
 import Modal from "react-modal";
 import ConfirmModalStyle from "../../styles/modal/confirmModal.module.scss";
+import { ModalState } from "../../types/Types";
 
-const ConfirmModal = (props: any) => {
+const ConfirmModal = (props: ModalState) => {
   const { editModalIsOpen, setEditModalIsOpen, onClick, children } = props;
   const customStyles = {
     content: {

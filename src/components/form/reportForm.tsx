@@ -7,18 +7,30 @@ import React, {
 } from "react";
 import reportPostStyle from "../../styles/reportPost/reportPost.module.scss";
 import { inputDate, inputPrice, inputMemo } from "../../features/postSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { PostState } from "../../types/Types";
+import { PostState, RootState } from "../../types/Types";
 import { ArrowLeft } from "phosphor-react";
 
-const ReportForm = forwardRef((state: any, ref) => {
+const ReportForm = forwardRef((props: any, ref) => {
+  // const { state } = props;
   const location = useLocation();
   const currentLocation = location.pathname;
   const dispatch = useDispatch();
 
-  const postState = state.state;
+  const reportAlert = useSelector((state: RootState) => state.posts.alert);
+
+  //詳細ページからのデータ受け取り
+  const { state } = useLocation();
+  const postState = state;
   const postDate = postState?.createdAt?.slice(0, 10);
+
+  //現在日付の変換（yyyy/mm/dd）
+  let dt = new Date();
+  let y = dt.getFullYear();
+  let m = ("00" + (dt.getMonth() + 1)).slice(-2);
+  let d = ("00" + dt.getDate()).slice(-2);
+  let todayDate = y + "-" + m + "-" + d;
 
   const [memo, setMemo] = useState(
     currentLocation.startsWith("/edit") ? postState?.content : ""
@@ -27,7 +39,7 @@ const ReportForm = forwardRef((state: any, ref) => {
     currentLocation.startsWith("/edit") ? postState?.price : 0
   );
   const [date, setDate] = useState(
-    currentLocation.startsWith("/edit") ? postDate : ""
+    currentLocation.startsWith("/edit") ? postDate : todayDate
   );
 
   //一瞬だけreduxに入るが初期値に戻る動きの解消
@@ -80,7 +92,7 @@ const ReportForm = forwardRef((state: any, ref) => {
 
   return (
     <div className={reportPostStyle.container}>
-      {currentLocation.startsWith("edit") ? (
+      {currentLocation.startsWith("/edit") ? (
         <div>
           <Link to="/">
             <ArrowLeft size={24} />
@@ -109,6 +121,7 @@ const ReportForm = forwardRef((state: any, ref) => {
           円
         </div>
       </form>
+      {reportAlert ? <p>入力してください</p> : ""}
     </div>
   );
 });

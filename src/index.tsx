@@ -26,3 +26,5 @@ root.render(
     {/* </React.StrictMode> */}
   </>
 );
+
+export { store };
