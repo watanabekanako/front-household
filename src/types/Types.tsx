@@ -3,6 +3,7 @@ export type FormState = {
     email: string;
     password: string;
     error: boolean;
+    confirmPassword: string;
   };
 };
 
