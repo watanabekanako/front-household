@@ -1,4 +1,4 @@
-import DefaultLayout from "../components/layout/dafaultLayout";
+import DefaultLayout from "../components/layout/defaultLayout";
 import PrimaryButton from "../components/button/PrimaryButton";
 import RegisterStyle from "../styles/pages/register.module.scss";
 import PasswordInput from "../components/form/passwordInput";

@@ -4,12 +4,12 @@ import HomeStyle from "../styles/pages/Home.module.scss";
 import ReportForm from "../components/form/reportForm";
 import PrimaryButton from "../components/button/PrimaryButton";
 import SecondaryButton from "../components/button/SecondaryButton";
-import DefaultLayout from "../components/layout/dafaultLayout";
+import DefaultLayout from "../components/layout/defaultLayout";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ConfirmModal from "../components/modal/ConfirmModal";
-import Test from "../components/Test";
+import toastItem from "../components/modal/Toast";
 
 const ReportEdit = () => {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -27,6 +27,8 @@ const ReportEdit = () => {
   //一覧画面の詳細Postデータ
   const { state } = useLocation();
 
+  const { successMsg } = toastItem();
+
   const clickEdit = async () => {
     //createdAt,categoryId,price必須のバリデーション予定
 
@@ -39,14 +41,14 @@ const ReportEdit = () => {
       price: reportPrice,
     };
     await axios.patch(`/post/${params.id}`, updatePost);
-    alert("レポートを更新しました");
+    successMsg("レポートを更新しました");
     //一覧画面完成後、遷移先変更
     navigate("/");
   };
 
   const deletePost = async () => {
     await axios.delete(`/post/${params.id}`);
-    alert("削除しました");
+    successMsg("削除しました");
     //一覧画面完成後、遷移先変更
     navigate("/home");
   };
@@ -68,11 +70,11 @@ const ReportEdit = () => {
               editModalIsOpen={editModalIsOpen}
               setEditModalIsOpen={setEditModalIsOpen}
               onClick={deletePost}
+              children="本当に削除"
             />
           ) : (
             ""
           )}
-          {/* <Test /> */}
         </div>
       </div>
     </DefaultLayout>
