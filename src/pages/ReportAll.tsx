@@ -13,7 +13,7 @@ const ReportAll = () => {
   // ログイン中のユーザーidを取得
   const id = Cookies.get("id");
 
-  const [postAll, setPostAll] = React.useState<PostAll[]>();
+  const [postAll, setPostAll] = React.useState<PostAll[]>([]);
   console.log(postAll, "postAll");
 
   // カレンダーによる絞り込み
@@ -86,30 +86,39 @@ const ReportAll = () => {
             </div>
             <div className={reportPostStyle.postList}>
               <label htmlFor="expence">支出合計</label>
-              <input type="text" id="expence" value={total} />円
+              <input type="text" id="expence" value={total} readOnly />円
             </div>
           </form>
         </div>
 
         <div className={reportPostStyle.pie}>
-          <PieGraph selectedCategoryGroup={selectedCategoryGroup} />
+          {selectedCategoryGroup.length > 0 ? (
+            <PieGraph selectedCategoryGroup={selectedCategoryGroup} />
+          ) : (
+            <p>まだ指定月のデータはありません</p>
+          )}
         </div>
         <div>
-          {selectedCategoryGroup?.map((data) => {
+          {selectedCategoryGroup?.map((data: any, index) => {
             return (
               <>
-                <div className={reportPostStyle.container}>
-                  <div className={reportPostStyle.postList}>
-                    <Link
-                      to={String(data.categoryId)}
-                      className={reportPostStyle.arrow}
-                    >
-                      <label>{data.name}</label>
-                      {data.subtotal}円{/* カテゴリidでのページ遷移 */}
-                      <ArrowForwardIosIcon className={reportPostStyle.icon} />
-                    </Link>
-                  </div>
-                </div>
+                <Link
+                  to={String(data.categoryId)}
+                  className={reportPostStyle.arrow}
+                >
+                  <table>
+                    <tr>
+                      <th className={reportPostStyle.textLeft}>{data.name}</th>
+                      <th> {data.subtotal}円</th>
+                      <th className={reportPostStyle.smallFont}>
+                        {((data.subtotal / total) * 100).toFixed(1)}%
+                      </th>
+                      <th>
+                        <ArrowForwardIosIcon />
+                      </th>
+                    </tr>
+                  </table>
+                </Link>
               </>
             );
           })}
@@ -118,5 +127,4 @@ const ReportAll = () => {
     </DefaultLayout>
   );
 };
-
 export default ReportAll;
