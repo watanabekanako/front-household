@@ -5,25 +5,26 @@ import React, {
   useImperativeHandle,
   useState,
 } from "react";
-import { categoryNameList, categoryDate } from "../CategoryDummyDate";
+import { categoryDate } from "../CategoryDate";
 import CategoryStyle from "../styles/category/category.module.scss";
 import { useDispatch } from "react-redux";
 import { categoryId } from "../features/postSlice";
 import { useLocation } from "react-router-dom";
-import { PostState } from "../types/Types";
+import { CategoryData, PostState } from "../types/Types";
 
-const Category = forwardRef((state: any, ref) => {
+const Category = forwardRef((props: any, ref) => {
+  // const { state } = props;
+  const { state } = useLocation();
   const location = useLocation();
   const currentLocation = location.pathname;
-  const categoryState = state.state;
+  const categoryState = state;
   const dispatch = useDispatch();
-
-  const icon = categoryDate.map((category) => category.icon);
-  console.log(icon);
 
   //編集画面の場合のみ初期値をいれる
   const [postedCategory, setpostedCategory] = useState(
-    currentLocation.startsWith("/edit") ? categoryState?.category.name : ""
+    currentLocation.startsWith("/edit")
+      ? categoryState?.category.name
+      : "食　費"
   );
 
   //カテゴリー名一致
@@ -36,7 +37,7 @@ const Category = forwardRef((state: any, ref) => {
     if (postedCategory === categoryState?.category.name) {
       dispatch(categoryId(initialCategoryDate[0].categoryId));
     } else {
-      dispatch(categoryId(Number(postedCategory)));
+      dispatch(categoryId(4));
     }
   }, []);
 
@@ -57,9 +58,9 @@ const Category = forwardRef((state: any, ref) => {
   return (
     <div className={CategoryStyle.categoryContainer}>
       <p>カテゴリー</p>
-      {categoryNameList?.map((category: string) => {
+      {categoryDate?.map((category: CategoryData) => {
         return (
-          <React.Fragment key={category}>
+          <React.Fragment key={category.id}>
             {/* <div className={CategoryStyle.radio}> */}
             <label>
               <input
@@ -67,13 +68,13 @@ const Category = forwardRef((state: any, ref) => {
                 className="categoryButton"
                 name="category"
                 id="category"
-                value={category}
-                checked={category === postedCategory}
+                value={category.name}
+                checked={category.name === postedCategory}
                 onChange={changeCategory}
               />
               <span>
-                {category}
-                {icon}
+                {category.name}
+                {category.icon}
               </span>
             </label>
             {/* </div> */}

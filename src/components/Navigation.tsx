@@ -27,7 +27,6 @@ const Navigation = () => {
     navigate("/login");
     successMsg("ログアウトしました");
   };
-
   return (
     <>
       <div>
@@ -44,10 +43,7 @@ const Navigation = () => {
             </li>
             <li>
               <Link to="/report">
-                <img
-                  src={`${process.env.PUBLIC_URL}/chart-pie.png`}
-                  alt="Logo"
-                />
+                <ChartPie size={48} />
                 <p>レポート</p>
               </Link>
             </li>
