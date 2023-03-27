@@ -17,20 +17,17 @@ const ReportForm = forwardRef((state: any, ref) => {
   const currentLocation = location.pathname;
   const dispatch = useDispatch();
 
-  // const { state } = useLocation();
-  console.log(state, 89);
-
   const postState = state.state;
   const postDate = postState?.createdAt?.slice(0, 10);
 
   const [memo, setMemo] = useState(
-    currentLocation.slice(1, 5) === "edit" ? postState?.content : ""
+    currentLocation.startsWith("/edit") ? postState?.content : ""
   );
   const [price, setPrice] = useState(
-    currentLocation.slice(1, 5) === "edit" ? postState?.price : 0
+    currentLocation.startsWith("/edit") ? postState?.price : 0
   );
   const [date, setDate] = useState(
-    currentLocation.slice(1, 5) === "edit" ? postDate : ""
+    currentLocation.startsWith("/edit") ? postDate : ""
   );
 
   //一瞬だけreduxに入るが初期値に戻る動きの解消
@@ -83,7 +80,7 @@ const ReportForm = forwardRef((state: any, ref) => {
 
   return (
     <div className={reportPostStyle.container}>
-      {currentLocation.slice(1, 5) === "edit" ? (
+      {currentLocation.startsWith("edit") ? (
         <div>
           <Link to="/">
             <ArrowLeft size={24} />
@@ -92,7 +89,6 @@ const ReportForm = forwardRef((state: any, ref) => {
       ) : (
         ""
       )}
-      {/* formで日付、メモ、金額をまとめてdispatchするか */}
       <form>
         <div className={reportPostStyle.postList}>
           <label htmlFor="date">日付</label>

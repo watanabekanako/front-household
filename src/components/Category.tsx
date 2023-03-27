@@ -18,9 +18,12 @@ const Category = forwardRef((state: any, ref) => {
   const categoryState = state.state;
   const dispatch = useDispatch();
 
+  const icon = categoryDate.map((category) => category.icon);
+  console.log(icon);
+
   //編集画面の場合のみ初期値をいれる
   const [postedCategory, setpostedCategory] = useState(
-    currentLocation.slice(1, 5) === "edit" ? categoryState?.category.name : ""
+    currentLocation.startsWith("/edit") ? categoryState?.category.name : ""
   );
 
   //カテゴリー名一致
@@ -68,7 +71,10 @@ const Category = forwardRef((state: any, ref) => {
                 checked={category === postedCategory}
                 onChange={changeCategory}
               />
-              <span>{category}</span>
+              <span>
+                {category}
+                {icon}
+              </span>
             </label>
             {/* </div> */}
           </React.Fragment>

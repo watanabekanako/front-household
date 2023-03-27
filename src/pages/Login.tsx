@@ -1,5 +1,5 @@
 import React from "react";
-import DefaultLayout from "../components/layout/dafaultLayout";
+import DefaultLayout from "../components/layout/defaultLayout";
 import PrimaryButton from "../components/button/PrimaryButton";
 import LoginStyle from "../styles/pages/login.module.scss";
 import EmailInput from "../components/form/emailInput";
@@ -10,6 +10,8 @@ import { FormState } from "../types/Types";
 import axios from "axios";
 import { response } from "express";
 import { useNavigate } from "react-router-dom";
+import toastItem from "../components/modal/Toast";
+import { toast } from "react-toastify";
 const Login = () => {
   const formEmail = useSelector((state: FormState) => state.authForm.email);
   const formPassword = useSelector(
@@ -24,13 +26,15 @@ const Login = () => {
 
   const [loginUser, setLoginUser] = React.useState<any>();
 
+  const { successMsg } = toastItem();
+
   const handleLogin = () => {
     axios.post("/auth/login", {
       email: formEmail,
       password: formPassword,
     });
 
-    alert("ログイン成功"); //
+    // alert("ログイン成功"); //
 
     axios.get("/user").then((response) => {
       // ログインしているユーザー情報の取得
@@ -40,8 +44,11 @@ const Login = () => {
 
       console.log((document.cookie = `id=${response.data.id}`));
     });
+
     navigate("/home");
+    successMsg("ログインしました");
   };
+
   const handleLogout = () => {
     axios.post("/auth/logout", {});
     alert("ログアウト");
