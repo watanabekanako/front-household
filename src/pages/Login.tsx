@@ -12,6 +12,7 @@ import { response } from "express";
 import { useNavigate } from "react-router-dom";
 import toastItem from "../components/modal/Toast";
 import { toast } from "react-toastify";
+import { RootState } from "../types/Types";
 const Login = () => {
   const formEmail = useSelector((state: FormState) => state.authForm.email);
   const formPassword = useSelector(
@@ -26,48 +27,49 @@ const Login = () => {
 
   const [loginUser, setLoginUser] = React.useState<any>();
 
-  const { successMsg } = toastItem();
-
+  const { successMsg, errorMsg } = toastItem();
   const handleLogin = () => {
-    axios
-      .post("/auth/login", {
-        email: formEmail,
-        password: formPassword,
-      })
-      .then((response) => {
-        axios.get("/user").then((response) => {
-          setLoginUser(response.data);
-          document.cookie = `id=${response.data.id}`;
-        });
+    if (formEmail.length > 1 && formPassword.length > 1) {
+      axios
+        .post("/auth/login", {
+          email: formEmail,
+          password: formPassword,
+        })
+        .then((response) => {
+          axios.get("/user").then((response) => {
+            setLoginUser(response.data);
+            document.cookie = `id=${response.data.id}`;
+          });
 
-        successMsg("ログインしました");
-        navigate("/home");
-      })
-      .catch((error) => {
-        console.log(error);
-        alert("ログインに失敗しました");
-      });
+          successMsg("ログインしました");
+          navigate("/home");
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.response && error.response.status === 400) {
+            errorMsg("メールアドレスまたはパスワードが間違っています");
+          }
+        });
+    }
   };
 
   const handleLogout = () => {
     axios.post("/auth/logout", {});
     alert("ログアウト");
     document.cookie = "id=; max-age=0";
-    // localStorage.setItem("token","")
   };
+
+  // const { successMsg, errorMsg } = toastItem();
   return (
     <>
       <DefaultLayout>
         <EmailInput />
         <PasswordInput />
+
         <PrimaryButton
           children={"ログインする"}
           onClick={() => handleLogin()}
         />
-        {/* <PrimaryButton
-          children={"ログアウトする"}
-          onClick={() => handleLogout()}
-        /> */}
         <p>アカウントを持っていませんか？</p>
         <div className={LoginStyle.linkCenter}>
           <Link to="/" className={LoginStyle.txtOrange}>
