@@ -101,25 +101,29 @@ const ReportAll = () => {
         <div>
           {selectedCategoryGroup?.map((data: any, index) => {
             return (
-              <>
+              <React.Fragment key={data.categoryId}>
                 <Link
                   to={String(data.categoryId)}
                   className={reportPostStyle.arrow}
                 >
                   <table>
-                    <tr>
-                      <th className={reportPostStyle.textLeft}>{data.name}</th>
-                      <th> {data.subtotal}円</th>
-                      <th className={reportPostStyle.smallFont}>
-                        {((data.subtotal / total) * 100).toFixed(1)}%
-                      </th>
-                      <th>
-                        <ArrowForwardIosIcon />
-                      </th>
-                    </tr>
+                    <tbody>
+                      <tr>
+                        <th className={reportPostStyle.textLeft}>
+                          {data.name}
+                        </th>
+                        <th> {data.subtotal}円</th>
+                        <th className={reportPostStyle.smallFont}>
+                          {((data.subtotal / total) * 100).toFixed(1)}%
+                        </th>
+                        <th>
+                          <ArrowForwardIosIcon />
+                        </th>
+                      </tr>
+                    </tbody>
                   </table>
                 </Link>
-              </>
+              </React.Fragment>
             );
           })}
         </div>
