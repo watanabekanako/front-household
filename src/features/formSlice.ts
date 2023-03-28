@@ -6,6 +6,7 @@ export const formSlice = createSlice({
     email: "",
     password: "",
     error: false,
+    confirmPassword: "",
   },
   reducers: {
     addEmail: (state, action) => {
@@ -15,7 +16,7 @@ export const formSlice = createSlice({
       state.password = action.payload;
     },
     addConfirmPassword: (state, action) => {
-      state.password = action.payload;
+      state.confirmPassword = action.payload;
     },
     // clearForm:(state)=>{
     //     state.email="",

@@ -1,7 +1,7 @@
 import React from "react";
 import FormStyle from "../../styles/form/formStyle.module.scss";
 import { useDispatch } from "react-redux";
-import { addPassword } from "../../features/formSlice";
+import { addConfirmPassword } from "../../features/formSlice";
 import { useState } from "react";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 const ConfirmPasswordInput = () => {
@@ -17,8 +17,8 @@ const ConfirmPasswordInput = () => {
         <input
           type={passwordShown ? "text" : "password"}
           placeholder="パスワードを入力してください"
-          id="password"
-          onChange={(e: any) => dispatch(addPassword(e.target.value))}
+          id="confirmPassword"
+          onChange={(e: any) => dispatch(addConfirmPassword(e.target.value))}
         />
         <span
           onClick={togglePassword}
