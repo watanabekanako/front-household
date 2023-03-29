@@ -9,6 +9,7 @@ import PieGraph from "../components/chart/pieGraph";
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { categoryDate } from "../CategoryDate";
 const ReportAll = () => {
   // ログイン中のユーザーidを取得
   const id = Cookies.get("id");
@@ -56,6 +57,7 @@ const ReportAll = () => {
             categoryId: cur.categoryId,
             subtotal: cur.price,
             name: cur.category.name,
+            color: cur.category.color,
           },
         ];
       }
@@ -64,13 +66,13 @@ const ReportAll = () => {
     []
   );
   console.log("selectedCategoryGroup", selectedCategoryGroup);
-
   useEffect(() => {
     axios.get(`/post/${id}`).then((response) => {
       setPostAll(response.data);
     });
   }, []);
   const navigate = useNavigate();
+
   return (
     <DefaultLayout>
       <div className={reportPostStyle.container}>
