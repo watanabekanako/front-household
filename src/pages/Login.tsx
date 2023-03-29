@@ -25,9 +25,14 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [loginUser, setLoginUser] = React.useState<any>();
+  const [loginUser, setLoginUser] = React.useState<{
+    email: string;
+    password: string;
+  }>();
 
+  // エラーメッセージ
   const { successMsg, errorMsg } = toastItem();
+  const [error, setError] = React.useState<string>();
   const handleLogin = () => {
     if (formEmail.length > 1 && formPassword.length > 1) {
       axios
@@ -46,9 +51,10 @@ const Login = () => {
         })
         .catch((error) => {
           console.log(error);
-          if (error.response && error.response.status === 400) {
-            errorMsg("メールアドレスまたはパスワードが間違っています");
-          }
+          // if (error.response && error.response.status === 400) {
+          //   errorMsg("メールアドレスまたはパスワードが間違っています");
+          // }
+          setError(error.response.data.message);
         });
     }
   };
@@ -65,7 +71,7 @@ const Login = () => {
       <DefaultLayout>
         <EmailInput />
         <PasswordInput />
-
+        {error}
         <PrimaryButton
           children={"ログインする"}
           onClick={() => handleLogin()}
