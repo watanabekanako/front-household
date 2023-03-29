@@ -26,7 +26,7 @@ const ReportAll = () => {
   console.log(selectedDate, "selectedDate");
 
   const filterDate = postAll?.filter(
-    (post) => post.updatedAt.slice(0, 7) === selectedDate
+    (post) => post.createdAt.slice(0, 7) === selectedDate
   );
 
   const total = filterDate?.reduce((sum, post) => sum + post.price, 0);
