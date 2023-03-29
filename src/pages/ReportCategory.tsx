@@ -34,16 +34,13 @@ const ReportCategory = () => {
 
   //　 /report での選択した年月の文字列取得
   const location = useLocation();
-  const [selectedDate, setSelectedDate] = useState<{
-    selectedCategory: string;
-  }>(location.state as { selectedCategory: string });
+  const [selectedDate, setSelectedDate] = useState<String>(location.state);
   console.log(selectedDate, "location");
 
-  // /report で選択肢した文字列ex.202303 　と一致するpostへ
+  // /report で選択した文字列ex.202303 　と一致するpostへ
   const filterDate = filterCategory?.filter(
-    (post) => post.updatedAt.slice(0, 7) === selectedDate
+    (post) => post.createdAt.slice(0, 7) === selectedDate
   );
-  console.log(filterDate, 189);
 
   return (
     <DefaultLayout>
@@ -64,7 +61,7 @@ const ReportCategory = () => {
                     <tr>
                       <th className={reportCategoryStyle.date}>
                         {/* momentでの日付変換(data-fnsではinvalid valueとなる) */}
-                        {moment(data.updatedAt).format("YYYY年MM月DD日")}
+                        {moment(data.createdAt).format("YYYY年MM月DD日")}
                       </th>
                       <th className={reportCategoryStyle.date}></th>
                       <th className={reportCategoryStyle.date}></th>

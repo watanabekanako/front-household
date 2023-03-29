@@ -51,9 +51,9 @@ const Login = () => {
         })
         .catch((error) => {
           console.log(error);
-          // if (error.response && error.response.status === 400) {
-          //   errorMsg("メールアドレスまたはパスワードが間違っています");
-          // }
+          if (error.response && error.response.status === 400) {
+            errorMsg("メールアドレスまたはパスワードが間違っています");
+          }
           setError(error.response.data.message);
         });
     }

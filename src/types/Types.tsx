@@ -28,7 +28,7 @@ export type PostAll = {
   content: string;
   createdAt: string;
   price: number;
-  updatedAt: any;
+  updatedAt: string;
 };
 
 export type categoryGroup = {
