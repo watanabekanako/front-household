@@ -87,21 +87,6 @@ const Register = () => {
     }
   };
 
-  const post = {
-    id: 9,
-    content: "テスト",
-    authorId: 1,
-    categoryId: 9,
-    category: { id: 9, name: "教育費" },
-    createdAt: "2023-03-11T00:00:00.000Z",
-    updatedAt: "2023-03-10T04:57:25.755Z",
-    price: 1500,
-  };
-
-  const clickNavi = () => {
-    navigate("/edit/9", { state: post });
-  };
-
   return (
     <>
       <DefaultLayout>
@@ -124,7 +109,6 @@ const Register = () => {
             ログインする
           </Link>
         </div>
-        <button onClick={clickNavi}>移動</button>
       </DefaultLayout>
     </>
   );

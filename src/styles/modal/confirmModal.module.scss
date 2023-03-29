@@ -4,10 +4,11 @@
     display: flex;
     justify-content: space-around;
     button {
-      background-color: beige;
+      background-color: #f2e9da;
       border-radius: 60%;
       padding: 10px 20px;
       margin: 10px;
+      transition: all 0.3s;
     }
     button:hover {
       opacity: 0.7;

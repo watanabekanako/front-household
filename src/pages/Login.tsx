@@ -59,13 +59,6 @@ const Login = () => {
     }
   };
 
-  const handleLogout = () => {
-    axios.post("/auth/logout", {});
-    alert("ログアウト");
-    document.cookie = "id=; max-age=0";
-  };
-
-  // const { successMsg, errorMsg } = toastItem();
   return (
     <>
       <DefaultLayout>

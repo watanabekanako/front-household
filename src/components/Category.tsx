@@ -10,10 +10,9 @@ import CategoryStyle from "../styles/category/category.module.scss";
 import { useDispatch } from "react-redux";
 import { categoryId } from "../features/postSlice";
 import { useLocation } from "react-router-dom";
-import { CategoryData, PostState } from "../types/Types";
+import { CategoryData } from "../types/Types";
 
-const Category = forwardRef((props: any, ref) => {
-  // const { state } = props;
+const Category = forwardRef((props, ref) => {
   const { state } = useLocation();
   const location = useLocation();
   const currentLocation = location.pathname;
@@ -22,9 +21,7 @@ const Category = forwardRef((props: any, ref) => {
 
   //編集画面の場合のみ初期値をいれる
   const [postedCategory, setpostedCategory] = useState(
-    currentLocation.startsWith("/edit")
-      ? categoryState?.category.name
-      : "食　費"
+    !currentLocation.startsWith("/home") ? categoryState?.category.name : "食費"
   );
 
   //カテゴリー名一致
@@ -32,12 +29,12 @@ const Category = forwardRef((props: any, ref) => {
     (item) => postedCategory === item.name
   );
 
-  //一瞬だけreduxに入るが初期値に戻る動きの解消
+  //一瞬だけreduxに入るが初期値に戻る動きの解消（reduxにcategoryIdをいれる）
   useEffect(() => {
     if (postedCategory === categoryState?.category.name) {
-      dispatch(categoryId(initialCategoryDate[0].categoryId));
+      dispatch(categoryId(initialCategoryDate[0]?.categoryId));
     } else {
-      dispatch(categoryId(4));
+      dispatch(categoryId(1));
     }
   }, []);
 
