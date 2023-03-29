@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { addPassword } from "../../features/formSlice";
 import { useState } from "react";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-const confirmPasswordInput = () => {
+const ConfirmPasswordInput = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const dispatch = useDispatch();
   const [isRevealPassword, setIsRevealPassword] = useState(false);
@@ -36,4 +36,4 @@ const confirmPasswordInput = () => {
   );
 };
 
-export default confirmPasswordInput;
+export default ConfirmPasswordInput;

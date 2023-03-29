@@ -26,6 +26,7 @@ $breakpoints: (
     font-weight: bold;
     @include mq(sp) {
       font-size: 16px;
+      margin: 10px;
     }
   }
   label {
@@ -41,20 +42,25 @@ $breakpoints: (
       display: inline-block;
       width: 120px;
       height: 120px;
-      background-image: "../../pages/Home.tsx";
       border-radius: 5px;
       @include mq(tab) {
+        width: 90px;
+        height: 90px;
+        font-size: 12px;
+      }
+      @include mq(sp) {
         width: 70px;
         height: 70px;
+        margin: 5px;
       }
     }
     svg {
-      width: 65%;
-      height: 65%;
+      width: 75%;
+      height: 75%;
     }
   }
 }
 
 label input:checked + span {
-  border: 2px solid #8b0000;
+  border: 3px solid #8b0000;
 }

@@ -49,12 +49,6 @@ const Login = () => {
       });
   };
 
-  const handleLogout = () => {
-    axios.post("/auth/logout", {});
-    alert("ログアウト");
-    document.cookie = "id=; max-age=0";
-    // localStorage.setItem("token","")
-  };
   return (
     <>
       <DefaultLayout>

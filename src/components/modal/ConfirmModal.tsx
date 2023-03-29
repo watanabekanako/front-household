@@ -28,7 +28,7 @@ const ConfirmModal = (props: ModalState) => {
     <Container maxWidth="sm">
       <Modal isOpen={editModalIsOpen} style={customStyles}>
         <div className={ConfirmModalStyle.modalContainer}>
-          <p>{children}しますか</p>
+          <p>{children}しますか？</p>
           <ul>
             <li>
               <button onClick={onClick}>はい</button>

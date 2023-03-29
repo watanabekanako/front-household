@@ -20,8 +20,8 @@ const Navigation = () => {
     setEditModalIsOpen(true);
   };
 
-  const logout = () => {
-    axios.post("/auth/logout", {});
+  const logout = async () => {
+    await axios.post("/auth/logout", {});
     document.cookie = `id=${userId}; max-age=0`;
     setEditModalIsOpen(false);
     navigate("/login");
@@ -32,7 +32,8 @@ const Navigation = () => {
       <div>
         <nav className={NaviStyles.naviContainer}>
           <Link to="/home">
-            <h1>家計簿</h1>
+            {/* <h1>家計簿</h1> */}
+            <img src={`${process.env.PUBLIC_URL}/logo2.png`} alt="Logo" />
           </Link>
           <ul className={NaviStyles.naviList}>
             <li>

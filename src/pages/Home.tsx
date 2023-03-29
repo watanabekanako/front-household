@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useRef } from "react";
+import { useSelector } from "react-redux";
 import Category from "../components/Category";
 import HomeStyle from "../styles/pages/Home.module.scss";
 import ReportForm from "../components/form/reportForm";
@@ -9,7 +9,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import toastItem from "../components/modal/Toast";
 import { RootState } from "../types/Types";
-import { alertMsg } from "../features/postSlice";
 
 const Home: React.FC = () => {
   const reportDate = useSelector((state: RootState) => state.posts.date);
@@ -21,8 +20,6 @@ const Home: React.FC = () => {
 
   const userId = Cookies.get("id");
 
-  console.log(reportCategory, 80);
-
   const reportDateTime = new Date(reportDate);
   const updateDate = new Date();
 
@@ -30,7 +27,6 @@ const Home: React.FC = () => {
   const categoryRef = useRef<HTMLFormElement>(null);
 
   const { successMsg, errorMsg } = toastItem();
-  const dispatch = useDispatch();
 
   const clickPost = async () => {
     const newPost = {
@@ -41,16 +37,9 @@ const Home: React.FC = () => {
       updatedAt: updateDate,
       price: reportPrice,
     };
-    if (reportDate === "") {
-      // dispatch(alertMsg());
-      // errorMsg("日にちを入力してください");
-    }
     if (reportPrice === 0) {
       errorMsg("金額を0円以上入力してください");
     }
-    // if (reportCategory === 0) {
-    //   errorMsg("カテゴリーを選択してください");
-    // }
     await axios.post("/post", newPost);
     successMsg("レポートを登録しました");
     if (inputFormRef.current !== null || categoryRef.current !== null) {
