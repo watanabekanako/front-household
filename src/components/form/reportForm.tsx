@@ -8,18 +8,13 @@ import React, {
 import reportPostStyle from "../../styles/reportPost/reportPost.module.scss";
 import { inputDate, inputPrice, inputMemo } from "../../features/postSlice";
 import { useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-import { ArrowLeft } from "phosphor-react";
+import { useLocation } from "react-router-dom";
 import moment from "moment";
 
 const ReportForm = forwardRef((props, ref) => {
   const location = useLocation();
   const currentLocation = location.pathname;
   const dispatch = useDispatch();
-
-  // const reportAlert = useSelector((state: RootState) => state.posts.alert);
-
-  console.log(props, 81);
 
   //詳細ページからのデータ受け取り
   const { state } = useLocation();
@@ -29,13 +24,13 @@ const ReportForm = forwardRef((props, ref) => {
   const todayDate = new Date();
 
   //パスによって初期値変更
-  const [memo, setMemo] = useState(
+  const [memo, setMemo] = useState<string>(
     currentLocation.startsWith("/edit") ? postState?.content : ""
   );
   const [price, setPrice] = useState(
     currentLocation.startsWith("/edit") ? postState?.price : 0
   );
-  const [date, setDate] = useState(
+  const [date, setDate] = useState<string>(
     currentLocation.startsWith("/edit")
       ? postDate
       : moment(todayDate).format("YYYY-MM-DD")
@@ -67,6 +62,7 @@ const ReportForm = forwardRef((props, ref) => {
     }
   };
 
+  //e.target.valueAsNumber
   const handleExpence = (e: ChangeEvent<HTMLInputElement>) => {
     setPrice(e.target.value);
     if (e.target.value !== postState?.price) {
@@ -97,15 +93,6 @@ const ReportForm = forwardRef((props, ref) => {
 
   return (
     <div className={reportPostStyle.container}>
-      {currentLocation.startsWith("/edit") ? (
-        <div className={reportPostStyle.returnIcon}>
-          <Link to={`/report/${postState.category.id}`}>
-            <ArrowLeft />
-          </Link>
-        </div>
-      ) : (
-        ""
-      )}
       <form>
         <div className={reportPostStyle.postList}>
           <label htmlFor="date">日付</label>

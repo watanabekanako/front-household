@@ -43,6 +43,7 @@ const ReportCategory = () => {
   const filterDate = filterCategory?.filter(
     (post) => post.updatedAt.slice(0, 7) === selectedDate
   );
+  console.log(filterDate, 189);
 
   return (
     <DefaultLayout>
