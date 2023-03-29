@@ -41,7 +41,7 @@ const ReportCategory = () => {
   const filterDate = filterCategory?.filter(
     (post) => post.createdAt.slice(0, 7) === selectedDate
   );
-  console.log(filterDate, "filterDate");
+
   return (
     <DefaultLayout>
       <div className={reportCategoryStyle.container}>

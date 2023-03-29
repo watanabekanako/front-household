@@ -22,12 +22,9 @@ export const postSlice = createSlice({
     categoryId: (state, action: PayloadAction<number>) => {
       state.category = action.payload;
     },
-    alertMsg: (state) => {
-      state.alert = !state.alert;
-    },
   },
 });
 
-export const { inputDate, inputPrice, inputMemo, categoryId, alertMsg } =
+export const { inputDate, inputPrice, inputMemo, categoryId } =
   postSlice.actions;
 export default postSlice.reducer;

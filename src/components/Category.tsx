@@ -10,17 +10,17 @@ import CategoryStyle from "../styles/category/category.module.scss";
 import { useDispatch } from "react-redux";
 import { categoryId } from "../features/postSlice";
 import { useLocation } from "react-router-dom";
-import { CategoryData } from "../types/Types";
+import { CategoryData, PostState } from "../types/Types";
 
 const Category = forwardRef((props, ref) => {
   const { state } = useLocation();
   const location = useLocation();
   const currentLocation = location.pathname;
-  const categoryState = state;
+  const categoryState: PostState = state;
   const dispatch = useDispatch();
 
   //編集画面の場合のみ初期値をいれる
-  const [postedCategory, setpostedCategory] = useState(
+  const [postedCategory, setpostedCategory] = useState<string>(
     !currentLocation.startsWith("/home") ? categoryState?.category.name : "食費"
   );
 

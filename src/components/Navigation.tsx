@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import toastItem from "./modal/Toast";
 
 const Navigation = () => {
-  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
   const cookie = document.cookie;
   const navigate = useNavigate();
 
@@ -29,8 +29,8 @@ const Navigation = () => {
   };
   return (
     <>
-      <div>
-        <nav className={NaviStyles.naviContainer}>
+      <div className={NaviStyles.naviContainer}>
+        <nav>
           <Link to="/home">
             {/* <h1>家計簿</h1> */}
             <img src={`${process.env.PUBLIC_URL}/logo2.png`} alt="Logo" />
