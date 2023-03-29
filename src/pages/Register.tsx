@@ -19,27 +19,71 @@ const Register = () => {
   const formPassword = useSelector(
     (state: FormState) => state.authForm.password
   );
+  const formConfirmPassword = useSelector(
+    (state: FormState) => state.authForm.confirmPassword
+  );
   const formError = useSelector((state: FormState) => state.authForm.error);
   console.log("formEmail", formEmail);
   console.log("formPassword", formPassword);
   console.log("formError", formError);
   const dispatch = useDispatch();
+  const [alertEmailMessage, setAlertEmailMessage] =
+    React.useState<boolean>(false);
+  const [alertPasswordMessage, setAlertPasswordMessage] =
+    React.useState<boolean>(false);
+  const [alertConfirmPass, setAlertConfirmPass] =
+    React.useState<boolean>(false);
+  const [alertExitEmail, setAlertExitEmail] = React.useState<boolean>(false);
+  const [error, setError] = React.useState("");
+  // const handleClick = () => {
+  //   if (formEmail.length > 1 && formPassword.length > 1) {
+  //     try {
+  //       axios.post("http://localhost:3005/auth/signup", {
+  //         email: formEmail,
+  //         password: formPassword,
+  //       });
+  //       navigate("/login");
+  //     } catch (error) {
+  //       if (error) console.log("ユーザー登録失敗しました");
+  //     }
+  //   }
+  //   navigate("/login");
+  // };
 
-  const handleClick = () => {
-    // if(formEmail.length< 1){
-    //   alert("アドレスを入力してください")
-    // }else if(formPassword.length<1){
-    //   alert("パスワードを入力してください")
+  const handleClick = async () => {
+    // if (formEmail.length < 1) {
+    //   setAlertEmailMessage(true);
+    //   // 確認用パスワードとの一致の確認
+    // if (formPassword !== formConfirmPassword) {
+    //   setAlertConfirmPass(true);
     // }
-    try {
-      axios.post("http://localhost:3005/auth/signup", {
-        email: formEmail,
-        password: formPassword,
-      });
-      alert("完了");
-      navigate("/login");
-    } catch (error) {
-      console.log("ユーザー登録失敗しました");
+    // } else {
+    // }
+    if (formEmail.length < 1) {
+      setAlertEmailMessage(true);
+      if (formPassword.length < 1) {
+        setAlertEmailMessage(true);
+        if (formPassword !== formConfirmPassword) {
+          setAlertConfirmPass(true);
+        }
+      }
+    } else {
+      try {
+        await axios.post("http://localhost:3005/auth/signup", {
+          email: formEmail,
+          password: formPassword,
+        });
+        navigate("/login");
+      } catch (error: any) {
+        // if (
+        //   error.response &&
+        //   error.response.status === 500 &&
+        //   error.response.message
+        // ) {
+        //   console.log(error.response.message, "message");
+        // }
+        setError(error.response.data.message);
+      }
     }
   };
 
@@ -47,8 +91,17 @@ const Register = () => {
     <>
       <DefaultLayout>
         <EmailInput />
+        {alertEmailMessage ? <p>メールアドレスを入力してください</p> : ""}
+        {alertExitEmail ? <p>すでに登録されているメールアドレスです</p> : ""}
         <PasswordInput />
+        {alertPasswordMessage ? (
+          <p>パスワードを入力してくださいを入力してください</p>
+        ) : (
+          ""
+        )}
+        {error}
         <ConfirmPasswordInput />
+        {alertConfirmPass ? <p>パスワードが一致していません</p> : ""}
         <PrimaryButton children={"登録"} onClick={() => handleClick()} />
         <p>アカウントをお持ちですか？</p>
         <div className={RegisterStyle.linkCenter}>
