@@ -1,10 +1,10 @@
 import React from "react";
 import FormStyle from "../../styles/form/formStyle.module.scss";
 import { useDispatch } from "react-redux";
-import { addPassword } from "../../features/formSlice";
+import { addConfirmPassword } from "../../features/formSlice";
 import { useState } from "react";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-const confirmPasswordInput = () => {
+const ConfirmPasswordInput = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const dispatch = useDispatch();
   const [isRevealPassword, setIsRevealPassword] = useState(false);
@@ -16,9 +16,9 @@ const confirmPasswordInput = () => {
       <div className={FormStyle.inputMain}>
         <input
           type={passwordShown ? "text" : "password"}
-          placeholder="パスワードを入力してください"
-          id="password"
-          onChange={(e: any) => dispatch(addPassword(e.target.value))}
+          placeholder="確認用パスワードを入力してください"
+          id="confirmPassword"
+          onChange={(e: any) => dispatch(addConfirmPassword(e.target.value))}
         />
         <span
           onClick={togglePassword}
@@ -36,4 +36,4 @@ const confirmPasswordInput = () => {
   );
 };
 
-export default confirmPasswordInput;
+export default ConfirmPasswordInput;

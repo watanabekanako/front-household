@@ -26,7 +26,7 @@ const ReportAll = () => {
   console.log(selectedDate, "selectedDate");
 
   const filterDate = postAll?.filter(
-    (post) => post.updatedAt.slice(0, 7) === selectedDate
+    (post) => post.createdAt.slice(0, 7) === selectedDate
   );
 
   const total = filterDate?.reduce((sum, post) => sum + post.price, 0);
@@ -70,7 +70,7 @@ const ReportAll = () => {
       setPostAll(response.data);
     });
   }, []);
-
+  const navigate = useNavigate();
   return (
     <DefaultLayout>
       <div className={reportPostStyle.container}>
@@ -101,25 +101,39 @@ const ReportAll = () => {
         <div>
           {selectedCategoryGroup?.map((data: any, index) => {
             return (
-              <>
-                <Link
+              <React.Fragment key={data.categoryId}>
+                {/* <Link
                   to={String(data.categoryId)}
                   className={reportPostStyle.arrow}
+                > */}
+                <button
+                  className={reportPostStyle.block}
+                  onClick={() =>
+                    navigate(`/report/${data.categoryId}`, {
+                      state: selectedDate,
+                    })
+                  }
                 >
                   <table>
-                    <tr>
-                      <th className={reportPostStyle.textLeft}>{data.name}</th>
-                      <th> {data.subtotal}円</th>
-                      <th className={reportPostStyle.smallFont}>
-                        {((data.subtotal / total) * 100).toFixed(1)}%
-                      </th>
-                      <th>
-                        <ArrowForwardIosIcon />
-                      </th>
-                    </tr>
+                    <tbody>
+                      <tr>
+                        <th className={reportPostStyle.textLeft}>
+                          {data.name}
+                        </th>
+                        <th className={reportPostStyle.subtotal}>
+                          {data.subtotal}円
+                        </th>
+                        <th className={reportPostStyle.smallFont}>
+                          {((data.subtotal / total) * 100).toFixed(1)}%
+                        </th>
+                        <th>
+                          <ArrowForwardIosIcon />
+                        </th>
+                      </tr>
+                    </tbody>
                   </table>
-                </Link>
-              </>
+                </button>
+              </React.Fragment>
             );
           })}
         </div>
