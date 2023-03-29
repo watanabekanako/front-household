@@ -16,7 +16,7 @@ const ConfirmPasswordInput = () => {
       <div className={FormStyle.inputMain}>
         <input
           type={passwordShown ? "text" : "password"}
-          placeholder="パスワードを入力してください"
+          placeholder="確認用パスワードを入力してください"
           id="confirmPassword"
           onChange={(e: any) => dispatch(addConfirmPassword(e.target.value))}
         />
