@@ -13,41 +13,16 @@ const PieGraph: React.FC<any> = ({ selectedCategoryGroup, name }) => {
   const newName = selectedCategoryGroup?.map(
     (data: { name: string }) => data.name
   );
-  console.log();
+
+  const pieColor = selectedCategoryGroup.map((data: any) => data.color);
+  console.log(pieColor, "color");
   const data = {
     labels: newName,
     datasets: [
       {
-        // label: "# of Votes",
         data: newSubtotal,
-        backgroundColor: [
-          "#FF773E",
-          "#663399",
-          "#5D99FF",
-          "#333333",
-          "#FF5192",
-          "#2E8B57",
-          "#87CEFA",
-          "#FFCC99",
-          "#005500",
-          "#FA8072",
-          "#CD853F",
-          "#696969",
-        ],
-        borderColor: [
-          "#FF773E",
-          "#663399",
-          "#5D99FF",
-          "#333333",
-          "#FF5192",
-          "#2E8B57",
-          "#87CEFA",
-          "#FFCC99",
-          "#005500",
-          "#FA8072",
-          "#CD853F",
-          "#696969",
-        ],
+        backgroundColor: pieColor,
+        borderColor: pieColor,
         borderWidth: 2,
       },
     ],
