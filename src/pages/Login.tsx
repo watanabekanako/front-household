@@ -62,7 +62,7 @@ const Login = () => {
   return (
     <>
       <DefaultLayout>
-        <EmailInput />
+        <EmailInput userEmail="" />
         <PasswordInput />
         {error}
         <PrimaryButton

@@ -14,7 +14,7 @@ import { RootState } from "../types/Types";
 import Cookies from "js-cookie";
 
 const ReportEdit: React.FC = () => {
-  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
 
   const reportDate = useSelector((state: RootState) => state.posts.date);
   const reportPrice = useSelector((state: RootState) => state.posts.expence);

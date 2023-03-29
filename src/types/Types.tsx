@@ -11,15 +11,13 @@ export type FormState = {
 };
 
 export type PostState = {
-  state: {
-    authorId: number;
-    category: { id: number; name: string };
-    categoryId: number;
-    content: string;
-    createdAt: string;
-    price: number;
-    updatedAt: string;
-  };
+  authorId: number;
+  category: { id: number; name: string };
+  categoryId: number;
+  content: string;
+  createdAt: string;
+  price: number;
+  updatedAt: string;
 };
 
 export type PostAll = {
@@ -53,4 +51,11 @@ export type ModalState = {
   setEditModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onClick: () => void;
   children: string;
+};
+
+export type UserData = {
+  email: string;
+  id: number;
+  password: string;
+  posts: PostState[];
 };

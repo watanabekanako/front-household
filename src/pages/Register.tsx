@@ -90,7 +90,7 @@ const Register = () => {
   return (
     <>
       <DefaultLayout>
-        <EmailInput />
+        <EmailInput userEmail="" />
         {alertEmailMessage ? <p>メールアドレスを入力してください</p> : ""}
         {alertExitEmail ? <p>すでに登録されているメールアドレスです</p> : ""}
         <PasswordInput />

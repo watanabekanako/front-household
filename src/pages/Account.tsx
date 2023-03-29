@@ -1,34 +1,55 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DefaultLayout from "../components/layout/defaultLayout";
 import PrimaryButton from "../components/button/PrimaryButton";
-import RegisterStyle from "../styles/pages/register.module.scss";
 import PasswordInput from "../components/form/passwordInput";
 import EmailInput from "../components/form/emailInput";
-import ConfirmPasswordInput from "../components/form/confirmPasswordInput";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
-import { FormState } from "../types/Types";
+import { RootState, UserData } from "../types/Types";
+import Cookies from "js-cookie";
+import toastItem from "../components/modal/Toast";
 const Account = () => {
-  const handleClick = () => {
-    // patch http://localhost:3005/user/120
+  const userNewEmail = useSelector((state: RootState) => state.authForm.email);
+  const userNewPass = useSelector(
+    (state: RootState) => state.authForm.password
+  );
+
+  const [userData, setUserData] = useState<UserData>();
+  const userId = Cookies.get("id");
+  const passwordRef = useRef<HTMLFormElement>(null);
+
+  const { successMsg } = toastItem();
+
+  useEffect(() => {
+    const getUser = async () => {
+      const response = await axios.get(`/user/${userId}`);
+      setUserData(response.data);
+    };
+    getUser();
+  }, []);
+
+  const handleClick = async () => {
+    const newUserItem = {
+      email: userNewEmail,
+      password: userNewPass,
+    };
+    await axios.patch(`/user/${userId}`, newUserItem);
+    successMsg("アカウント情報を更新しました");
+    if (passwordRef.current !== null) {
+      passwordRef.current?.clearPass();
+    }
   };
   return (
     <>
-      <>
-        <DefaultLayout>
-          <h1>My Page</h1>
-          <EmailInput />
-          <PasswordInput />
-          <ConfirmPasswordInput />
+      <DefaultLayout>
+        <div>
+          <p>メールアドレスの変更</p>
+          <EmailInput userEmail={userData?.email ? userData.email : ""} />
+          <p>パスワードの変更</p>
+          <PasswordInput ref={passwordRef} />
           <PrimaryButton children={"登録"} onClick={() => handleClick()} />
-          <div className={RegisterStyle.linkCenter}>
-            <Link to="/report" className={RegisterStyle.txtOrange}>
-              レポートページへ戻る
-            </Link>
-          </div>
-        </DefaultLayout>
-      </>
+        </div>
+      </DefaultLayout>
     </>
   );
 };
