@@ -8,6 +8,8 @@ import moment from "moment";
 import { PostAll } from "../types/Types";
 import { useNavigate } from "react-router-dom";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import PaginatedItems from "../components/PaginatedItems";
+
 const ReportCategory = () => {
   // ログイン中のユーザーidを取得
   const id = Cookies.get("id");
@@ -82,6 +84,7 @@ const ReportCategory = () => {
             </React.Fragment>
           );
         })}
+        <PaginatedItems filterDate={filterDate} itemsPerPage={4} />
       </div>
     </DefaultLayout>
   );
