@@ -60,10 +60,12 @@ $breakpoints: (
       width: 100%;
       height: 70%;
       transition: all 0.3s;
+      background-color: pink;
     }
     p {
       margin: 0;
       transition: all 0.3s;
+      background-color: red;
       @include mq(sp) {
         width: 50px;
       }

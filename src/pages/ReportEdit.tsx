@@ -17,7 +17,7 @@ const ReportEdit: React.FC = () => {
   const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
 
   const reportDate = useSelector((state: RootState) => state.posts.date);
-  const reportPrice = useSelector((state: RootState) => state.posts.expence);
+  const reportExpence = useSelector((state: RootState) => state.posts.price);
   const reportMemo = useSelector((state: RootState) => state.posts.memo);
   const reportCategory = useSelector(
     (state: RootState) => state.posts.category
@@ -39,9 +39,9 @@ const ReportEdit: React.FC = () => {
       categoryId: reportCategory,
       createdAt: reportDateTime,
       updatedAt: updateDate,
-      price: reportPrice,
+      expence: reportExpence,
     };
-    if (reportPrice === 0) {
+    if (reportExpence === 0) {
       errorMsg("金額を0円以上入力してください");
     }
     await axios.patch(`/post/${params.id}`, updatePost);

@@ -70,7 +70,7 @@ const ReportCategory = () => {
                       {/* <th>{moment(data.createdAt).format("YYYY年MM月DD日")}</th> */}
                       <th>{data.category?.name}</th>
                       <th className={reportCategoryStyle.smallFont}>
-                        {data.price}円
+                        {data.expence}円
                       </th>
                       <th className={reportCategoryStyle.textRight}>
                         <ArrowForwardIosIcon />

@@ -12,7 +12,7 @@ import { RootState } from "../types/Types";
 
 const Home: React.FC = () => {
   const reportDate = useSelector((state: RootState) => state.posts.date);
-  const reportPrice = useSelector((state: RootState) => state.posts.expence);
+  const reportPrice = useSelector((state: RootState) => state.posts.price);
   const reportMemo = useSelector((state: RootState) => state.posts.memo);
   const reportCategory = useSelector(
     (state: RootState) => state.posts.category
@@ -35,7 +35,8 @@ const Home: React.FC = () => {
       categoryId: reportCategory,
       createdAt: reportDateTime,
       updatedAt: updateDate,
-      price: reportPrice,
+      expence: reportPrice,
+      income: reportPrice,
     };
     if (reportPrice === 0) {
       errorMsg("金額を0円以上入力してください");

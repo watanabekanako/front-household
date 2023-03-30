@@ -28,7 +28,7 @@ const ReportForm = forwardRef((props, ref) => {
     currentLocation.startsWith("/edit") ? postState?.content : ""
   );
   const [price, setPrice] = useState(
-    currentLocation.startsWith("/edit") ? postState?.price : 0
+    currentLocation.startsWith("/edit") ? postState?.expence : 0
   );
   const [date, setDate] = useState<string>(
     currentLocation.startsWith("/edit")
@@ -43,8 +43,8 @@ const ReportForm = forwardRef((props, ref) => {
     } else {
       dispatch(inputMemo(memo));
     }
-    if (price === postState?.price) {
-      dispatch(inputPrice(postState?.price));
+    if (price === postState?.expence) {
+      dispatch(inputPrice(postState?.expence));
     } else {
       dispatch(inputPrice(price));
     }
@@ -65,7 +65,7 @@ const ReportForm = forwardRef((props, ref) => {
   //e.target.valueAsNumber
   const handleExpence = (e: ChangeEvent<HTMLInputElement>) => {
     setPrice(e.target.value);
-    if (e.target.value !== postState?.price) {
+    if (e.target.value !== postState?.expence) {
       dispatch(inputPrice(Number(e.target.value)));
     }
   };
@@ -81,11 +81,10 @@ const ReportForm = forwardRef((props, ref) => {
     clearForm: () => {
       setMemo("");
       setPrice(0);
-      setDate("");
     },
   }));
 
-  const clearInitialPrice = () => {
+  const clearInitialExpence = () => {
     if (price === 0) {
       setPrice("");
     }
@@ -109,7 +108,7 @@ const ReportForm = forwardRef((props, ref) => {
             id="expence"
             value={price}
             onChange={handleExpence}
-            onClick={clearInitialPrice}
+            onClick={clearInitialExpence}
           />
           円
         </div>
