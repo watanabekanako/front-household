@@ -9,7 +9,11 @@
     background-color: #fff;
   }
 }
-
+.errorMessage {
+  text-align: center;
+  color: red;
+  margin: 16px 0;
+}
 // pc用のスタイル
 @media (min-width: 900px) {
   .inputMain {

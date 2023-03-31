@@ -7,7 +7,6 @@ import { PostAll } from "../types/Types";
 import { categoryGroup } from "../types/Types";
 import PieGraph from "../components/chart/pieGraph";
 import { useNavigate } from "react-router-dom";
-import { BrowserRouter, Route, Link } from "react-router-dom";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { expenceCategoryDate } from "../CategoryDate";
 const ReportAll = () => {
@@ -16,7 +15,6 @@ const ReportAll = () => {
 
   const [postAll, setPostAll] = React.useState<PostAll[]>([]);
   console.log(postAll, "postAll");
-
   // カレンダーによる絞り込み
   //  初期値に現在の年月の設定
   const today = new Date();
@@ -65,7 +63,13 @@ const ReportAll = () => {
     // prevの初期値
     []
   );
+  // subtotalが0円の項目をfilterして非表示へ
+  const filterCategoryGroup = selectedCategoryGroup.filter(
+    (data: any) => data.subtotal > 0
+  );
+
   console.log("selectedCategoryGroup", selectedCategoryGroup);
+
   useEffect(() => {
     axios.get(`/post/${id}`).then((response) => {
       setPostAll(response.data);
@@ -94,20 +98,16 @@ const ReportAll = () => {
         </div>
 
         <div className={reportPostStyle.pie}>
-          {selectedCategoryGroup.length > 0 ? (
+          {filterCategoryGroup.length > 0 ? (
             <PieGraph selectedCategoryGroup={selectedCategoryGroup} />
           ) : (
             <p>まだ指定月のデータはありません</p>
           )}
         </div>
         <div>
-          {selectedCategoryGroup?.map((data: any, index) => {
+          {filterCategoryGroup?.map((data: any, index) => {
             return (
               <React.Fragment key={data.categoryId}>
-                {/* <Link
-                  to={String(data.categoryId)}
-                  className={reportPostStyle.arrow}
-                > */}
                 <button
                   className={reportPostStyle.block}
                   onClick={() =>
@@ -125,7 +125,7 @@ const ReportAll = () => {
                         <th className={reportPostStyle.subtotal}>
                           {data.subtotal}円
                         </th>
-                        <th className={reportPostStyle.smallFont}>
+                        <th className={reportPostStyle.ratio}>
                           {((data.subtotal / total) * 100).toFixed(1)}%
                         </th>
                         <th>
