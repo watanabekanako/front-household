@@ -89,12 +89,12 @@ const ReportCategory = () => {
               );
             })}
         </div>
+        <PaginatedItems
+          filterDate={filterDate}
+          itemsPerPage={4}
+          handlePageChange={handlePageChange}
+        />
       </div>
-      <PaginatedItems
-        filterDate={filterDate}
-        itemsPerPage={4}
-        handlePageChange={handlePageChange}
-      />
     </DefaultLayout>
   );
 };

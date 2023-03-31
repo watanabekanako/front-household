@@ -10,12 +10,8 @@ import axios from "axios";
 import { FormState } from "../types/Types";
 import React, { useEffect, useState } from "react";
 import loginStyle from "../styles/form/formStyle.module.scss";
-import { addEmail, addPassword } from "../features/formSlice";
 const Register = () => {
-  // const [post, setPost] = useState([]);
-
   const navigate = useNavigate();
-
   const formEmail = useSelector((state: FormState) => state.authForm.email);
   const formPassword = useSelector(
     (state: FormState) => state.authForm.password
@@ -23,8 +19,6 @@ const Register = () => {
   const formConfirmPassword = useSelector(
     (state: FormState) => state.authForm.confirmPassword
   );
-  const formError = useSelector((state: FormState) => state.authForm.error);
-
   const dispatch = useDispatch();
   const [alertEmailMessage, setAlertEmailMessage] =
     React.useState<boolean>(false);
@@ -44,24 +38,22 @@ const Register = () => {
     }
     if (formPassword !== formConfirmPassword) {
       setAlertConfirmPass(true);
-    } else if (formEmail.length > 1) {
+    }
+    if (formEmail.length > 1) {
       setAlertEmailMessage(false);
-    } else if (formPassword.length > 1) {
+    }
+    if (formPassword.length > 1) {
       setAlertPasswordMessage(false);
-    } else {
       try {
-        await axios.post("http://localhost:3005/auth/signup", {
+        await axios.post("/auth/signup", {
           email: formEmail,
           password: formPassword,
         });
-        dispatch(addEmail(formEmail));
-        dispatch(addPassword(formPassword));
         navigate("/login");
       } catch (error: any) {
         if (error.response.status === 500 && error.response.message) {
-          console.log(error.response.message, "message");
+          setAlertExitEmail(error.response.data.message);
         }
-        setAlertExitEmail(error.response.data.message);
       }
     }
   };

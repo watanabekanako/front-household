@@ -63,7 +63,13 @@ const ReportAll = () => {
     // prevの初期値
     []
   );
+  // subtotalが0円の項目をfilterして非表示へ
+  const filterCategoryGroup = selectedCategoryGroup.filter(
+    (data: any) => data.subtotal > 0
+  );
+
   console.log("selectedCategoryGroup", selectedCategoryGroup);
+
   useEffect(() => {
     axios.get(`/post/${id}`).then((response) => {
       setPostAll(response.data);
@@ -92,14 +98,14 @@ const ReportAll = () => {
         </div>
 
         <div className={reportPostStyle.pie}>
-          {selectedCategoryGroup.length > 0 ? (
+          {filterCategoryGroup.length > 0 ? (
             <PieGraph selectedCategoryGroup={selectedCategoryGroup} />
           ) : (
             <p>まだ指定月のデータはありません</p>
           )}
         </div>
         <div>
-          {selectedCategoryGroup?.map((data: any, index) => {
+          {filterCategoryGroup?.map((data: any, index) => {
             return (
               <React.Fragment key={data.categoryId}>
                 <button
