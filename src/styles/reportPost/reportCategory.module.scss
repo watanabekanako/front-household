@@ -35,11 +35,12 @@
 }
 
 // ページング
+
 .pagination {
   display: flex;
-  margin: 0 auto;
-  width: 100px;
-
+  margin: 60px auto 20px;
+  // ページング中央寄せ
+  justify-content: center;
   & > li {
     margin: 0 12px;
     & > a {
