@@ -3,12 +3,14 @@ import DefaultLayout from "../components/layout/defaultLayout";
 import PrimaryButton from "../components/button/PrimaryButton";
 import PasswordInput from "../components/form/passwordInput";
 import EmailInput from "../components/form/emailInput";
+import AccountStyle from "../styles/pages/account.module.scss";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { RootState, UserData } from "../types/Types";
 import Cookies from "js-cookie";
 import toastItem from "../components/modal/Toast";
-const Account = () => {
+
+const Account: React.FC = () => {
   const userNewEmail = useSelector((state: RootState) => state.authForm.email);
   const userNewPass = useSelector(
     (state: RootState) => state.authForm.password
@@ -42,10 +44,11 @@ const Account = () => {
   return (
     <>
       <DefaultLayout>
-        <div>
-          <p>メールアドレスの変更</p>
+        <div className={AccountStyle.accountContainer}>
+          <h3>メールアドレスの変更</h3>
           <EmailInput userEmail={userData?.email ? userData.email : ""} />
-          <p>パスワードの変更</p>
+          <h3>パスワードの変更</h3>
+          <p>※セキュリティ保護のため現在のパスワードは非表示</p>
           <PasswordInput ref={passwordRef} />
           <PrimaryButton children={"登録"} onClick={() => handleClick()} />
         </div>

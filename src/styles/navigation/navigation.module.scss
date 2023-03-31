@@ -47,6 +47,9 @@ $breakpoints: (
   display: flex;
   justify-content: right;
   width: 45%;
+  @include mq(tab) {
+    width: 35%;
+  }
   @include mq(sp) {
     margin: 0 auto;
     justify-content: space-around;
@@ -64,6 +67,9 @@ $breakpoints: (
     p {
       margin: 0;
       transition: all 0.3s;
+      @include mq(tab) {
+        width: 55px;
+      }
       @include mq(sp) {
         width: 50px;
       }
@@ -78,6 +84,8 @@ $breakpoints: (
       padding: 0 20px;
       font-size: 10px;
       margin: 0;
+    }
+    @include mq(sp) {
     }
   }
   li:hover {

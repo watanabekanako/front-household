@@ -17,7 +17,7 @@ const ReportEdit: React.FC = () => {
   const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
 
   const reportDate = useSelector((state: RootState) => state.posts.date);
-  const reportPrice = useSelector((state: RootState) => state.posts.expence);
+  const reportPrice = useSelector((state: RootState) => state.posts.price);
   const reportMemo = useSelector((state: RootState) => state.posts.memo);
   const reportCategory = useSelector(
     (state: RootState) => state.posts.category
@@ -39,14 +39,24 @@ const ReportEdit: React.FC = () => {
       categoryId: reportCategory,
       createdAt: reportDateTime,
       updatedAt: updateDate,
-      price: reportPrice,
+      expence: reportPrice,
+      income: reportPrice,
     };
+
+    if (reportCategory < 13) {
+      updatePost.income = 0;
+    }
+    if (reportCategory >= 13) {
+      updatePost.expence = 0;
+    }
+
     if (reportPrice === 0) {
       errorMsg("金額を0円以上入力してください");
+    } else {
+      await axios.patch(`/post/${params.id}`, updatePost);
+      successMsg("レポートを更新しました");
+      navigate("/report");
     }
-    await axios.patch(`/post/${params.id}`, updatePost);
-    successMsg("レポートを更新しました");
-    navigate("/report");
   };
 
   const deletePost = async () => {

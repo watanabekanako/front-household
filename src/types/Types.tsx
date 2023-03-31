@@ -16,7 +16,8 @@ export type PostState = {
   categoryId: number;
   content: string;
   createdAt: string;
-  price: number;
+  expence: number;
+  income: number;
   updatedAt: string;
 };
 
@@ -27,7 +28,8 @@ export type PostAll = {
   categoryId: number;
   content: string;
   createdAt: string;
-  price: number;
+  expence: number;
+  income: number;
   updatedAt: string;
 };
 
@@ -58,4 +60,8 @@ export type UserData = {
   id: number;
   password: string;
   posts: PostState[];
+};
+
+export type EmailInputProps = {
+  userEmail: string;
 };

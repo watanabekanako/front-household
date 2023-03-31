@@ -8,7 +8,7 @@ import { categoryGroup } from "../types/Types";
 import PieGraph from "../components/chart/pieGraph";
 import { useNavigate } from "react-router-dom";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-
+import { expenceCategoryDate } from "../CategoryDate";
 const ReportAll = () => {
   // ログイン中のユーザーidを取得
   const id = Cookies.get("id");
@@ -28,7 +28,7 @@ const ReportAll = () => {
     (post) => post.createdAt.slice(0, 7) === selectedDate
   );
 
-  const total = filterDate?.reduce((sum, post) => sum + post.price, 0);
+  const total = filterDate?.reduce((sum, post) => sum + post.expence, 0);
   console.log(total, "total");
   // 項目ごとの小計
   const selectedCategoryGroup = filterDate?.reduce<categoryGroup[]>(
@@ -45,7 +45,7 @@ const ReportAll = () => {
 
       if (exists) {
         // あるなら単純に足し合わせて返却(existsオブジェクトを書き換える)
-        exists.subtotal += cur.price;
+        exists.subtotal += cur.expence;
         return prev;
       } else {
         // ないなら後ろに追加する
@@ -53,7 +53,7 @@ const ReportAll = () => {
           ...prev,
           {
             categoryId: cur.categoryId,
-            subtotal: cur.price,
+            subtotal: cur.expence,
             name: cur.category.name,
             color: cur.category.color,
           },

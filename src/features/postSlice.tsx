@@ -5,7 +5,7 @@ export const postSlice = createSlice({
   initialState: {
     date: "",
     memo: "",
-    expence: 0,
+    price: 0,
     category: 0,
     alert: false,
   },
@@ -17,7 +17,7 @@ export const postSlice = createSlice({
       state.memo = action.payload;
     },
     inputPrice: (state, action: PayloadAction<number>) => {
-      state.expence = action.payload;
+      state.price = action.payload;
     },
     categoryId: (state, action: PayloadAction<number>) => {
       state.category = action.payload;

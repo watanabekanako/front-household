@@ -3,10 +3,7 @@ import { useDispatch } from "react-redux";
 import { addEmail } from "../../features/formSlice";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-
-type EmailInputProps = {
-  userEmail: string;
-};
+import { EmailInputProps } from "../../types/Types";
 
 const EmailInput = (props: EmailInputProps) => {
   const { userEmail } = props;
@@ -27,7 +24,7 @@ const EmailInput = (props: EmailInputProps) => {
     } else {
       dispatch(addEmail(initialEmail));
     }
-  });
+  }, [initialEmail]);
 
   const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setInitialEmail(e.target.value);
