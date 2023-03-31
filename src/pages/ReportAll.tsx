@@ -7,16 +7,14 @@ import { PostAll } from "../types/Types";
 import { categoryGroup } from "../types/Types";
 import PieGraph from "../components/chart/pieGraph";
 import { useNavigate } from "react-router-dom";
-import { BrowserRouter, Route, Link } from "react-router-dom";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { categoryDate } from "../CategoryDate";
+
 const ReportAll = () => {
   // ログイン中のユーザーidを取得
   const id = Cookies.get("id");
 
   const [postAll, setPostAll] = React.useState<PostAll[]>([]);
   console.log(postAll, "postAll");
-
   // カレンダーによる絞り込み
   //  初期値に現在の年月の設定
   const today = new Date();
@@ -104,10 +102,6 @@ const ReportAll = () => {
           {selectedCategoryGroup?.map((data: any, index) => {
             return (
               <React.Fragment key={data.categoryId}>
-                {/* <Link
-                  to={String(data.categoryId)}
-                  className={reportPostStyle.arrow}
-                > */}
                 <button
                   className={reportPostStyle.block}
                   onClick={() =>
@@ -125,7 +119,7 @@ const ReportAll = () => {
                         <th className={reportPostStyle.subtotal}>
                           {data.subtotal}円
                         </th>
-                        <th className={reportPostStyle.smallFont}>
+                        <th className={reportPostStyle.ratio}>
                           {((data.subtotal / total) * 100).toFixed(1)}%
                         </th>
                         <th>

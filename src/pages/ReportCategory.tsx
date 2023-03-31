@@ -63,10 +63,6 @@ const ReportCategory = () => {
                   className={reportCategoryStyle.block}
                   onClick={() => navigate(`/edit/${data.id}`, { state: data })}
                 >
-                  {/* <Link
-                  to={String(data.categoryId)}
-                  className={reportCategoryStyle.arrow}
-                > */}
                   <table>
                     <tbody>
                       <tr>
@@ -93,12 +89,12 @@ const ReportCategory = () => {
               );
             })}
         </div>
-        <PaginatedItems
-          filterDate={filterDate}
-          itemsPerPage={4}
-          handlePageChange={handlePageChange}
-        />
       </div>
+      <PaginatedItems
+        filterDate={filterDate}
+        itemsPerPage={4}
+        handlePageChange={handlePageChange}
+      />
     </DefaultLayout>
   );
 };
