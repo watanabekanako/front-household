@@ -1,6 +1,9 @@
 // 全体に適用
 body {
   background-color: #f2e9da;
+  li {
+    list-style: none;
+  }
 }
 a {
   text-decoration: none;

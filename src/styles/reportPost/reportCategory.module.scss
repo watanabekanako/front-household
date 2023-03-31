@@ -22,6 +22,7 @@
   .date {
     padding: 8px 10px;
     background-color: #f2b691;
+    color: white;
   }
 
   .block {
@@ -37,6 +38,7 @@
 .pagination {
   display: flex;
   margin: 0 auto;
+  width: 100px;
 
   & > li {
     margin: 0 12px;
@@ -64,14 +66,14 @@
 
       &:hover {
         &::before {
-          background-color: rgba(255, 255, 255, 0.6);
+          background-color: #f2b691;
         }
       }
     }
 
     &.active {
       & > a::before {
-        background-color: white;
+        background-color: #f2b691;
       }
     }
   }
