@@ -8,11 +8,8 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { FormState } from "../types/Types";
 import axios from "axios";
-import { response } from "express";
 import { useNavigate } from "react-router-dom";
 import toastItem from "../components/modal/Toast";
-import { toast } from "react-toastify";
-import { RootState } from "../types/Types";
 import loginStyle from "../styles/form/formStyle.module.scss";
 const Login = () => {
   const formEmail = useSelector((state: FormState) => state.authForm.email);
@@ -21,8 +18,6 @@ const Login = () => {
   );
   console.log("formEmail", formEmail);
   console.log("formPassword", formPassword);
-
-  const storedJwt = localStorage.getItem("token");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
