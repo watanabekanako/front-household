@@ -44,7 +44,11 @@ const Register = () => {
     }
     if (formPassword !== formConfirmPassword) {
       setAlertConfirmPass(true);
-    } else if (formEmail.length > 1 && formPassword.length > 1) {
+    } else if (formEmail.length > 1) {
+      setAlertEmailMessage(false);
+    } else if (formPassword.length > 1) {
+      setAlertPasswordMessage(false);
+    } else {
       try {
         await axios.post("http://localhost:3005/auth/signup", {
           email: formEmail,
