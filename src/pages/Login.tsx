@@ -8,11 +8,9 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { FormState } from "../types/Types";
 import axios from "axios";
-import { response } from "express";
 import { useNavigate } from "react-router-dom";
 import toastItem from "../components/modal/Toast";
-import { toast } from "react-toastify";
-import { RootState } from "../types/Types";
+import loginStyle from "../styles/form/formStyle.module.scss";
 const Login = () => {
   const formEmail = useSelector((state: FormState) => state.authForm.email);
   const formPassword = useSelector(
@@ -20,8 +18,6 @@ const Login = () => {
   );
   console.log("formEmail", formEmail);
   console.log("formPassword", formPassword);
-
-  const storedJwt = localStorage.getItem("token");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -31,7 +27,7 @@ const Login = () => {
   }>();
 
   // エラーメッセージ
-  const { successMsg, errorMsg } = toastItem();
+  const { successMsg } = toastItem();
   const [error, setError] = React.useState<string>();
   const handleLogin = () => {
     if (formEmail.length > 1 && formPassword.length > 1) {
@@ -52,9 +48,8 @@ const Login = () => {
         .catch((error) => {
           console.log(error);
           if (error.response && error.response.status === 400) {
-            errorMsg("メールアドレスまたはパスワードが間違っています");
+            setError(error.response.data.message);
           }
-          setError(error.response.data.message);
         });
     }
   };
@@ -64,7 +59,7 @@ const Login = () => {
       <DefaultLayout>
         <EmailInput userEmail="" />
         <PasswordInput />
-        {error}
+        <div className={loginStyle.errorMessage}>{error}</div>
         <PrimaryButton
           children={"ログインする"}
           onClick={() => handleLogin()}

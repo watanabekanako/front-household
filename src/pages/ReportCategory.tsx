@@ -8,6 +8,8 @@ import moment from "moment";
 import { PostAll } from "../types/Types";
 import { useNavigate } from "react-router-dom";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import PaginatedItems from "../components/PaginatedItems";
+
 const ReportCategory = () => {
   // ログイン中のユーザーidを取得
   const id = Cookies.get("id");
@@ -42,46 +44,56 @@ const ReportCategory = () => {
     (post) => post.createdAt.slice(0, 7) === selectedDate
   );
 
+  // ページング
+  const [offset, setOffset] = useState(0); // 何番目のアイテムから表示するか
+  const perPage: number = 5; // 1ページあたりに表示したいアイテムの数
+  const handlePageChange = (data: any) => {
+    let page_number = data["selected"]; // クリックした部分のページ数が{selected: 2}のような形で返ってくる
+    setOffset(page_number * perPage); // offsetを変更し、表示開始するアイテムの番号を変更
+  };
   return (
     <DefaultLayout>
       <div className={reportCategoryStyle.container}>
-        {filterDate?.map((data: any) => {
-          return (
-            <React.Fragment key={data.id}>
-              <button
-                className={reportCategoryStyle.block}
-                onClick={() => navigate(`/edit/${data.id}`, { state: data })}
-              >
-                {/* <Link
-                  to={String(data.categoryId)}
-                  className={reportCategoryStyle.arrow}
-                > */}
-                <table>
-                  <tbody>
-                    <tr>
-                      <th className={reportCategoryStyle.date}>
-                        {/* momentでの日付変換(data-fnsではinvalid valueとなる) */}
-                        {moment(data.createdAt).format("YYYY年MM月DD日")}
-                      </th>
-                      <th className={reportCategoryStyle.date}></th>
-                      <th className={reportCategoryStyle.date}></th>
-                    </tr>
-                    <tr>
-                      {/* <th>{moment(data.createdAt).format("YYYY年MM月DD日")}</th> */}
-                      <th>{data.category?.name}</th>
-                      <th className={reportCategoryStyle.smallFont}>
-                        {data.price}円
-                      </th>
-                      <th className={reportCategoryStyle.textRight}>
-                        <ArrowForwardIosIcon />
-                      </th>
-                    </tr>
-                  </tbody>
-                </table>
-              </button>
-            </React.Fragment>
-          );
-        })}
+        <div>
+          {filterDate
+            .slice(offset, offset + perPage) // 表示したいアイテムをsliceで抽出
+            .map((data: any) => {
+              return (
+                <button
+                  className={reportCategoryStyle.block}
+                  onClick={() => navigate(`/edit/${data.id}`, { state: data })}
+                >
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th className={reportCategoryStyle.date}>
+                          {/* momentでの日付変換(data-fnsではinvalid valueとなる) */}
+                          {moment(data.createdAt).format("YYYY年MM月DD日")}
+                        </th>
+                        <th className={reportCategoryStyle.date}></th>
+                        <th className={reportCategoryStyle.date}></th>
+                      </tr>
+                      <tr>
+                        {/* <th>{moment(data.createdAt).format("YYYY年MM月DD日")}</th> */}
+                        <th>{data.category?.name}</th>
+                        <th className={reportCategoryStyle.smallFont}>
+                          {data.price}円
+                        </th>
+                        <th className={reportCategoryStyle.textRight}>
+                          <ArrowForwardIosIcon />
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </button>
+              );
+            })}
+        </div>
+        <PaginatedItems
+          filterDate={filterDate}
+          itemsPerPage={4}
+          handlePageChange={handlePageChange}
+        />
       </div>
     </DefaultLayout>
   );

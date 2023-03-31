@@ -22,6 +22,7 @@
   .date {
     padding: 8px 10px;
     background-color: #f2b691;
+    color: white;
   }
 
   .block {
@@ -30,5 +31,62 @@
   }
   .textRight {
     text-align: right;
+  }
+}
+
+// ページング
+
+.pagination {
+  display: flex;
+  margin: 60px auto 20px;
+  // ページング中央寄せ
+  justify-content: center;
+  & > li {
+    margin: 0 12px;
+    & > a {
+      position: relative;
+      font-size: 0.8rem;
+      width: 24px;
+      height: 24px;
+      outline: none;
+      z-index: 100;
+      cursor: pointer;
+
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -100;
+      }
+
+      &:hover {
+        &::before {
+          background-color: #f2b691;
+        }
+      }
+    }
+
+    &.active {
+      & > a::before {
+        background-color: #f2b691;
+      }
+    }
+  }
+
+  &__previous,
+  &__next {
+    & > a {
+      font-size: 0.7rem;
+    }
+  }
+
+  &__disabled {
+    display: none;
   }
 }
