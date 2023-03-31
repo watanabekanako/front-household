@@ -9,7 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { FormState } from "../types/Types";
 import React, { useEffect, useState } from "react";
-
+import loginStyle from "../styles/form/formStyle.module.scss";
+import { addEmail, addPassword } from "../features/formSlice";
 const Register = () => {
   // const [post, setPost] = useState([]);
 
@@ -23,9 +24,7 @@ const Register = () => {
     (state: FormState) => state.authForm.confirmPassword
   );
   const formError = useSelector((state: FormState) => state.authForm.error);
-  console.log("formEmail", formEmail);
-  console.log("formPassword", formPassword);
-  console.log("formError", formError);
+
   const dispatch = useDispatch();
   const [alertEmailMessage, setAlertEmailMessage] =
     React.useState<boolean>(false);
@@ -34,75 +33,71 @@ const Register = () => {
   const [alertConfirmPass, setAlertConfirmPass] =
     React.useState<boolean>(false);
   const [alertExitEmail, setAlertExitEmail] = React.useState<boolean>(false);
-  const [error, setError] = React.useState("");
-  // const handleClick = () => {
-  //   if (formEmail.length > 1 && formPassword.length > 1) {
-  //     try {
-  //       axios.post("http://localhost:3005/auth/signup", {
-  //         email: formEmail,
-  //         password: formPassword,
-  //       });
-  //       navigate("/login");
-  //     } catch (error) {
-  //       if (error) console.log("ユーザー登録失敗しました");
-  //     }
-  //   }
-  //   navigate("/login");
-  // };
 
-  const handleClick = async () => {
-    // if (formEmail.length < 1) {
-    //   setAlertEmailMessage(true);
-    //   // 確認用パスワードとの一致の確認
-    // if (formPassword !== formConfirmPassword) {
-    //   setAlertConfirmPass(true);
-    // }
-    // } else {
-    // }
+  const handleClick = async (e: any) => {
+    e.preventDefault();
     if (formEmail.length < 1) {
       setAlertEmailMessage(true);
-      if (formPassword.length < 1) {
-        setAlertEmailMessage(true);
-        if (formPassword !== formConfirmPassword) {
-          setAlertConfirmPass(true);
-        }
-      }
-    } else {
+    }
+    if (formPassword.length < 1) {
+      setAlertPasswordMessage(true);
+    }
+    if (formPassword !== formConfirmPassword) {
+      setAlertConfirmPass(true);
+    } else if (formEmail.length > 1 && formPassword.length > 1) {
       try {
         await axios.post("http://localhost:3005/auth/signup", {
           email: formEmail,
           password: formPassword,
         });
+        dispatch(addEmail(formEmail));
+        dispatch(addPassword(formPassword));
         navigate("/login");
       } catch (error: any) {
-        // if (
-        //   error.response &&
-        //   error.response.status === 500 &&
-        //   error.response.message
-        // ) {
-        //   console.log(error.response.message, "message");
-        // }
-        setError(error.response.data.message);
+        if (error.response.status === 500 && error.response.message) {
+          console.log(error.response.message, "message");
+        }
+        setAlertExitEmail(error.response.data.message);
       }
     }
   };
-
+  console.log(alertEmailMessage);
   return (
     <>
       <DefaultLayout>
         <EmailInput userEmail="" />
-        {alertEmailMessage ? <p>メールアドレスを入力してください</p> : ""}
-        {alertExitEmail ? <p>すでに登録されているメールアドレスです</p> : ""}
-        <PasswordInput />
-        {alertPasswordMessage ? (
-          <p>パスワードを入力してくださいを入力してください</p>
+        {alertEmailMessage ? (
+          <p className={loginStyle.errorMessage}>
+            メールアドレスを入力してください
+          </p>
         ) : (
           ""
         )}
-        {error}
+        {alertExitEmail ? (
+          <p className={loginStyle.errorMessage}>
+            すでに登録されているメールアドレスです
+          </p>
+        ) : (
+          ""
+        )}
+        <PasswordInput />
+        {alertPasswordMessage ? (
+          <p className={loginStyle.errorMessage}>
+            パスワードを入力してください
+          </p>
+        ) : (
+          ""
+        )}
+        {/* {error} */}
         <ConfirmPasswordInput />
-        {alertConfirmPass ? <p>パスワードが一致していません</p> : ""}
-        <PrimaryButton children={"登録"} onClick={() => handleClick()} />
+        {alertConfirmPass ? (
+          <p className={loginStyle.errorMessage}>
+            パスワードが一致していません
+          </p>
+        ) : (
+          ""
+        )}
+        <PrimaryButton children={"登録"} onClick={(e: any) => handleClick(e)} />
         <p>アカウントをお持ちですか？</p>
         <div className={RegisterStyle.linkCenter}>
           <Link to="/login" className={RegisterStyle.txtOrange}>
