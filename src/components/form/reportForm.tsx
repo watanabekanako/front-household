@@ -102,7 +102,7 @@ const ReportForm = forwardRef((props, ref) => {
           <input type="text" id="memo" value={memo} onChange={changeMemo} />
         </div>
         <div className={reportPostStyle.postList}>
-          <label htmlFor="expence">支出</label>
+          <label htmlFor="expence">収支</label>
           <input
             type="text"
             id="expence"
@@ -113,7 +113,6 @@ const ReportForm = forwardRef((props, ref) => {
           円
         </div>
       </form>
-      {/* {reportAlert ? <p>入力してください</p> : ""} */}
     </div>
   );
 });

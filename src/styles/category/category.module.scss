@@ -65,11 +65,11 @@ label input:checked + span {
   border: 3px solid #8b0000;
 }
 
-.categoryChanege {
+.categoryChange {
   display: flex;
   margin: 10px auto;
   justify-content: center;
-  border: 1px solid black;
+  background-color: #ddd;
   border-radius: 10px;
   width: 50%;
   button {
@@ -78,6 +78,7 @@ label input:checked + span {
 }
 
 .changeButton {
-  background-color: #ffad90;
+  background-color: #f39801;
   border-radius: 10px;
+  color: #fff;
 }

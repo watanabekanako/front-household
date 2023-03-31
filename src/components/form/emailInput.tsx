@@ -24,7 +24,7 @@ const EmailInput = (props: EmailInputProps) => {
     } else {
       dispatch(addEmail(initialEmail));
     }
-  }, []);
+  }, [initialEmail]);
 
   const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setInitialEmail(e.target.value);

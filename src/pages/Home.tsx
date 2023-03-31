@@ -38,14 +38,23 @@ const Home: React.FC = () => {
       expence: reportPrice,
       income: reportPrice,
     };
+
+    if (reportCategory < 13) {
+      newPost.income = 0;
+    }
+    if (reportCategory >= 13) {
+      newPost.expence = 0;
+    }
+
     if (reportPrice === 0) {
       errorMsg("金額を0円以上入力してください");
-    }
-    await axios.post("/post", newPost);
-    successMsg("レポートを登録しました");
-    if (inputFormRef.current !== null || categoryRef.current !== null) {
-      inputFormRef.current?.clearForm();
-      categoryRef.current?.clearCategory();
+    } else {
+      await axios.post("/post", newPost);
+      successMsg("レポートを登録しました");
+      if (inputFormRef.current !== null || categoryRef.current !== null) {
+        inputFormRef.current?.clearForm();
+        categoryRef.current?.clearCategory();
+      }
     }
   };
 

@@ -22,6 +22,7 @@ const PasswordInput = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     clearPass: () => {
       setPassword("");
+      dispatch(addPassword(""));
     },
   }));
   return (
