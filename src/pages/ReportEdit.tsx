@@ -75,7 +75,7 @@ const ReportEdit: React.FC = () => {
         <div className={HomeStyle.reportMain}>
           <ReportForm />
           <Category />
-          <PrimaryButton children="支出を上書きする" onClick={clickEdit} />
+          <PrimaryButton children="収支を上書きする" onClick={clickEdit} />
           <SecondaryButton children="削除" onClick={deleteOpenModal} />
           {editModalIsOpen ? (
             <ConfirmModal

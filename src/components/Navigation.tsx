@@ -6,6 +6,8 @@ import axios from "axios";
 import ConfirmModal from "./modal/ConfirmModal";
 import Cookies from "js-cookie";
 import toastItem from "./modal/Toast";
+import { useDispatch } from "react-redux";
+import { addPassword } from "../features/formSlice";
 
 const Navigation = () => {
   const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
@@ -19,6 +21,7 @@ const Navigation = () => {
   const logoutOpenModal = () => {
     setEditModalIsOpen(true);
   };
+  const dispatch = useDispatch();
 
   const logout = async () => {
     await axios.post("/auth/logout", {});
@@ -26,6 +29,7 @@ const Navigation = () => {
     setEditModalIsOpen(false);
     navigate("/login");
     successMsg("ログアウトしました");
+    dispatch(addPassword(""));
   };
   return (
     <>

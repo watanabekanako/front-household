@@ -19,28 +19,36 @@ const Category = forwardRef((props, ref) => {
   const categoryState: PostState = state;
   const dispatch = useDispatch();
 
-  console.log(categoryState?.categoryId);
-
-  const [isExpence, setIsExpence] = useState(true);
+  const [isExpence, setIsExpence] = useState(
+    !currentLocation.startsWith("/home") && categoryState?.categoryId > 12
+      ? false
+      : true
+  );
 
   //支出と収入を分ける
   const categories = isExpence
-    ? expenceCategoryDate.expence
-    : expenceCategoryDate.income;
+    ? expenceCategoryDate.expence //true
+    : expenceCategoryDate.income; //false
 
-  //パス、支出と収入切り替えによって初期値切り替え
+  //パス、支出と収入（isExpence）切り替えによって初期値切り替え
   const [postedCategory, setPostedCategory] = useState<string>(() => {
     if (!currentLocation.startsWith("/home")) {
       return categoryState?.category.name ?? "";
     } else {
-      return isExpence ? "給料" : "食費";
+      return isExpence ? "食費" : "給料";
     }
   });
-
+  console.log(isExpence);
   console.log(postedCategory);
+
+  // /editのときは登録データを初期値
   useEffect(() => {
-    setPostedCategory(!isExpence ? "給料" : "食費");
-  }, [isExpence]);
+    if (!currentLocation.startsWith("/home")) {
+      setPostedCategory(categoryState?.category.name ?? "");
+    } else {
+      setPostedCategory(isExpence ? "食費" : "給料");
+    }
+  }, [categoryState, currentLocation, isExpence]);
 
   //
   const [initialCategoryData, setInitialCategoryData] = useState<
@@ -48,19 +56,22 @@ const Category = forwardRef((props, ref) => {
   >(undefined);
 
   console.log(initialCategoryData);
+  console.log(categories);
+  const testData = categories.filter((item) => item.name === postedCategory);
+  console.log(testData);
 
   //初期値と選択した値が一致したらreduxへ（支出・収入で切り替え）
   useEffect(() => {
-    const newData = categories.find((item) => item.name === postedCategory);
-    console.log(newData, "new");
-    if (newData) {
-      setInitialCategoryData(newData);
-      dispatch(categoryId(Number(newData.categoryId)));
+    // const newData = categories.find((item) => item.name === postedCategory);
+    // console.log(newData, 190);
+    if (testData) {
+      setInitialCategoryData(testData[0]);
+      dispatch(categoryId(Number(testData[0]?.categoryId)));
     } else {
-      //未選択でも初期値として
+      // 未選択でも初期値として（/home）
       dispatch(categoryId(!isExpence ? 13 : 1));
     }
-  }, [postedCategory, isExpence]);
+  }, [postedCategory, isExpence, categories, dispatch]);
 
   const changeCategory = (e: ChangeEvent<HTMLInputElement>) => {
     setPostedCategory(e.target.value);
