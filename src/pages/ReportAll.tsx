@@ -28,10 +28,12 @@ const ReportAll = () => {
     (post) => post.createdAt.slice(0, 7) === selectedDate
   );
 
-  const total = filterDate?.reduce((sum, post) => sum + post.expence, 0);
-  console.log(total, "total");
+  const expenceTotal = filterDate?.reduce((sum, post) => sum + post.expence, 0);
+
+  const incomeTotal = filterDate?.reduce((sum, post) => sum + post.income, 0);
+  console.log(incomeTotal, "incomeTotal");
   // 項目ごとの小計
-  const selectedCategoryGroup = filterDate?.reduce<categoryGroup[]>(
+  const selectedExpenceGroup = filterDate?.reduce<categoryGroup[]>(
     (
       // 前にreturnした変数
       prev: any,
@@ -63,20 +65,75 @@ const ReportAll = () => {
     // prevの初期値
     []
   );
+  console.log(selectedExpenceGroup, "selectedExpence");
   // subtotalが0円の項目をfilterして非表示へ
-  const filterCategoryGroup = selectedCategoryGroup.filter(
+  const filterExpenceGroup = selectedExpenceGroup.filter(
     (data: any) => data.subtotal > 0
   );
+  console.log(filterExpenceGroup, "filterExoence");
+  // incomeのsubtotal
+  const selectedIncomeGroup = filterDate?.reduce<categoryGroup[]>(
+    (
+      // 前にreturnした変数
+      prev: any,
+      // 今から処理するpostAllの要素
+      cur: any
+    ) => {
+      // ===== この関数でreturnしたものが次のprevになる =====
 
-  console.log("selectedCategoryGroup", selectedCategoryGroup);
+      // prevの配列にcategoryIdが合致するものがあるか検索
+      const exists = prev.find((i: any) => i.categoryId === cur.categoryId);
+      if (exists) {
+        // あるなら単純に足し合わせて返却(existsオブジェクトを書き換える)
+        exists.subtotal += cur.income;
+        return prev;
+      } else {
+        // ないなら後ろに追加する
+        return [
+          ...prev,
+          {
+            categoryId: cur.categoryId,
+            incomeSubtotal: cur.income,
+            name: cur.category.name,
+            color: cur.category.color,
+          },
+        ];
+      }
+    },
+    // prevの初期値
+    []
+  );
 
+  const filterIncomeGroup = selectedIncomeGroup.filter(
+    (data: any) => data.incomeSubtotal > 0
+  );
+  console.log(filterIncomeGroup, "income");
   useEffect(() => {
     axios.get(`/post/${id}`).then((response) => {
       setPostAll(response.data);
     });
   }, []);
+
   const navigate = useNavigate();
 
+  // 収入支出ボタン切り替え
+  const [isExpence, setIsExpence] = React.useState(true);
+
+  const [changeDate, setChangeDate] = React.useState(filterExpenceGroup);
+  const changeExpenceClick = () => {
+    if (!isExpence) {
+      setIsExpence(true);
+      setChangeDate(filterExpenceGroup);
+    }
+  };
+  const changeIncomeClick = () => {
+    if (isExpence) {
+      setIsExpence(false);
+      setChangeDate(filterIncomeGroup);
+    }
+  };
+
+  console.log(filterExpenceGroup, "filterCategoryGroup");
   return (
     <DefaultLayout>
       <div className={reportPostStyle.container}>
@@ -91,21 +148,60 @@ const ReportAll = () => {
               ></input>
             </div>
             <div className={reportPostStyle.postList}>
-              <label htmlFor="expence">支出合計</label>
-              <input type="text" id="expence" value={total} readOnly />円
+              <label htmlFor="expence">支出</label>
+              <input
+                type="text"
+                id="expence"
+                value={`−${expenceTotal}円`}
+                readOnly
+                className={reportPostStyle.expence}
+              />
+              <label htmlFor="expence">収入</label>
+              <input
+                type="text"
+                id="income"
+                value={`＋${incomeTotal}円`}
+                readOnly
+                className={reportPostStyle.income}
+              />
+            </div>
+            <div className={reportPostStyle.postList}>
+              <label htmlFor="expence">収支</label>
+              <input
+                type="text"
+                id="expence"
+                value={`${incomeTotal - expenceTotal}円`}
+                readOnly
+              />
             </div>
           </form>
         </div>
-
+        <div className={reportPostStyle.categoryChange}>
+          <button
+            onClick={changeExpenceClick}
+            className={isExpence ? reportPostStyle.changeButton : ""}
+          >
+            支出
+          </button>
+          <button
+            onClick={changeIncomeClick}
+            className={!isExpence ? reportPostStyle.changeButton : ""}
+          >
+            収入
+          </button>
+        </div>
         <div className={reportPostStyle.pie}>
-          {filterCategoryGroup.length > 0 ? (
-            <PieGraph selectedCategoryGroup={selectedCategoryGroup} />
+          {filterExpenceGroup.length > 0 ? (
+            <PieGraph
+              filterExpenceGroup={filterExpenceGroup}
+              filterIncomeGroup={filterIncomeGroup}
+            />
           ) : (
             <p>まだ指定月のデータはありません</p>
           )}
         </div>
         <div>
-          {filterCategoryGroup?.map((data: any, index) => {
+          {changeDate?.map((data: any, index) => {
             return (
               <React.Fragment key={data.categoryId}>
                 <button
@@ -122,12 +218,33 @@ const ReportAll = () => {
                         <th className={reportPostStyle.textLeft}>
                           {data.name}
                         </th>
-                        <th className={reportPostStyle.subtotal}>
-                          {data.subtotal}円
-                        </th>
-                        <th className={reportPostStyle.ratio}>
-                          {((data.subtotal / total) * 100).toFixed(1)}%
-                        </th>
+                        {isExpence ? (
+                          <>
+                            <th className={reportPostStyle.subtotal}>
+                              {data.subtotal}円
+                            </th>
+                            <th className={reportPostStyle.ratio}>
+                              {((data.subtotal / expenceTotal) * 100).toFixed(
+                                1
+                              )}
+                              %
+                            </th>
+                          </>
+                        ) : (
+                          <>
+                            <th className={reportPostStyle.subtotal}>
+                              {data.incomeSubtotal}円
+                            </th>
+                            <th className={reportPostStyle.ratio}>
+                              {(
+                                (data.incomeSubtotal / incomeTotal) *
+                                100
+                              ).toFixed(1)}
+                              %
+                            </th>
+                          </>
+                        )}
+
                         <th>
                           <ArrowForwardIosIcon />
                         </th>
