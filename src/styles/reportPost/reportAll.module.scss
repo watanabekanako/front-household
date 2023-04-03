@@ -19,7 +19,6 @@ $breakpoints: (
     // background-color: yellow;
     border-bottom: 1px solid;
   }
-
   th,
   td {
     text-align: right;
@@ -30,6 +29,7 @@ $breakpoints: (
   .textLeft {
     text-align: left;
     width: 20%;
+    font-weight: bold;
   }
   .block {
     display: block;
@@ -39,36 +39,65 @@ $breakpoints: (
     width: 30%;
   }
 }
-@media (min-width: 900px) {
-  .postList {
-    display: flex;
-    align-items: center;
-    margin: 5px auto;
-    border-bottom: 1px #d9d9d9 solid;
-    width: 80%;
-    label {
-      display: table-cell;
-      vertical-align: middle;
-      line-height: 1;
-      height: 100%;
-      // @include mq(tab) {
-      //   font-size: 14px;
-      // }
-    }
-    input {
-      margin: 0 auto;
-      padding: 5px;
-      display: block;
-      width: 60%;
-      height: 100%;
-    }
+
+.postList {
+  display: flex;
+  align-items: center;
+  margin: 5px auto;
+  border-bottom: 1px #d9d9d9 solid;
+  width: 80%;
+  border: 1px #d9d9d9 solid;
+  padding: 2px 10px;
+  border-radius: 10px;
+  label {
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 1;
+    height: 100%;
+    // @include mq(tab) {
+    //   font-size: 14px;
+    // }
   }
-  .pie {
-    width: 54%;
+  input {
+    margin: 0 auto;
+    padding: 5px;
+    display: block;
+    // width: 60%;
+    height: 100%;
+    font-weight: bold;
+  }
+  .income {
+    color: #b0d8e1;
+    font-weight: bold;
+  }
+  .expence {
+    color: #f07928;
+    font-weight: bold;
   }
 }
+.pie {
+  width: 54%;
+}
+
 .ratio {
   font-size: small;
   margin-left: 50px;
   width: 30%;
+}
+// 支出・収入切り替えタブ
+.categoryChange {
+  display: flex;
+  margin: 10px auto;
+  justify-content: center;
+  background-color: #ddd;
+  border-radius: 10px;
+  width: 50%;
+  button {
+    width: 50%;
+  }
+}
+.changeButton {
+  background-color: #f39801;
+  border-radius: 10px;
+  color: #fff;
 }

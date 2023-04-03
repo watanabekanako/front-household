@@ -8,10 +8,13 @@ import { categoryGroup } from "../types/Types";
 import PieGraph from "../components/chart/pieGraph";
 import { useNavigate } from "react-router-dom";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { format, isSameMonth } from "date-fns";
 const ReportAll = () => {
   const navigate = useNavigate();
   // ログイン中のユーザーidを取得
   const id = Cookies.get("id");
+  // 収入支出ボタン切り替え
+  const [isExpence, setIsExpence] = React.useState(true);
   useEffect(() => {
     axios.get(`/post/${id}`).then((response) => {
       setPostAll(response.data);
@@ -21,14 +24,12 @@ const ReportAll = () => {
   console.log(postAll, "postAll");
   //  カレンダーによる絞り込み 初期値に現在の年月の設定
   const today = new Date();
-  const currentDate =
-    today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2);
+  const currentDate = format(today, "yyyy-MM");
+
+  // today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2);
 
   const [selectedDate, setSelectedDate] = React.useState(currentDate);
   console.log(selectedDate, "selectedDate");
-
-  // 収入支出ボタン切り替え
-  const [isExpence, setIsExpence] = React.useState(true);
 
   // console.log(filterExpenceGroup, "初期値");
 
@@ -42,8 +43,8 @@ const ReportAll = () => {
   // console.log(filterExpenceGroup, "filterCategoryGroup");
 
   const categoryGroups = useMemo(() => {
-    const filterDate = postAll?.filter(
-      (post) => post.createdAt.slice(0, 7) === selectedDate
+    const filterDate = postAll?.filter((post) =>
+      post.createdAt.startsWith(selectedDate)
     );
 
     // 支出合計
@@ -183,7 +184,11 @@ const ReportAll = () => {
           </button>
         </div>
         <div className={reportPostStyle.pie}>
-          <PieGraph categoryGroups={categoryGroups} />
+          {categoryGroups.data.length > 0 ? (
+            <PieGraph categoryGroups={categoryGroups} />
+          ) : (
+            <p>登録されているデータがありません</p>
+          )}
         </div>
         <div>
           {categoryGroups?.data?.map((data: any, index) => {
