@@ -26,12 +26,8 @@ const ReportAll = () => {
   const today = new Date();
   const currentDate = format(today, "yyyy-MM");
 
-  // today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2);
-
   const [selectedDate, setSelectedDate] = React.useState(currentDate);
   console.log(selectedDate, "selectedDate");
-
-  // console.log(filterExpenceGroup, "初期値");
 
   const onClickExpence = () => {
     setIsExpence(true);
@@ -39,8 +35,6 @@ const ReportAll = () => {
   const onClickIncome = () => {
     setIsExpence(false);
   };
-
-  // console.log(filterExpenceGroup, "filterCategoryGroup");
 
   const categoryGroups = useMemo(() => {
     const filterDate = postAll?.filter((post) =>
