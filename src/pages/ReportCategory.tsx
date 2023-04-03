@@ -11,37 +11,30 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import PaginatedItems from "../components/PaginatedItems";
 
 const ReportCategory = () => {
-  // ログイン中のユーザーidを取得
-  const id = Cookies.get("id");
-
   const navigate = useNavigate();
+  const params = useParams();
+  const categoryId = params.id;
   const [selectedCategoryPost, setSelectedCategoryPost] = useState<PostAll[]>(
     []
   );
-
-  const params = useParams();
-  const categoryId = params.id;
+  // ログイン中のユーザーidを取得
+  const id = Cookies.get("id");
 
   useEffect(() => {
     axios.get(`/post/category/${categoryId}`).then((response) => {
       setSelectedCategoryPost(response.data);
     });
   }, []);
-  console.log(selectedCategoryPost);
-
   const filterCategory = selectedCategoryPost?.filter(
     (post: { authorId: number }) => post.authorId === Number(id)
   );
-  console.log(filterCategory, "filter");
-
   //　 /report での選択した年月の文字列取得
   const location = useLocation();
   const [selectedDate, setSelectedDate] = useState<String>(location.state);
-  console.log(selectedDate, "location");
 
   // /report で選択した文字列ex.202303 　と一致するpostへ
-  const filterDate = filterCategory?.filter(
-    (post) => post.createdAt.slice(0, 7) === selectedDate
+  const filterDate = filterCategory?.filter((post) =>
+    post.createdAt.startsWith(String(selectedDate))
   );
 
   // ページング
@@ -58,6 +51,7 @@ const ReportCategory = () => {
           {filterDate
             .slice(offset, offset + perPage) // 表示したいアイテムをsliceで抽出
             .map((data: any) => {
+              const price = data.expence > 0 ? data.expence : data.income;
               return (
                 <button
                   className={reportCategoryStyle.block}
@@ -74,10 +68,9 @@ const ReportCategory = () => {
                         <th className={reportCategoryStyle.date}></th>
                       </tr>
                       <tr>
-                        {/* <th>{moment(data.createdAt).format("YYYY年MM月DD日")}</th> */}
                         <th>{data.category?.name}</th>
                         <th className={reportCategoryStyle.smallFont}>
-                          {data.expence}円
+                          {price}円
                         </th>
                         <th className={reportCategoryStyle.textRight}>
                           <ArrowForwardIosIcon />
