@@ -8,7 +8,6 @@ import { categoryGroup } from "../types/Types";
 import PieGraph from "../components/chart/pieGraph";
 import { useNavigate } from "react-router-dom";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { expenceCategoryDate } from "../CategoryDate";
 const ReportAll = () => {
   // ログイン中のユーザーidを取得
   const id = Cookies.get("id");
@@ -16,7 +15,7 @@ const ReportAll = () => {
   const [postAll, setPostAll] = React.useState<PostAll[]>([]);
   console.log(postAll, "postAll");
   // カレンダーによる絞り込み
-  //  初期値に現在の年月の設定
+  //  カレンダーによる絞り込み 初期値に現在の年月の設定
   const today = new Date();
   const currentDate =
     today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2);
@@ -28,8 +27,9 @@ const ReportAll = () => {
     (post) => post.createdAt.slice(0, 7) === selectedDate
   );
 
+  // 支出合計
   const expenceTotal = filterDate?.reduce((sum, post) => sum + post.expence, 0);
-
+  // 収入合計
   const incomeTotal = filterDate?.reduce((sum, post) => sum + post.income, 0);
   console.log(incomeTotal, "incomeTotal");
   // 項目ごとの小計
@@ -73,27 +73,17 @@ const ReportAll = () => {
   console.log(filterExpenceGroup, "filterExoence");
   // incomeのsubtotal
   const selectedIncomeGroup = filterDate?.reduce<categoryGroup[]>(
-    (
-      // 前にreturnした変数
-      prev: any,
-      // 今から処理するpostAllの要素
-      cur: any
-    ) => {
-      // ===== この関数でreturnしたものが次のprevになる =====
-
-      // prevの配列にcategoryIdが合致するものがあるか検索
+    (prev: any, cur: any) => {
       const exists = prev.find((i: any) => i.categoryId === cur.categoryId);
       if (exists) {
-        // あるなら単純に足し合わせて返却(existsオブジェクトを書き換える)
         exists.subtotal += cur.income;
         return prev;
       } else {
-        // ないなら後ろに追加する
         return [
           ...prev,
           {
             categoryId: cur.categoryId,
-            incomeSubtotal: cur.income,
+            subtotal: cur.income,
             name: cur.category.name,
             color: cur.category.color,
           },
@@ -105,7 +95,7 @@ const ReportAll = () => {
   );
 
   const filterIncomeGroup = selectedIncomeGroup.filter(
-    (data: any) => data.incomeSubtotal > 0
+    (data: any) => data.subtotal > 0
   );
   console.log(filterIncomeGroup, "income");
   useEffect(() => {
@@ -119,18 +109,24 @@ const ReportAll = () => {
   // 収入支出ボタン切り替え
   const [isExpence, setIsExpence] = React.useState(true);
 
-  const [changeDate, setChangeDate] = React.useState(filterExpenceGroup);
+  // const [changeDate, setChangeDate] = React.useState(filterExpenceGroup);
+  const [changeDate, setChangeDate] = React.useState(() => {
+    const initialState = filterExpenceGroup;
+    return initialState;
+  });
+  console.log(filterExpenceGroup, "初期値");
+
   const changeExpenceClick = () => {
     if (!isExpence) {
       setIsExpence(true);
-      setChangeDate(filterExpenceGroup);
     }
+    setChangeDate(filterExpenceGroup);
   };
   const changeIncomeClick = () => {
     if (isExpence) {
       setIsExpence(false);
-      setChangeDate(filterIncomeGroup);
     }
+    setChangeDate(filterIncomeGroup);
   };
 
   console.log(filterExpenceGroup, "filterCategoryGroup");
@@ -191,10 +187,11 @@ const ReportAll = () => {
           </button>
         </div>
         <div className={reportPostStyle.pie}>
-          {filterExpenceGroup.length > 0 ? (
+          {filterExpenceGroup.length > 0 || filterIncomeGroup.length > 0 ? (
             <PieGraph
               filterExpenceGroup={filterExpenceGroup}
               filterIncomeGroup={filterIncomeGroup}
+              changeDate={changeDate}
             />
           ) : (
             <p>まだ指定月のデータはありません</p>
@@ -204,54 +201,35 @@ const ReportAll = () => {
           {changeDate?.map((data: any, index) => {
             return (
               <React.Fragment key={data.categoryId}>
-                <button
-                  className={reportPostStyle.block}
-                  onClick={() =>
-                    navigate(`/report/${data.categoryId}`, {
-                      state: selectedDate,
-                    })
-                  }
-                >
-                  <table>
-                    <tbody>
-                      <tr>
-                        <th className={reportPostStyle.textLeft}>
-                          {data.name}
-                        </th>
-                        {isExpence ? (
-                          <>
-                            <th className={reportPostStyle.subtotal}>
-                              {data.subtotal}円
-                            </th>
-                            <th className={reportPostStyle.ratio}>
-                              {((data.subtotal / expenceTotal) * 100).toFixed(
-                                1
-                              )}
-                              %
-                            </th>
-                          </>
-                        ) : (
-                          <>
-                            <th className={reportPostStyle.subtotal}>
-                              {data.incomeSubtotal}円
-                            </th>
-                            <th className={reportPostStyle.ratio}>
-                              {(
-                                (data.incomeSubtotal / incomeTotal) *
-                                100
-                              ).toFixed(1)}
-                              %
-                            </th>
-                          </>
-                        )}
-
-                        <th>
-                          <ArrowForwardIosIcon />
-                        </th>
-                      </tr>
-                    </tbody>
-                  </table>
-                </button>
+                <>
+                  <button
+                    className={reportPostStyle.block}
+                    onClick={() =>
+                      navigate(`/report/${data.categoryId}`, {
+                        state: selectedDate,
+                      })
+                    }
+                  >
+                    <table>
+                      <tbody>
+                        <tr>
+                          <th className={reportPostStyle.textLeft}>
+                            {data.name}
+                          </th>
+                          <th className={reportPostStyle.subtotal}>
+                            {data.subtotal}円
+                          </th>
+                          <th className={reportPostStyle.ratio}>
+                            {((data.subtotal / expenceTotal) * 100).toFixed(1)}%
+                          </th>
+                          <th>
+                            <ArrowForwardIosIcon />
+                          </th>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </button>
+                </>
               </React.Fragment>
             );
           })}
