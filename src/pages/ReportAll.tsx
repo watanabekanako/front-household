@@ -73,12 +73,22 @@ const ReportAll = () => {
   console.log(filterExpenceGroup, "filterExoence");
   // incomeのsubtotal
   const selectedIncomeGroup = filterDate?.reduce<categoryGroup[]>(
-    (prev: any, cur: any) => {
+    (
+      // 前にreturnした変数
+      prev: any,
+      // 今から処理するpostAllの要素
+      cur: any
+    ) => {
+      // ===== この関数でreturnしたものが次のprevになる =====
+
+      // prevの配列にcategoryIdが合致するものがあるか検索
       const exists = prev.find((i: any) => i.categoryId === cur.categoryId);
       if (exists) {
+        // あるなら単純に足し合わせて返却(existsオブジェクトを書き換える)
         exists.subtotal += cur.income;
         return prev;
       } else {
+        // ないなら後ろに追加する
         return [
           ...prev,
           {
@@ -198,38 +208,56 @@ const ReportAll = () => {
           )}
         </div>
         <div>
+          {/* filterExpenceGroup */}
+
           {changeDate?.map((data: any, index) => {
             return (
               <React.Fragment key={data.categoryId}>
-                <>
-                  <button
-                    className={reportPostStyle.block}
-                    onClick={() =>
-                      navigate(`/report/${data.categoryId}`, {
-                        state: selectedDate,
-                      })
-                    }
-                  >
-                    <table>
-                      <tbody>
-                        <tr>
-                          <th className={reportPostStyle.textLeft}>
-                            {data.name}
-                          </th>
-                          <th className={reportPostStyle.subtotal}>
-                            {data.subtotal}円
-                          </th>
-                          <th className={reportPostStyle.ratio}>
-                            {((data.subtotal / expenceTotal) * 100).toFixed(1)}%
-                          </th>
-                          <th>
-                            <ArrowForwardIosIcon />
-                          </th>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </button>
-                </>
+                <button
+                  className={reportPostStyle.block}
+                  onClick={() =>
+                    navigate(`/report/${data.categoryId}`, {
+                      state: selectedDate,
+                    })
+                  }
+                >
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th className={reportPostStyle.textLeft}>
+                          {data.name}
+                        </th>
+                        {isExpence ? (
+                          <>
+                            <th className={reportPostStyle.subtotal}>
+                              {data.subtotal}円
+                            </th>
+                            <th className={reportPostStyle.ratio}>
+                              {((data.subtotal / expenceTotal) * 100).toFixed(
+                                1
+                              )}
+                              %
+                            </th>
+                          </>
+                        ) : (
+                          <>
+                            <th className={reportPostStyle.subtotal}>
+                              {data.subtotal}円
+                            </th>
+                            <th className={reportPostStyle.ratio}>
+                              {((data.subtotal / incomeTotal) * 100).toFixed(1)}
+                              %
+                            </th>
+                          </>
+                        )}
+
+                        <th>
+                          <ArrowForwardIosIcon />
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </button>
               </React.Fragment>
             );
           })}
