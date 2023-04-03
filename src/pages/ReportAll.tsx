@@ -23,8 +23,7 @@ const ReportAll = () => {
   const [postAll, setPostAll] = React.useState<PostAll[]>([]);
   console.log(postAll, "postAll");
   //  カレンダーによる絞り込み 初期値に現在の年月の設定
-  const today = new Date();
-  const currentDate = format(today, "yyyy-MM");
+  const currentDate = format(new Date(), "yyyy-MM");
 
   const [selectedDate, setSelectedDate] = React.useState(currentDate);
   console.log(selectedDate, "selectedDate");
