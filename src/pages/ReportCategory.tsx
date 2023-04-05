@@ -9,7 +9,7 @@ import { PostAll } from "../types/Types";
 import { useNavigate } from "react-router-dom";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import PaginatedItems from "../components/PaginatedItems";
-
+import Select from "react-select";
 const ReportCategory = () => {
   const navigate = useNavigate();
   const params = useParams();
@@ -44,9 +44,37 @@ const ReportCategory = () => {
     let page_number = data["selected"]; // クリックした部分のページ数が{selected: 2}のような形で返ってくる
     setOffset(page_number * perPage); // offsetを変更し、表示開始するアイテムの番号を変更
   };
+  // プルダウン
+  const [selectedOptions, setSelectedOptions] = React.useState();
+  const sortOptions = [
+    { value: "asc", label: "金額(小さい順)" },
+    { value: "desc", label: "金額(大きい順)" },
+  ];
+  const [sortOrder, setSortOrder] = useState<{
+    value: string;
+    label: string;
+  } | null>(null);
+  const pulldown = sortOrder?.value;
+  if (pulldown === "desc") {
+    filterDate.sort((a, b) => b.expence - a.expence);
+    filterDate.sort((a, b) => b.income - a.income);
+  } else if (pulldown === "asc") {
+    filterDate.sort((a, b) => a.expence - b.expence);
+    filterDate.sort((a, b) => a.income - b.income);
+  }
+
   return (
     <DefaultLayout>
       <div className={reportCategoryStyle.container}>
+        {/* プルダウン */}
+        <div className={reportCategoryStyle.pulldownContainer}>
+          <Select
+            value={sortOrder}
+            onChange={(selectedOption: any) => setSortOrder(selectedOption)}
+            options={sortOptions}
+            className={reportCategoryStyle.pulldown}
+          />
+        </div>
         <div>
           {filterDate
             .slice(offset, offset + perPage) // 表示したいアイテムをsliceで抽出
