@@ -131,8 +131,8 @@ const ReportAll = () => {
                 onChange={(event) => setSelectedDate(event.target.value)}
               ></input>
             </div>
-            <div className={reportPostStyle.postList}>
-              <label htmlFor="expence">支出</label>
+            <div className={reportPostStyle.priceList}>
+              <label htmlFor="expence">支出 </label>
               <input
                 type="text"
                 id="expence"
@@ -140,6 +140,8 @@ const ReportAll = () => {
                 readOnly
                 className={reportPostStyle.expence}
               />
+            </div>
+            <div className={reportPostStyle.priceList}>
               <label htmlFor="expence">収入</label>
               <input
                 type="text"
