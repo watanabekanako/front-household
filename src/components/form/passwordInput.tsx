@@ -30,7 +30,7 @@ const PasswordInput = forwardRef((props, ref) => {
       <div className={FormStyle.inputMain}>
         <input
           type={passwordShown ? "text" : "password"}
-          placeholder="パスワードを入力してください"
+          placeholder="パスワードを8文字以上10文字以内で入力してください"
           id="password"
           value={password}
           onChange={handlePassword}
