@@ -28,8 +28,16 @@ const Login = () => {
 
   // エラーメッセージ
   const { successMsg } = toastItem();
+  const [emailError, setEmailError] = React.useState<string>();
+  const [passwordError, setPasswordError] = React.useState<string>();
   const [error, setError] = React.useState<string>();
   const handleLogin = () => {
+    if (formEmail.length < 1) {
+      setEmailError("メールアドレスを入力してください");
+    }
+    if (formPassword.length < 1) {
+      setPasswordError("パスワードを入力してください");
+    }
     if (formEmail.length > 1 && formPassword.length > 1) {
       axios
         .post("/auth/login", {
@@ -58,7 +66,9 @@ const Login = () => {
     <>
       <DefaultLayout>
         <EmailInput userEmail="" />
+        <div className={loginStyle.errorMessage}>{emailError}</div>
         <PasswordInput />
+        <div className={loginStyle.errorMessage}>{passwordError}</div>
         <div className={loginStyle.errorMessage}>{error}</div>
         <PrimaryButton
           children={"ログインする"}
