@@ -47,6 +47,8 @@ const Category = forwardRef((props, ref) => {
       setPostedCategory(isExpence ? "食費" : "給料");
     }
   }, [categoryState, currentLocation, isExpence]);
+  console.log(postedCategory, 198);
+  console.log(isExpence, 1008);
 
   //
   const [initialCategoryData, setInitialCategoryData] = useState<
@@ -91,7 +93,7 @@ const Category = forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => ({
     clearCategory: () => {
-      setPostedCategory("");
+      setPostedCategory(isExpence ? "食費" : "給料");
     },
   }));
 

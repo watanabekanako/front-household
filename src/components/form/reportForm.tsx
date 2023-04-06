@@ -83,6 +83,7 @@ const ReportForm = forwardRef((props, ref) => {
     clearForm: () => {
       setMemo("");
       setPrice(0);
+      dispatch(inputPrice(0));
     },
   }));
 

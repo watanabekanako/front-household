@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Category from "../components/Category";
 import HomeStyle from "../styles/pages/Home.module.scss";
@@ -9,7 +9,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import toastItem from "../components/modal/Toast";
 import { RootState } from "../types/Types";
-import { useNavigate, useRouteError } from "react-router-dom";
 import { inputPrice } from "../features/postSlice";
 
 const Home: React.FC = () => {
@@ -20,17 +19,15 @@ const Home: React.FC = () => {
     (state: RootState) => state.posts.category
   );
 
-  const userId = Cookies.get("id");
+  const [error, setError] = useState<string>();
 
-  const dispatch = useDispatch();
+  const userId = Cookies.get("id");
 
   const reportDateTime = new Date(reportDate);
   const updateDate = new Date();
 
   const inputFormRef = useRef<HTMLFormElement>(null);
   const categoryRef = useRef<HTMLFormElement>(null);
-
-  const navigate = useNavigate();
 
   const { successMsg, errorMsg } = toastItem();
 
@@ -52,46 +49,36 @@ const Home: React.FC = () => {
       newPost.expence = 0;
     }
 
-    if (reportPrice === 0) {
-      errorMsg("金額を0円以上入力してください");
-    } else {
-      await axios.post("/post", newPost);
-      successMsg("レポートを登録しました");
+    // if (reportPrice === 0) {
+    //   errorMsg("金額を0円以上入力してください");
+    // } else {
+    //   await axios.post("/post", newPost);
+    //   successMsg("レポートを登録しました");
+    //   if (inputFormRef.current !== null || categoryRef.current !== null) {
+    //     inputFormRef.current?.clearForm();
+    //     categoryRef.current?.clearCategory();
+    //   }
+    //   dispatch(inputPrice(0));
+    // }
+    if (reportPrice > 0) {
+      await axios
+        .post("/post", newPost)
+        .then((response) => successMsg("レポートを登録しました"))
+        .catch((error) => {
+          alert("a");
+          console.log(error, 101);
+          if (error.response && error.response.status === 400) {
+            setError(error.response.data.message);
+          }
+        });
+
       if (inputFormRef.current !== null || categoryRef.current !== null) {
         inputFormRef.current?.clearForm();
         categoryRef.current?.clearCategory();
       }
-      dispatch(inputPrice(0));
+    } else {
+      // errorMsg("金額を0円以上入力してください");
     }
-  };
-  const testData = {
-    id: 35,
-    content: "",
-    authorId: 1,
-    categoryId: 2,
-    createdAt: "2023-03-31T00:00:00.000Z",
-    updatedAt: "2023-03-31T01:41:46.380Z",
-    expence: 2220,
-    income: 0,
-    category: { id: 2, name: "日用品" },
-  };
-  const testData2 = {
-    id: 35,
-    content: "",
-    authorId: 1,
-    categoryId: 14,
-    createdAt: "2023-03-31T00:00:00.000Z",
-    updatedAt: "2023-03-31T01:41:46.380Z",
-    expence: 0,
-    income: 30000,
-    category: { id: 14, name: "おこづかい" },
-  };
-
-  const testClick = () => {
-    navigate("/edit/35", { state: testData });
-  };
-  const testClick2 = () => {
-    navigate("/edit/35", { state: testData2 });
   };
 
   return (
@@ -99,10 +86,9 @@ const Home: React.FC = () => {
       <div>
         <div className={HomeStyle.reportMain}>
           <ReportForm ref={inputFormRef} />
+          <p>{error}</p>
           <Category ref={categoryRef} />
           <PrimaryButton children="支出を入力する" onClick={clickPost} />
-          <button onClick={testClick}>expence移動</button>
-          <button onClick={testClick2}>income移動</button>
         </div>
       </div>
     </DefaultLayout>
