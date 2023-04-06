@@ -38,8 +38,6 @@ const Category = forwardRef((props, ref) => {
       return isExpence ? "食費" : "給料";
     }
   });
-  console.log(isExpence);
-  console.log(postedCategory);
 
   // /editのときは登録データを初期値
   useEffect(() => {
@@ -56,17 +54,14 @@ const Category = forwardRef((props, ref) => {
   >(undefined);
 
   console.log(initialCategoryData);
-  console.log(categories);
-  const testData = categories.filter((item) => item.name === postedCategory);
-  console.log(testData);
 
   //初期値と選択した値が一致したらreduxへ（支出・収入で切り替え）
   useEffect(() => {
-    // const newData = categories.find((item) => item.name === postedCategory);
-    // console.log(newData, 190);
-    if (testData) {
-      setInitialCategoryData(testData[0]);
-      dispatch(categoryId(Number(testData[0]?.categoryId)));
+    const newData = categories.find((item) => item.name === postedCategory);
+    if (newData) {
+      console.log(newData, 98);
+      setInitialCategoryData(newData);
+      dispatch(categoryId(Number(newData?.categoryId)));
     } else {
       // 未選択でも初期値として（/home）
       dispatch(categoryId(!isExpence ? 13 : 1));
