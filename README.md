@@ -1,46 +1,37 @@
-# Getting Started with Create React App
+<samp>
+<div align="center">
+  
+# 家計簿サイト
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  </div>
 
-## Available Scripts
+## ✽ Description ✽
 
-In the project directory, you can run:
+・ユーザー登録・ログインをし、月ごとの支出/収入の登録/表示(円グラフ)ができるサイト</br>
 
-### `npm start`
+## ✽ tool ✽
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- slack
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Figma
 
-### `npm test`
+- git
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img width="300" alt="TOP" src="https://user-images.githubusercontent.com/109854906/230242892-cceb8bb4-7d4d-4e53-82ad-665890f16a84.png"></br>
 
-### `npm run build`
+## ✽ Requirement ✽
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<img width="500" alt="TOP" src="https://user-images.githubusercontent.com/109854906/230242562-cd5ed03d-149e-4fd6-a303-2b627edff9aa.jpg"></br>
+・yarn: 1.22.19</br>
+・ React":18.2.0（Redux-Toolkit,React-Router,react-modal,react-chartjs-2,react-toastify,react-paginate,react-select）</br>・[TypeScript](https://www.typescriptlang.org/) 4.9.5</br>・[Sass](https://sass-lang.com/) 1.58.3</br>・[Nest.js](https://nestjs.com/) 9.0.0</br>・[Prisma](https://www.prisma.io/) 4.10.1
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ✽ Demo ✽
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<img width="300" alt="Login" src="https://user-images.githubusercontent.com/109854906/230242157-1e9f35fd-c90b-435d-857a-e88d88e5864c.png"></br>
+<img width="300" alt="input" src="https://user-images.githubusercontent.com/109854906/230241588-01344a85-cf0c-4868-b678-16e01ad1aacf.png"></br>
+<img width="300" alt="Logout" src="https://user-images.githubusercontent.com/109854906/230241453-d8442a7b-4e01-438f-8244-f5198e604263.png"></br>
+<img width="300" alt="report" src="https://user-images.githubusercontent.com/109854906/230242031-e886a1e7-0779-49ff-aac2-f146370d3d00.png"></br>
+<img width="300" alt="Category" src="https://user-images.githubusercontent.com/109854906/230242282-0db88498-7aef-4f7a-a652-913419a4f155.png"></br>
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+</div>
+</samp>
