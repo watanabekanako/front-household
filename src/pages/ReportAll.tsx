@@ -9,10 +9,12 @@ import PieGraph from "../components/chart/pieGraph";
 import { useNavigate } from "react-router-dom";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { format, isSameMonth } from "date-fns";
+import { CategorySubtotal } from "../types/Types";
 const ReportAll = () => {
   const navigate = useNavigate();
   // ログイン中のユーザーidを取得
   const id = Cookies.get("id");
+  const [postAll, setPostAll] = React.useState<PostAll[]>([]);
   // 収入支出ボタン切り替え
   const [isExpence, setIsExpence] = React.useState(true);
   useEffect(() => {
@@ -20,14 +22,14 @@ const ReportAll = () => {
       setPostAll(response.data);
     });
   }, []);
-  const [postAll, setPostAll] = React.useState<PostAll[]>([]);
+
   console.log(postAll, "postAll");
   //  カレンダーによる絞り込み 初期値に現在の年月の設定
   const currentDate = format(new Date(), "yyyy-MM");
 
   const [selectedDate, setSelectedDate] = React.useState(currentDate);
   console.log(selectedDate, "selectedDate");
-
+  console.log(currentDate, "currentDate");
   const onClickExpence = () => {
     setIsExpence(true);
   };
@@ -59,7 +61,9 @@ const ReportAll = () => {
         // ===== この関数でreturnしたものが次のprevになる =====
 
         // prevの配列にcategoryIdが合致するものがあるか検索
-        const exists = prev.find((i: any) => i.categoryId === cur.categoryId);
+        const exists = prev.find(
+          (i: { categoryId: number }) => i.categoryId === cur.categoryId
+        );
 
         if (exists) {
           // あるなら単純に足し合わせて返却(existsオブジェクトを書き換える)
@@ -88,7 +92,9 @@ const ReportAll = () => {
     // incomeのsubtotal
     const selectedIncomeGroup = filterDate?.reduce<categoryGroup[]>(
       (prev: any, cur: any) => {
-        const exists = prev.find((i: any) => i.categoryId === cur.categoryId);
+        const exists = prev.find(
+          (i: { categoryId: number }) => i.categoryId === cur.categoryId
+        );
         if (exists) {
           exists.subtotal += cur.income;
           return prev;
@@ -111,12 +117,19 @@ const ReportAll = () => {
       (data: any) => data.subtotal > 0
     );
     console.log(filterIncomeGroup, "income");
+
     return {
       incomeTotal,
       expenceTotal,
       data: isExpence ? filterExpenceGroup : filterIncomeGroup,
     };
-  }, [isExpence, selectedDate]);
+  }, [isExpence, selectedDate, postAll]);
+
+  useEffect(() => {
+    if (categoryGroups.data.length < 1) {
+      setIsExpence(true);
+    }
+  }, [isExpence]);
 
   return (
     <DefaultLayout>

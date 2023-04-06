@@ -17,7 +17,7 @@
 
 - git
 
-<img width="300" alt="TOP" src="https://user-images.githubusercontent.com/109854906/230243778-6a4bc040-db2f-4c81-b8f3-70258b8d1246.png"></br>
+<img width="300" alt="TOP" src="https://user-images.githubusercontent.com/109854906/230262539-fa03a614-d968-424e-9707-53ee066f641b.png"></br>
 
 ## ✽ Requirement ✽
 
