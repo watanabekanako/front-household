@@ -17,13 +17,13 @@
 
 - git
 
-<img width="300" alt="TOP" src="https://user-images.githubusercontent.com/109854906/230242892-cceb8bb4-7d4d-4e53-82ad-665890f16a84.png"></br>
+<img width="300" alt="TOP" src="https://user-images.githubusercontent.com/109854906/230243778-6a4bc040-db2f-4c81-b8f3-70258b8d1246.png"></br>
 
 ## ✽ Requirement ✽
 
 <img width="500" alt="TOP" src="https://user-images.githubusercontent.com/109854906/230242562-cd5ed03d-149e-4fd6-a303-2b627edff9aa.jpg"></br>
 ・yarn: 1.22.19</br>
-・ React":18.2.0（Redux-Toolkit,React-Router,react-modal,react-chartjs-2,react-toastify,react-paginate,react-select）</br>・[TypeScript](https://www.typescriptlang.org/) 4.9.5</br>・[Sass](https://sass-lang.com/) 1.58.3</br>・[Nest.js](https://nestjs.com/) 9.0.0</br>・[Prisma](https://www.prisma.io/) 4.10.1
+・ [React](https://ja.reactjs.org/) 18.2.0（Redux-Toolkit,React-Router,react-modal,react-chartjs-2,react-toastify,react-paginate,react-select）</br>・[TypeScript](https://www.typescriptlang.org/) 4.9.5</br>・[Sass](https://sass-lang.com/) 1.58.3</br>・[Nest.js](https://nestjs.com/) 9.0.0</br>・[Prisma](https://www.prisma.io/) 4.10.1
 
 ## ✽ Demo ✽
 
