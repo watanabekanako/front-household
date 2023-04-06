@@ -72,7 +72,7 @@ const ReportForm = forwardRef((props, ref) => {
     }
   };
 
-  const changeDate = (e: ChangeEvent<HTMLInputElement>) => {
+  const categoryGroups = (e: ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
     if (e.target.value !== postDate) {
       dispatch(inputDate(e.target.value));
@@ -97,7 +97,7 @@ const ReportForm = forwardRef((props, ref) => {
       <form>
         <div className={reportPostStyle.postList}>
           <label htmlFor="date">日付</label>
-          <input type="date" id="date" value={date} onChange={changeDate} />
+          <input type="date" id="date" value={date} onChange={categoryGroups} />
         </div>
         <div className={reportPostStyle.postList}>
           <label htmlFor="memo">メモ</label>

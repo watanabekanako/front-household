@@ -27,7 +27,6 @@ const PaginatedItems = ({
         pageRangeDisplayed={5} // アクティブなページを基準にして、そこからいくつページ数を表示するか
         onPageChange={handlePageChange} // クリック時のfunction
         containerClassName={reportCategoryStyle.pagination} // ページネーションであるulに着くクラス名
-        // subContainerClassName={reportCategoryStyle.pagination}
         activeClassName={reportCategoryStyle.active} // アクティブなページのliに着くクラス名
         previousClassName={reportCategoryStyle.pagination__previous} // 「<」のliに着けるクラス名
         nextClassName={reportCategoryStyle.pagination__next} // 「>」のliに着けるクラス名

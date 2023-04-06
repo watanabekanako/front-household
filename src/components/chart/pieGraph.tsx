@@ -4,17 +4,17 @@ import { Pie } from "react-chartjs-2";
 import { categoryGroup } from "../../types/Types";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieGraph: React.FC<any> = ({ selectedCategoryGroup, name }) => {
-  console.log({ selectedCategoryGroup }, "props");
+const PieGraph: React.FC<any> = ({ name, categoryGroups }) => {
+  console.log({ categoryGroups }, "props");
   console.log(name, "name");
-  const newSubtotal = selectedCategoryGroup?.map(
+  const newSubtotal = categoryGroups?.data?.map(
     (data: { subtotal: number }) => data.subtotal
   );
-  const newName = selectedCategoryGroup?.map(
+  const newName = categoryGroups?.data?.map(
     (data: { name: string }) => data.name
   );
 
-  const pieColor = selectedCategoryGroup.map((data: any) => data.color);
+  const pieColor = categoryGroups.data?.map((data: any) => data.color);
   console.log(pieColor, "color");
   const data = {
     labels: newName,

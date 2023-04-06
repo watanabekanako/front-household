@@ -35,7 +35,7 @@ export type PostAll = {
 
 export type categoryGroup = {
   categoryId: Number;
-  subtotal: number;
+  subtotal?: number;
   name: string;
 };
 
