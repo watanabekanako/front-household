@@ -28,7 +28,9 @@ const ReportForm = forwardRef((props, ref) => {
     currentLocation.startsWith("/edit") ? postState?.content : ""
   );
   const [price, setPrice] = useState(
-    currentLocation.startsWith("/edit") ? postState?.expence : 0
+    currentLocation.startsWith("/edit")
+      ? postState?.expence || postState?.income
+      : 0
   );
   const [date, setDate] = useState<string>(
     currentLocation.startsWith("/edit")

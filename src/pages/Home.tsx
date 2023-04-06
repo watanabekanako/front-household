@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Category from "../components/Category";
 import HomeStyle from "../styles/pages/Home.module.scss";
 import ReportForm from "../components/form/reportForm";
@@ -9,6 +9,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import toastItem from "../components/modal/Toast";
 import { RootState } from "../types/Types";
+import { useNavigate, useRouteError } from "react-router-dom";
+import { inputPrice } from "../features/postSlice";
 
 const Home: React.FC = () => {
   const reportDate = useSelector((state: RootState) => state.posts.date);
@@ -20,11 +22,15 @@ const Home: React.FC = () => {
 
   const userId = Cookies.get("id");
 
+  const dispatch = useDispatch();
+
   const reportDateTime = new Date(reportDate);
   const updateDate = new Date();
 
   const inputFormRef = useRef<HTMLFormElement>(null);
   const categoryRef = useRef<HTMLFormElement>(null);
+
+  const navigate = useNavigate();
 
   const { successMsg, errorMsg } = toastItem();
 
@@ -55,7 +61,37 @@ const Home: React.FC = () => {
         inputFormRef.current?.clearForm();
         categoryRef.current?.clearCategory();
       }
+      dispatch(inputPrice(0));
     }
+  };
+  const testData = {
+    id: 35,
+    content: "",
+    authorId: 1,
+    categoryId: 2,
+    createdAt: "2023-03-31T00:00:00.000Z",
+    updatedAt: "2023-03-31T01:41:46.380Z",
+    expence: 2220,
+    income: 0,
+    category: { id: 2, name: "日用品" },
+  };
+  const testData2 = {
+    id: 35,
+    content: "",
+    authorId: 1,
+    categoryId: 14,
+    createdAt: "2023-03-31T00:00:00.000Z",
+    updatedAt: "2023-03-31T01:41:46.380Z",
+    expence: 0,
+    income: 30000,
+    category: { id: 14, name: "おこづかい" },
+  };
+
+  const testClick = () => {
+    navigate("/edit/35", { state: testData });
+  };
+  const testClick2 = () => {
+    navigate("/edit/35", { state: testData2 });
   };
 
   return (
@@ -65,6 +101,8 @@ const Home: React.FC = () => {
           <ReportForm ref={inputFormRef} />
           <Category ref={categoryRef} />
           <PrimaryButton children="支出を入力する" onClick={clickPost} />
+          <button onClick={testClick}>expence移動</button>
+          <button onClick={testClick2}>income移動</button>
         </div>
       </div>
     </DefaultLayout>

@@ -36,7 +36,7 @@ const ReportCategory = () => {
   const filterDate = filterCategory?.filter((post) =>
     post.createdAt.startsWith(String(selectedDate))
   );
-
+  console.log(filterDate);
   // ページング
   const [offset, setOffset] = useState(0); // 何番目のアイテムから表示するか
   const perPage: number = 5; // 1ページあたりに表示したいアイテムの数
