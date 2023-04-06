@@ -1,13 +1,16 @@
 $breakpoints: (
-  pc: "screen and (min-width:1200px)",
-  tab: "screen and (max-width:834px)",
+  pc: "screen and (min-width:900px)",
+  tab: "screen and (max-width:899px)",
   sp: "screen and (max-width:414px)",
 );
-// sp/tb用のスタイル
-.pie {
-  width: 90%;
-  margin: 0 auto;
+
+@mixin mq($breakpoint: pc) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
 }
+// sp/tb用のスタイル
+
 .container {
   background: #fff;
   padding: 50px 0;
@@ -19,17 +22,23 @@ $breakpoints: (
     // background-color: yellow;
     border-bottom: 1px solid;
   }
-
   th,
   td {
     text-align: right;
     padding: 20px 10px;
     font-weight: normal;
     border-bottom: 2px border #dddd;
+    @include mq(sp) {
+      font-size: 10px;
+    }
   }
   .textLeft {
     text-align: left;
     width: 20%;
+    font-weight: bold;
+    @include mq(sp) {
+      width: 30%;
+    }
   }
   .block {
     display: block;
@@ -38,37 +47,157 @@ $breakpoints: (
   .subtotal {
     width: 30%;
   }
-}
-@media (min-width: 900px) {
+
   .postList {
     display: flex;
     align-items: center;
     margin: 5px auto;
     border-bottom: 1px #d9d9d9 solid;
     width: 80%;
-    label {
-      display: table-cell;
-      vertical-align: middle;
-      line-height: 1;
-      height: 100%;
-      // @include mq(tab) {
-      //   font-size: 14px;
-      // }
-    }
-    input {
-      margin: 0 auto;
-      padding: 5px;
-      display: block;
-      width: 60%;
-      height: 100%;
-    }
+    border: 1px #d9d9d9 solid;
+    padding: 2px 10px;
+    border-radius: 10px;
   }
-  .pie {
-    width: 54%;
+  label {
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 1;
+    height: 100%;
+  }
+  input {
+    margin: 0 auto;
+    padding: 5px;
+    display: block;
+    // width: 60%;
+    height: 100%;
+    font-weight: bold;
+    text-align: center;
+  }
+  .income {
+    color: #b0d8e1;
+    font-weight: bold;
+  }
+  .expence {
+    color: #f07928;
+    font-weight: bold;
+  }
+  .priceList {
+    // background-color: pink;
+    display: flex;
+    align-items: center;
+    margin: 5px auto;
+    border-bottom: 1px #d9d9d9 solid;
+    width: 80%;
+    border: 1px #d9d9d9 solid;
+    padding: 2px 10px;
+    border-radius: 10px;
   }
 }
+.pie {
+  width: 60%;
+  margin: 0 auto;
+  @include mq(sp) {
+    width: 80%;
+  }
+}
+
 .ratio {
   font-size: small;
   margin-left: 50px;
   width: 30%;
+}
+// 支出・収入切り替えタブ
+.categoryChange {
+  display: flex;
+  margin: 10px auto;
+  justify-content: center;
+  background-color: #ddd;
+  border-radius: 10px;
+  width: 50%;
+  button {
+    width: 50%;
+  }
+}
+.changeButton {
+  background-color: #f39801;
+  border-radius: 10px;
+  color: #fff;
+}
+
+// 削除
+.categoryContainer {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  @include mq(tab) {
+    width: 90%;
+  }
+  @include mq(sp) {
+    width: 100%;
+  }
+  p {
+    margin: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    @include mq(sp) {
+      font-size: 16px;
+      margin: 10px;
+    }
+  }
+  label {
+    display: inline-block;
+    input {
+      display: none;
+    }
+    span {
+      color: #333;
+      font-size: 16px;
+      border: 1px solid #333;
+      margin: 10px;
+      display: inline-block;
+      width: 120px;
+      height: 120px;
+      border-radius: 5px;
+      @include mq(tab) {
+        width: 90px;
+        height: 90px;
+        font-size: 12px;
+      }
+      @include mq(sp) {
+        width: 70px;
+        height: 70px;
+        margin: 5px;
+      }
+    }
+    svg {
+      width: 75%;
+      height: 75%;
+    }
+  }
+}
+
+label input:checked + span {
+  border: 3px solid #8b0000;
+}
+
+.categoryChange {
+  display: flex;
+  margin: 10px auto;
+  justify-content: center;
+  background-color: #ddd;
+  border-radius: 10px;
+  width: 50%;
+  @include mq(sp) {
+    width: 80%;
+    margin-top: 30px;
+  }
+  button {
+    width: 50%;
+  }
+}
+
+.changeButton {
+  background-color: #f39801;
+  border-radius: 10px;
+  color: #fff;
 }
