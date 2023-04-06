@@ -24,7 +24,7 @@ export type PostState = {
 export type PostAll = {
   id: number;
   authorId: number;
-  category: [];
+  category: { id: number; name: string };
   categoryId: number;
   content: string;
   createdAt: string;
@@ -64,4 +64,11 @@ export type UserData = {
 
 export type EmailInputProps = {
   userEmail: string;
+};
+
+export type CategorySubtotal = {
+  categoryId: number;
+  subtotal: number;
+  name: string;
+  color: string;
 };
