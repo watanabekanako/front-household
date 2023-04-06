@@ -78,7 +78,7 @@ const ReportCategory = () => {
         <div>
           {filterDate
             .slice(offset, offset + perPage) // 表示したいアイテムをsliceで抽出
-            .map((data: any) => {
+            .map((data: PostAll) => {
               const price = data.expence > 0 ? data.expence : data.income;
               return (
                 <button
