@@ -49,35 +49,15 @@ const Home: React.FC = () => {
       newPost.expence = 0;
     }
 
-    // if (reportPrice === 0) {
-    //   errorMsg("金額を0円以上入力してください");
-    // } else {
-    //   await axios.post("/post", newPost);
-    //   successMsg("レポートを登録しました");
-    //   if (inputFormRef.current !== null || categoryRef.current !== null) {
-    //     inputFormRef.current?.clearForm();
-    //     categoryRef.current?.clearCategory();
-    //   }
-    //   dispatch(inputPrice(0));
-    // }
-    if (reportPrice > 0) {
-      await axios
-        .post("/post", newPost)
-        .then((response) => successMsg("レポートを登録しました"))
-        .catch((error) => {
-          alert("a");
-          console.log(error, 101);
-          if (error.response && error.response.status === 400) {
-            setError(error.response.data.message);
-          }
-        });
-
+    if (reportPrice === 0) {
+      errorMsg("金額を0円以上入力してください");
+    } else {
+      await axios.post("/post", newPost);
+      successMsg("レポートを登録しました");
       if (inputFormRef.current !== null || categoryRef.current !== null) {
         inputFormRef.current?.clearForm();
         categoryRef.current?.clearCategory();
       }
-    } else {
-      // errorMsg("金額を0円以上入力してください");
     }
   };
 
