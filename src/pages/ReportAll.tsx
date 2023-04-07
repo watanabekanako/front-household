@@ -32,9 +32,20 @@ const ReportAll = () => {
   console.log(currentDate, "currentDate");
   const onClickExpence = () => {
     setIsExpence(true);
+    if (categoryGroups.expenceTotal === 0) {
+      setMessage("登録されている支出データがありません");
+    } else {
+      setMessage("");
+    }
   };
+  const [message, setMessage] = React.useState<string>("");
   const onClickIncome = () => {
     setIsExpence(false);
+    if (categoryGroups.incomeTotal === 0) {
+      setMessage("登録されている収入データがありません");
+    } else {
+      setMessage("");
+    }
   };
 
   const categoryGroups = useMemo(() => {
@@ -125,12 +136,7 @@ const ReportAll = () => {
     };
   }, [isExpence, selectedDate, postAll]);
 
-  useEffect(() => {
-    if (categoryGroups.data.length < 1) {
-      setIsExpence(true);
-    }
-  }, [isExpence]);
-
+  console.log(categoryGroups, "group");
   return (
     <DefaultLayout>
       <div className={reportPostStyle.container}>
@@ -195,9 +201,12 @@ const ReportAll = () => {
           {categoryGroups.data.length > 0 ? (
             <PieGraph categoryGroups={categoryGroups} />
           ) : (
-            <p>登録されているデータがありません</p>
+            ""
           )}
         </div>
+
+        <p>{message}</p>
+
         <div>
           {categoryGroups?.data?.map((data: any, index) => {
             return (

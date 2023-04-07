@@ -7,6 +7,7 @@ export type FormState = {
     password: string;
     error: boolean;
     confirmPassword: string;
+    name: string;
   };
 };
 
@@ -71,4 +72,11 @@ export type CategorySubtotal = {
   subtotal: number;
   name: string;
   color: string;
+};
+
+export type User = {
+  id: number;
+  email: string;
+  password: string;
+  name: string;
 };

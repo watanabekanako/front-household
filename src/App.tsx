@@ -11,6 +11,7 @@ import ReportCategory from "./pages/ReportCategory";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Account from "./pages/Account";
+import Friend from "./pages/Friend";
 
 // すべてのページにcookie付与するため
 axios.defaults.withCredentials = true;
@@ -31,6 +32,7 @@ function App() {
           <Route path="/report" element={<ReportAll />}></Route>
           <Route path="/report/:id" element={<ReportCategory />}></Route>
           <Route path="/account" element={<Account />}></Route>
+          <Route path="/friend" element={<Friend />}></Route>
         </Routes>
       </BrowserRouter>
     </>
