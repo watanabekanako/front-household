@@ -3,6 +3,7 @@ import PrimaryButton from "../components/button/PrimaryButton";
 import RegisterStyle from "../styles/pages/register.module.scss";
 import PasswordInput from "../components/form/passwordInput";
 import EmailInput from "../components/form/emailInput";
+import NameInput from "../components/form/nameInput";
 import ConfirmPasswordInput from "../components/form/confirmPasswordInput";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +20,7 @@ const Register = () => {
   const formConfirmPassword = useSelector(
     (state: FormState) => state.authForm.confirmPassword
   );
+  const formName = useSelector((state: FormState) => state.authForm.name);
   const dispatch = useDispatch();
   const [alertEmailMessage, setAlertEmailMessage] =
     React.useState<boolean>(false);
@@ -48,6 +50,7 @@ const Register = () => {
         await axios.post("/auth/signup", {
           email: formEmail,
           password: formPassword,
+          name: formName,
         });
         navigate("/login");
       } catch (error: any) {
@@ -61,6 +64,7 @@ const Register = () => {
   return (
     <>
       <DefaultLayout>
+        <NameInput />
         <EmailInput userEmail="" />
         {alertEmailMessage ? (
           <p className={loginStyle.errorMessage}>
