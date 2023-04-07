@@ -19,6 +19,7 @@ const Search: React.FC<Props> = ({ allUser }) => {
   //  http://localhost:3005/post/1
   // これでid1の投稿が取得できるようになる
   const [userId, setUserID] = useState<any>();
+
   return (
     <div className={userSearchStyle.inputContainer}>
       <input
@@ -29,6 +30,9 @@ const Search: React.FC<Props> = ({ allUser }) => {
       />
       <div>
         {filteredData.map((user: { id: number; name: string }) => {
+          //   axios
+          //     .get(`post/${user.id}`)
+          //     .then((response) =>
           return (
             <>
               <div className={userSearchStyle.input} key={user.id}>
